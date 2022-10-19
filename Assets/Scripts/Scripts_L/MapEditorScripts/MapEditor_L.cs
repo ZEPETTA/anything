@@ -12,7 +12,8 @@ public class MapEditor_L : MonoBehaviour
         None,
         Eraser,
         Stamp,
-        Dropper
+        Dropper,
+        Arrow
     }
 
     public enum PlacementType
@@ -30,22 +31,67 @@ public class MapEditor_L : MonoBehaviour
     public float minOrthographicSize = 2f;
     public float maxOrthographicSize = 5f;
     public float scrollSpeed = 0.5f;
+    public float arrowDragSpeed = 10f;
+    public int width, height;
+    public Transform grid;
+    Vector3 gridStartPos;
+
     int tileLayerMask;
     Vector2 pastTilePos;
+    Vector2 mouseClickPos;
+
+    public LineRenderer gridLineRenderer_X;
+    public LineRenderer gridLineRenderer_Y;
+
     // Start is called before the first frame update
     void Start()
     {
+        gridLineRenderer_X.positionCount = 0;
+        gridLineRenderer_Y.positionCount = 0;
         toolType = ToolType.Stamp;
         placementType = PlacementType.Floor;
         pastTilePos = Vector2.zero;
         tileLayerMask = 1 << LayerMask.NameToLayer("Tile");
+        gridStartPos = grid.transform.position;
+        gridStartPos.x -= grid.transform.localScale.x * 0.5f;
+        gridStartPos.y -= grid.transform.localScale.y * 0.5f;
+        gridLineRenderer_Y.positionCount = width * 2;
+        gridLineRenderer_X.positionCount = height * 2;
+        for (int x = 0; x < width; x++)
+        {
+            //gridLineRenderer_Y.positionCount += 2;
+            gridLineRenderer_Y.SetPosition(x * 2, new Vector3(gridStartPos.x + x, gridStartPos.y, gridStartPos.z));
+            gridLineRenderer_Y.SetPosition(x * 2 + 1, new Vector3(gridStartPos.x + x, gridStartPos.y + height, gridStartPos.z));
+        }
+
+        for (int y = 0; y < height; y++)
+        {
+            //gridLineRenderer_X.positionCount += 2;
+            gridLineRenderer_X.SetPosition(y * 2, new Vector3(gridStartPos.x, gridStartPos.y + y, gridStartPos.z));
+            gridLineRenderer_X.SetPosition(y * 2 + 1, new Vector3(gridStartPos.x+width, gridStartPos.y + y, gridStartPos.z));
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+/*        for(int x = 0; x < width; x++)
+        {
+            for(int y = 0; y < height; y++)
+            {
+                //lineRenderer.SetPosition()
+
+                Debug.DrawLine(new Vector3(gridStartPos.x + x, gridStartPos.y + y, gridStartPos.z),
+                    new Vector3(gridStartPos.x + x + 1, gridStartPos.y + y, gridStartPos.z), Color.red);
+                Debug.DrawLine(new Vector3(gridStartPos.x + x, gridStartPos.y + y, gridStartPos.z),
+    new Vector3(gridStartPos.x + x, gridStartPos.y + y + 1, gridStartPos.z), Color.red);
+            }
+        }
+*/
+
+
         float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
-        Camera.main.orthographicSize += scrollWheel * Time.deltaTime * scrollSpeed;
+        Camera.main.orthographicSize -= scrollWheel * Time.deltaTime * scrollSpeed;
 
         if (Camera.main.orthographicSize > maxOrthographicSize)
             Camera.main.orthographicSize = maxOrthographicSize;
@@ -63,8 +109,25 @@ public class MapEditor_L : MonoBehaviour
             case ToolType.Dropper:
                 Dropper();
                 break;
+            case ToolType.Arrow:
+                Arrow();
+                break;
         }
         
+    }
+    void Arrow()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            mouseClickPos = Input.mousePosition;
+        }
+        if (Input.GetMouseButton(0))
+        {
+            Vector3 dir = Camera.main.ScreenToViewportPoint((Vector2)Input.mousePosition - mouseClickPos);
+            Vector3 move = dir * arrowDragSpeed * Time.deltaTime;
+            Camera.main.transform.Translate(-move);
+        }
+
     }
 
     void Dropper()
@@ -185,10 +248,16 @@ public class MapEditor_L : MonoBehaviour
         toolType = ToolType.Dropper;
     }
 
+    public void OnClickBtnArrow()
+    {
+        toolType = ToolType.Arrow;
+    }
+
     public void OnClickBtnFloorExample()
     {
         currClickedTileTexture= ConvertSpriteToTexture(EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite);
     }
+    
 
     public Texture ConvertSpriteToTexture(Sprite sprite)
     {
