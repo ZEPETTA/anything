@@ -1464,6 +1464,12 @@ MonoBehaviour:
   minOrthographicSize: 2
   maxOrthographicSize: 5
   scrollSpeed: 2000
+  arrowDragSpeed: 10
+  width: 0
+  height: 0
+  grid: {fileID: 0}
+  gridLineRenderer_X: {fileID: 6668850463784042490, guid: e5e5cc04f369f03478d10e118f51901b, type: 3}
+  gridLineRenderer_Y: {fileID: 6668850463784042490, guid: a36dd9eddd632ec43a5900850e74c7f0, type: 3}
 --- !u!4 &1232622449
 Transform:
   m_ObjectHideFlags: 0
