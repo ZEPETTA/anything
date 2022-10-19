@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEditor;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class FileManager_L : MonoBehaviour
 {
@@ -12,10 +13,12 @@ public class FileManager_L : MonoBehaviour
     byte[] mapImage;
     string path = "";
     string savepth;
+    int mapWidth;
+    int mapHeight;
     // Start is called before the first frame update
     void Start()
     {
-        savepth = Application.dataPath + "/Resources/Resources_H/mapData.png";
+        savepth = Application.dataPath + "/Resources/Resources_H/MapData";
     }
 
     // Update is called once per frame
@@ -41,7 +44,8 @@ public class FileManager_L : MonoBehaviour
         UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + path);
 
         yield return www.SendWebRequest();
-        if (www.isNetworkError || www.isHttpError)
+        
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(www.error);
         }
@@ -49,8 +53,14 @@ public class FileManager_L : MonoBehaviour
         {
             Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             Texture2D convertedTexture = (Texture2D)myTexture;
+            mapHeight = convertedTexture.height;
+            mapWidth = convertedTexture.width;
             byte[] textuerData = convertedTexture.EncodeToPNG();
-            File.WriteAllBytes(savepth, textuerData);
+            if (Directory.Exists(savepth) == false)
+            {
+                Directory.CreateDirectory(savepth);
+            }
+            File.WriteAllBytes(savepth + "/mapData.png", textuerData);
             mapImage = textuerData;
             bg.material.SetTexture("_MainTex", convertedTexture);
         }
@@ -61,7 +71,7 @@ public class FileManager_L : MonoBehaviour
         UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + path);
 
         yield return www.SendWebRequest();
-        if (www.isNetworkError || www.isHttpError)
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(www.error);
         }
@@ -72,7 +82,17 @@ public class FileManager_L : MonoBehaviour
     }
     public void SaveMap()
     {
-        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path);
-
+        MapInfo backGroundInfo = new MapInfo();
+        backGroundInfo.backGroundImage = mapImage;
+        backGroundInfo.mapWidth = mapWidth;
+        backGroundInfo.mapHeight = mapHeight;
+        string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
+        string path = Application.dataPath + "/Resources/Resources_H/MapData";
+        if (Directory.Exists(path) == false)
+        {
+            Directory.CreateDirectory(path);
+        }
+        File.WriteAllText(path + "/mapdata.txt", jsonMap);
+        SceneManager.LoadScene("RoomScene_H");
     }
 }
