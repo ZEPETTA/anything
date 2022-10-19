@@ -4,17 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 using UnityEditor;
+using System.IO;
 
 public class FileManager_L : MonoBehaviour
 {
-    public RawImage myBG;
-    public RawImage myFG;
-
+    public MeshRenderer bg;
+    byte[] mapImage;
     string path = "";
+    string savepth;
     // Start is called before the first frame update
     void Start()
     {
-        
+        savepth = Application.dataPath + "/Resources/Resources_H/mapData.png";
     }
 
     // Update is called once per frame
@@ -47,7 +48,11 @@ public class FileManager_L : MonoBehaviour
         else
         {
             Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            myBG.texture = myTexture;
+            Texture2D convertedTexture = (Texture2D)myTexture;
+            byte[] textuerData = convertedTexture.EncodeToPNG();
+            File.WriteAllBytes(savepth, textuerData);
+            mapImage = textuerData;
+            bg.material.SetTexture("_MainTex", convertedTexture);
         }
     }
 
@@ -63,8 +68,11 @@ public class FileManager_L : MonoBehaviour
         else
         {
             Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            myFG.texture = myTexture;
         }
     }
-   
+    public void SaveMap()
+    {
+        UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(path);
+
+    }
 }

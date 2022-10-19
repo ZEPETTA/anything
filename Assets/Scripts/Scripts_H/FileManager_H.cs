@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEditor;
 using UnityEngine.UI;
+
+
+
 
 
 [System.Serializable]
@@ -14,6 +18,7 @@ public class UserInfo
     public string name;
     public string collegeName;
 }
+
 public class FileManager_H : MonoBehaviour
 {
     public UserInfo info = new UserInfo();
@@ -24,32 +29,37 @@ public class FileManager_H : MonoBehaviour
     public Button findSameIdButton;
     public Image findSameIdImage;
     public Button closeImage;
+
     private void Start()
     {
         idInputfield.onValueChanged.AddListener(OnIDValueChanged);
         passwordInputfield.onValueChanged.AddListener(OnPasswordValueChanged);
     }
+
     void OnIDValueChanged(string id)
     {
         findSameIdButton.interactable = id.Length > 0;
         info.id = id;
     }
+
     void OnPasswordValueChanged(string password)
     {
         info.password = password;
     }
+
     public void OpeinFileExplorer()
     {
-        path = EditorUtility.OpenFilePanel("Show all images(.png)","","png");
+        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
         StartCoroutine(GetTexture());
     }
+
+
 
     IEnumerator GetTexture()
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + path);
-
         yield return www.SendWebRequest();
-        if (www.isNetworkError || www.isHttpError)
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(www.error);
         }
@@ -59,11 +69,12 @@ public class FileManager_H : MonoBehaviour
             rawImage.texture = myTexture;
         }
     }
+
     public void OnJoin()
     {
-        string jsonData = JsonUtility.ToJson(info,true);
-        Debug.Log(jsonData);
+        string jsonData = JsonUtility.ToJson(info, true);
     }
+
     public void Same()
     {
         findSameIdImage.gameObject.SetActive(true);
@@ -74,5 +85,4 @@ public class FileManager_H : MonoBehaviour
         findSameIdImage.gameObject.SetActive(false);
         findSameIdButton.Select();
     }
-
 }
