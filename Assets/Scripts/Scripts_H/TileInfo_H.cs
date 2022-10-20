@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TileInfo_H : MonoBehaviour
 {
-    TileInfo tileInfo;
+    public TileInfo tileInfo;
     // Start is called before the first frame update
     void Start()
     {
