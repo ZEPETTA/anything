@@ -34,20 +34,21 @@ public class MapEditor_L : MonoBehaviour
     public float arrowDragSpeed = 10f;
     public int width, height;
     public Transform grid;
+    public Transform cursorSquare;
+    public Transform tileParent;
     Vector3 gridStartPos;
 
     int tileLayerMask;
     Vector2 pastTilePos;
     Vector2 mouseClickPos;
 
-    public LineRenderer gridLineRenderer_X;
-    public LineRenderer gridLineRenderer_Y;
+/*    public LineRenderer gridLineRenderer_X;
+    public LineRenderer gridLineRenderer_Y;*/
 
     // Start is called before the first frame update
     void Start()
     {
-        gridLineRenderer_X.positionCount = 0;
-        gridLineRenderer_Y.positionCount = 0;
+        
         toolType = ToolType.Stamp;
         placementType = PlacementType.Floor;
         pastTilePos = Vector2.zero;
@@ -55,40 +56,34 @@ public class MapEditor_L : MonoBehaviour
         gridStartPos = grid.transform.position;
         gridStartPos.x -= grid.transform.localScale.x * 0.5f;
         gridStartPos.y -= grid.transform.localScale.y * 0.5f;
-        gridLineRenderer_Y.positionCount = width * 2;
-        gridLineRenderer_X.positionCount = height * 2;
-        for (int x = 0; x < width; x++)
-        {
-            //gridLineRenderer_Y.positionCount += 2;
-            gridLineRenderer_Y.SetPosition(x * 2, new Vector3(gridStartPos.x + x, gridStartPos.y, gridStartPos.z));
-            gridLineRenderer_Y.SetPosition(x * 2 + 1, new Vector3(gridStartPos.x + x, gridStartPos.y + height, gridStartPos.z));
-        }
 
-        for (int y = 0; y < height; y++)
+
+        /*for (int y = 0; y < height; y++)
         {
             //gridLineRenderer_X.positionCount += 2;
             gridLineRenderer_X.SetPosition(y * 2, new Vector3(gridStartPos.x, gridStartPos.y + y, gridStartPos.z));
             gridLineRenderer_X.SetPosition(y * 2 + 1, new Vector3(gridStartPos.x+width, gridStartPos.y + y, gridStartPos.z));
-        }
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
-/*        for(int x = 0; x < width; x++)
-        {
-            for(int y = 0; y < height; y++)
-            {
-                //lineRenderer.SetPosition()
+        /*        for(int x = 0; x < width; x++)
+                {
+                    for(int y = 0; y < height; y++)
+                    {
+                        //lineRenderer.SetPosition()
 
-                Debug.DrawLine(new Vector3(gridStartPos.x + x, gridStartPos.y + y, gridStartPos.z),
-                    new Vector3(gridStartPos.x + x + 1, gridStartPos.y + y, gridStartPos.z), Color.red);
-                Debug.DrawLine(new Vector3(gridStartPos.x + x, gridStartPos.y + y, gridStartPos.z),
-    new Vector3(gridStartPos.x + x, gridStartPos.y + y + 1, gridStartPos.z), Color.red);
-            }
-        }
-*/
+                        Debug.DrawLine(new Vector3(gridStartPos.x + x, gridStartPos.y + y, gridStartPos.z),
+                            new Vector3(gridStartPos.x + x + 1, gridStartPos.y + y, gridStartPos.z), Color.red);
+                        Debug.DrawLine(new Vector3(gridStartPos.x + x, gridStartPos.y + y, gridStartPos.z),
+            new Vector3(gridStartPos.x + x, gridStartPos.y + y + 1, gridStartPos.z), Color.red);
+                    }
+                }
+        */
 
+        MoveCursorSquare();
 
         float scrollWheel = Input.GetAxis("Mouse ScrollWheel");
         Camera.main.orthographicSize -= scrollWheel * Time.deltaTime * scrollSpeed;
@@ -115,6 +110,16 @@ public class MapEditor_L : MonoBehaviour
         }
         
     }
+
+    void MoveCursorSquare()
+    {
+        Vector2 currMousePos = Camera.main.ScreenToWorldPoint((Vector2)Input.mousePosition);
+        currMousePos.x = (int)currMousePos.x;
+        currMousePos.y = (int)currMousePos.y;
+
+        cursorSquare.position = currMousePos;
+    }
+
     void Arrow()
     {
         if (Input.GetMouseButtonDown(0))
@@ -211,7 +216,8 @@ public class MapEditor_L : MonoBehaviour
                                             //이미 타일이 있는 경우
                                         }*/
                     GameObject tile = Instantiate(floorTilePrefab);
-                    tile.transform.position = new Vector3(x, y, floorTileZ);
+                    tile.transform.SetParent(tileParent);
+                    tile.transform.localPosition = new Vector3(x, y, floorTileZ);
                     tile.GetComponent<MeshRenderer>().material.mainTexture = currClickedTileTexture;
                     pastTilePos.x = x;
                     pastTilePos.y = y;
