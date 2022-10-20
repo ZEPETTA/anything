@@ -14,7 +14,7 @@ public class LobbyManager_L : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        clickedRoomName = "";
+        clickedRoomName = "RoomScene_H";
     }
 
     // Update is called once per frame
@@ -38,7 +38,7 @@ public class LobbyManager_L : MonoBehaviour
                 case "LobbyRoom":
                     if(outlineImage == clickedObject.transform.GetChild(0).gameObject)
                     {
-                        clickedRoomName = clickedObject.GetComponentInChildren<Text>().text;
+                        //clickedRoomName = clickedObject.GetComponentInChildren<Text>().text;
                         SceneManager.LoadScene(clickedRoomName);
                         break;
                     }

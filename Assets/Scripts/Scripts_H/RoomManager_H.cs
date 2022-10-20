@@ -5,7 +5,6 @@ using UnityEngine;
 
 [System.Serializable]
 public class MapInfo
-
 {
 
     public byte[] backGroundImage;
@@ -16,6 +15,14 @@ public class MapInfo
 
     //public Vector3 angle;
 }
+
+[System.Serializable]
+public class TileInfo
+{
+    public Vector3 position;
+    public string imageName;
+}
+
 
 
 
