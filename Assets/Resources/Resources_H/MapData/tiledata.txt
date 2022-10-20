@@ -2,8 +2,16 @@
     "tileList": [
         {
             "position": {
-                "x": 7.0,
-                "y": 3.0,
+                "x": 0.0,
+                "y": 2.0,
+                "z": -1.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": 0.0,
+                "y": 1.0,
                 "z": -1.0
             },
             "imageName": "genderSelect_normal"
@@ -18,32 +26,16 @@
         },
         {
             "position": {
-                "x": 2.0,
-                "y": 1.0,
-                "z": -1.0
-            },
-            "imageName": "genderSelect_normal"
-        },
-        {
-            "position": {
-                "x": 3.0,
-                "y": 1.0,
-                "z": -1.0
-            },
-            "imageName": "genderSelect_normal"
-        },
-        {
-            "position": {
-                "x": 4.0,
-                "y": 1.0,
-                "z": -1.0
-            },
-            "imageName": "genderSelect_normal"
-        },
-        {
-            "position": {
-                "x": 8.0,
+                "x": 1.0,
                 "y": 0.0,
+                "z": -1.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": 7.0,
+                "y": -1.0,
                 "z": -1.0
             },
             "imageName": "genderSelect_normal"
