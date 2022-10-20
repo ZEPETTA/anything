@@ -20,13 +20,26 @@ public class MapEditor_L : MonoBehaviour
     {
         Floor,
         Object,
-        UpperObject
+        UpperObject,
+        TileEffect
+    }
+
+    public enum TileEffectType
+    {
+        Portal,
+        DefinedArea
     }
 
     public ToolType toolType;
     public PlacementType placementType;
+    public TileEffectType tileEffectType;
+
     public float floorTileZ;
+    public float definedAreaZ;
+    
     public GameObject floorTilePrefab;
+    public GameObject definedAreaPrefab;
+
     public Texture currClickedTileTexture;
     public float minOrthographicSize = 2f;
     public float maxOrthographicSize = 5f;
@@ -36,10 +49,14 @@ public class MapEditor_L : MonoBehaviour
     public Transform grid;
     public Transform cursorSquare;
     public Transform tileParent;
+    public Transform definedAreaParent;
+    public Dropdown definedAreaDropdown;
+    public InputField inputFieldDefinedAreaName;
     Vector3 gridStartPos;
 
     int tileLayerMask;
     Vector2 pastTilePos;
+    Vector2 pastDefinedAreaPos;
     Vector2 mouseClickPos;
 
 /*    public LineRenderer gridLineRenderer_X;
@@ -49,9 +66,11 @@ public class MapEditor_L : MonoBehaviour
     void Start()
     {
         
+
         toolType = ToolType.Stamp;
         placementType = PlacementType.Floor;
         pastTilePos = Vector2.zero;
+        pastDefinedAreaPos = Vector2.zero;
         tileLayerMask = 1 << LayerMask.NameToLayer("Tile");
         gridStartPos = grid.transform.position;
         gridStartPos.x -= grid.transform.localScale.x * 0.5f;
@@ -64,7 +83,14 @@ public class MapEditor_L : MonoBehaviour
             gridLineRenderer_X.SetPosition(y * 2, new Vector3(gridStartPos.x, gridStartPos.y + y, gridStartPos.z));
             gridLineRenderer_X.SetPosition(y * 2 + 1, new Vector3(gridStartPos.x+width, gridStartPos.y + y, gridStartPos.z));
         }*/
+
+        definedAreaDropdown.onValueChanged.AddListener(delegate
+        {
+            print(definedAreaDropdown.captionText.text);
+        });
     }
+
+
 
     // Update is called once per frame
     void Update()
@@ -96,7 +122,10 @@ public class MapEditor_L : MonoBehaviour
         switch (toolType)
         {
             case ToolType.Stamp:
-                Stamp();
+                if (placementType == PlacementType.Floor)
+                    Stamp();
+                else if (placementType == PlacementType.TileEffect)
+                    TileEffect();
                 break;
             case ToolType.Eraser:
                 Erase();
@@ -109,6 +138,66 @@ public class MapEditor_L : MonoBehaviour
                 break;
         }
         
+    }
+    void TileEffect()
+    {
+        switch (tileEffectType)
+        {
+            case TileEffectType.Portal:
+
+                break;
+            case TileEffectType.DefinedArea:
+                if (inputFieldDefinedAreaName.text.Length < 1)
+                {//지정 영역의 이름이 입력되어 있지 않으면 안 함
+                    break;
+                }
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Transform littleParent2 = definedAreaParent.Find(inputFieldDefinedAreaName.text);
+                    if (littleParent2 == null)
+                    {
+                        littleParent2 = Instantiate(gameObject).transform;
+                        littleParent2.SetParent(definedAreaParent);
+                        littleParent2.localPosition = Vector3.zero;
+                        littleParent2.name = inputFieldDefinedAreaName.text;
+                    }
+                }
+                if (Input.GetMouseButton(0))
+                {
+                    Transform littleParent = definedAreaParent.Find(inputFieldDefinedAreaName.text);
+                    if (littleParent)
+                    {
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                        RaycastHit hitInfo;
+
+                        if (Physics.Raycast(ray, out hitInfo))
+                        {
+                            Debug.Log(hitInfo.transform.tag);
+
+                            int x = (int)hitInfo.point.x;
+                            int y = (int)hitInfo.point.y;
+                            if (pastDefinedAreaPos == new Vector2(x, y))
+                            {
+                                print("already exists");
+                                return;
+                            }
+
+                            GameObject tile = Instantiate(definedAreaPrefab);
+                            tile.transform.SetParent(littleParent);
+                            tile.transform.localPosition = new Vector3(x, y, definedAreaZ);
+                            tile.GetComponentInChildren<Text>().text = inputFieldDefinedAreaName.text;
+
+                            pastDefinedAreaPos.x = x;
+                            pastDefinedAreaPos.y = y;
+
+
+                        }
+
+                    }
+                }
+                break;
+        }
     }
 
     void MoveCursorSquare()
@@ -265,6 +354,19 @@ public class MapEditor_L : MonoBehaviour
         currClickedTileTexture= ConvertSpriteToTexture(EventSystem.current.currentSelectedGameObject.GetComponent<Image>().sprite);
     }
     
+    public void OnClickBtnTileEffect()
+    {
+        placementType = PlacementType.TileEffect;
+    }
+    public void OnClickBtnPortal()
+    {
+        tileEffectType = TileEffectType.Portal;
+    }
+
+    public void OnClickBtnDefinedArea()
+    {
+        tileEffectType = TileEffectType.DefinedArea;
+    }
 
     public Texture ConvertSpriteToTexture(Sprite sprite)
     {

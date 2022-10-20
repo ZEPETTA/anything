@@ -1347,6 +1347,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 706441853}
   m_CullTransparentMesh: 1
+--- !u!1 &973188393
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973188394}
+  m_Layer: 0
+  m_Name: TileParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &973188394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973188393}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1154040304
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,9 +1498,9 @@ MonoBehaviour:
   arrowDragSpeed: 10
   width: 0
   height: 0
-  grid: {fileID: 0}
-  gridLineRenderer_X: {fileID: 6668850463784042490, guid: e5e5cc04f369f03478d10e118f51901b, type: 3}
-  gridLineRenderer_Y: {fileID: 6668850463784042490, guid: a36dd9eddd632ec43a5900850e74c7f0, type: 3}
+  grid: {fileID: 347564334}
+  cursorSquare: {fileID: 6314698759075364903, guid: 7863a777e16c3a34ea57f8c868e53f20, type: 3}
+  tileParent: {fileID: 973188394}
 --- !u!4 &1232622449
 Transform:
   m_ObjectHideFlags: 0
