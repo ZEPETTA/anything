@@ -10,18 +10,19 @@ public class MapInfo
     public byte[] backGroundImage;
     public int mapWidth;
     public int mapHeight;
+    public List<TileInfo> tileList;
+    public enum TileType
+    {
+        Nomal,
+        Potal,
+        DefinedArea,
 
+    }
+    public TileType tileType;
     //public Vector3 scale;
 
     //public Vector3 angle;
 }
-
-[System.Serializable]
-public class TileList
-{
-   public List<TileInfo> tileList;
-}
-
 
 [System.Serializable]
 public class TileInfo
@@ -41,7 +42,7 @@ public class UserInfo
 
 public class RoomManager_H : MonoBehaviour
 {
-    public GameObject tilePrefab;
+    public GameObject[] tilePrefab;
     public MeshRenderer bg;
     // Start is called before the first frame update
     void Start()
@@ -55,14 +56,23 @@ public class RoomManager_H : MonoBehaviour
         bg.material.SetTexture("_MainTex", bgTexture);
         #endregion
         #region 타일 가져오기
-        string tilepath = Application.dataPath + "/Resources/Resources_H/MapData/tiledata.txt";
-        string tilejsonData = File.ReadAllText(tilepath);
-        TileList tileList = JsonUtility.FromJson<TileList>(tilejsonData);
-        for(int i =0; i<tileList.tileList.Count; i++)
+        for(int i =0; i<info.tileList.Count; i++)
         {
-            Vector3 tilePos = tileList.tileList[i].position;
-            Texture tileSprite = Resources.Load<Texture>("Resources_L/" + tileList.tileList[i].imageName);
-            GameObject tile = Instantiate(tilePrefab);
+            Vector3 tilePos = info.tileList[i].position;
+            Texture tileSprite = Resources.Load<Texture>("Resources_L/" + info.tileList[i].imageName);
+            GameObject tile = new GameObject();
+            switch (info.tileType)
+            {
+                case MapInfo.TileType.Nomal:
+                    tile = tilePrefab[0];
+                    break;
+                case MapInfo.TileType.Potal:
+                    tile = tilePrefab[1];
+                    break;
+                case MapInfo.TileType.DefinedArea:
+                    tile = tilePrefab[2];
+                    break;
+            }
             tile.transform.position = tilePos;
             tile.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", tileSprite);
             tile.transform.parent = GameObject.Find("TileParent").transform;

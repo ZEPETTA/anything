@@ -87,18 +87,15 @@ public class FileManager_L : MonoBehaviour
         backGroundInfo.backGroundImage = mapImage;
         backGroundInfo.mapWidth = mapWidth;
         backGroundInfo.mapHeight = mapHeight;
-        string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
         string path = Application.dataPath + "/Resources/Resources_H/MapData";
         if (Directory.Exists(path) == false)
         {
             Directory.CreateDirectory(path);
         }
-        File.WriteAllText(path + "/mapdata.txt", jsonMap);
         #endregion
         #region ∏  ≈∏¿œ ¿˙¿Â
         GameObject tileParent = GameObject.Find("TileParent");
         int a = tileParent.transform.childCount;
-        TileList tileList = new TileList();
         List<TileInfo> tileInfos = new List<TileInfo>();
         for (int i =0; i < a; i++)
         {
@@ -109,10 +106,11 @@ public class FileManager_L : MonoBehaviour
             tileInfo.position = tile.transform.position;
             tileInfos.Add(tileInfo);
         }
-        tileList.tileList = tileInfos;
-        string jsonTile = JsonUtility.ToJson(tileList,true);
-        File.WriteAllText(path + "/tiledata.txt", jsonTile);
+        backGroundInfo.tileList = tileInfos;
         #endregion
+        backGroundInfo.tileType = MapInfo.TileType.Potal;
+        string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
+        File.WriteAllText(path + "/mapdata.txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
     }
 }
