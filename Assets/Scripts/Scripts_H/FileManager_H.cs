@@ -10,14 +10,7 @@ using UnityEngine.UI;
 
 
 
-[System.Serializable]
-public class UserInfo
-{
-    public string id;
-    public string password;
-    public string name;
-    public string collegeName;
-}
+
 
 public class FileManager_H : MonoBehaviour
 {

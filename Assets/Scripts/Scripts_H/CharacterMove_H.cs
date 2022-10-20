@@ -14,6 +14,19 @@ public class CharacterMove_H : MonoBehaviour
     int currentWalkCount;
     bool canMove = true;
     private Animator animator;
+    public Sprite[] imoticon;
+    public GameObject imoticonPrefab;
+    private KeyCode[] keyCodes = {
+KeyCode.Alpha1,
+KeyCode.Alpha2,
+KeyCode.Alpha3,
+KeyCode.Alpha4,
+KeyCode.Alpha5,
+KeyCode.Alpha6,
+KeyCode.Alpha7,
+KeyCode.Alpha8,
+KeyCode.Alpha9,
+};
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -33,7 +46,19 @@ public class CharacterMove_H : MonoBehaviour
                 StartCoroutine(MoveCoroutine());
             }
         }
-
+        for (int i = 0; i < keyCodes.Length; i++)
+        {
+            if (Input.GetKeyDown(keyCodes[i]))
+            {
+                GameObject imo = gameObject.transform.GetChild(0).gameObject;
+                EmoDestory_H emo = imo.GetComponent<EmoDestory_H>();
+                emo.emoOn = true;
+                emo.checkTime = 0;
+                SpriteRenderer spriteRenderer = imo.GetComponent<SpriteRenderer>();
+                spriteRenderer.sprite = imoticon[i];
+                imo.transform.parent = gameObject.transform;
+            }
+        }
     }
     IEnumerator MoveCoroutine()
     {
@@ -47,7 +72,7 @@ public class CharacterMove_H : MonoBehaviour
             applyRunSpeed = 0;
             applyRunFlag = false;
         }
-        vector.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), transform.position.z);
+        vector.Set(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
         int count = 0;
         animator.SetFloat("DirX", vector.x);
         animator.SetFloat("DirY", vector.y);

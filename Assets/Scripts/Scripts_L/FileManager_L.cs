@@ -96,7 +96,22 @@ public class FileManager_L : MonoBehaviour
         File.WriteAllText(path + "/mapdata.txt", jsonMap);
         #endregion
         #region ∏  ≈∏¿œ ¿˙¿Â
-        
+        GameObject tileParent = GameObject.Find("TileParent");
+        int a = tileParent.transform.childCount;
+        TileList tileList = new TileList();
+        List<TileInfo> tileInfos = new List<TileInfo>();
+        for (int i =0; i < a; i++)
+        {
+            GameObject tile = tileParent.transform.GetChild(i).gameObject;
+            TileInfo_H tileInfo_h = tile.GetComponent<TileInfo_H>();
+            TileInfo tileInfo = tileInfo_h.tileInfo;
+            tileInfo.imageName = tile.GetComponent<MeshRenderer>().material.mainTexture.name;
+            tileInfo.position = tile.transform.position;
+            tileInfos.Add(tileInfo);
+        }
+        tileList.tileList = tileInfos;
+        string jsonTile = JsonUtility.ToJson(tileList,true);
+        File.WriteAllText(path + "/tiledata.txt", jsonTile);
         #endregion
         SceneManager.LoadScene("RoomScene_H");
     }
