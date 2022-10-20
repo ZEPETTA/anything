@@ -82,6 +82,7 @@ public class FileManager_L : MonoBehaviour
     }
     public void SaveMap()
     {
+        #region 맵 배경 저장
         MapInfo backGroundInfo = new MapInfo();
         backGroundInfo.backGroundImage = mapImage;
         backGroundInfo.mapWidth = mapWidth;
@@ -93,6 +94,10 @@ public class FileManager_L : MonoBehaviour
             Directory.CreateDirectory(path);
         }
         File.WriteAllText(path + "/mapdata.txt", jsonMap);
+        #endregion
+        #region 맵 타일 저장
+        
+        #endregion
         SceneManager.LoadScene("RoomScene_H");
     }
 }

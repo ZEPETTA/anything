@@ -213,6 +213,7 @@ public class MapEditor_L : MonoBehaviour
                     GameObject tile = Instantiate(floorTilePrefab);
                     tile.transform.position = new Vector3(x, y, floorTileZ);
                     tile.GetComponent<MeshRenderer>().material.mainTexture = currClickedTileTexture;
+                    Debug.Log(currClickedTileTexture.name);
                     pastTilePos.x = x;
                     pastTilePos.y = y;
 

@@ -25,7 +25,6 @@ public class TileInfo
 
 
 
-
 public class RoomManager_H : MonoBehaviour
 {
     public MeshRenderer bg;
