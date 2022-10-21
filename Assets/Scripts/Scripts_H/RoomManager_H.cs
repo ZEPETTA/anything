@@ -11,10 +11,22 @@ public class MapInfo
     public int mapWidth;
     public int mapHeight;
     public List<TileInfo> tileList;
+    public List<string> areaName;
+    public List<WallInfo> wallList;
+    public List<PortalInfo> portalList;
+    public List<DefinedAreaInfo> definedAreaList;
+    
+}
+[System.Serializable]
+public class WallInfo
+{
+    public Vector3 positon;
+}
 
-    //public Vector3 scale;
-
-    //public Vector3 angle;
+public class DefinedAreaInfo
+{
+    public string areaName;
+    public Vector3 positon;
 }
 
 [System.Serializable]
@@ -22,13 +34,6 @@ public class TileInfo
 {
     public Vector3 position;
     public string imageName;
-    public enum TileType
-    {
-        Nomal,
-        Potal,
-        DefinedArea,
-    }
-    public TileType tileType;
 }
 
 [System.Serializable]
@@ -42,7 +47,7 @@ public class UserInfo
 
 public class RoomManager_H : MonoBehaviour
 {
-    public GameObject[] tilePrefab;
+    public GameObject tilePrefab;
     public MeshRenderer bg;
     // Start is called before the first frame update
     void Start()
@@ -56,26 +61,15 @@ public class RoomManager_H : MonoBehaviour
         bg.material.SetTexture("_MainTex", bgTexture);
         #endregion
         #region 타일 가져오기
+        string tileParent = "";
         for(int i =0; i<info.tileList.Count; i++)
         {
             Vector3 tilePos = info.tileList[i].position;
             Texture tileSprite = Resources.Load<Texture>("Resources_L/" + info.tileList[i].imageName);
-            GameObject tile = new GameObject();
-            switch (info.tileList[i].tileType)
-            {
-                case TileInfo.TileType.Nomal:
-                    tile = tilePrefab[0];
-                    break;
-                case TileInfo.TileType.Potal:
-                    tile = tilePrefab[1];
-                    break;
-                case TileInfo.TileType.DefinedArea:
-                    tile = tilePrefab[2];
-                    break;
-            }
-            tile.transform.position = tilePos;
-            tile.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", tileSprite);
-            tile.transform.parent = GameObject.Find("TileParent").transform;
+            GameObject realTile = Instantiate(tilePrefab);
+            realTile.transform.position = tilePos;
+            realTile.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", tileSprite);
+            realTile.transform.parent = GameObject.Find(tileParent).transform;
         }
         #endregion
 

@@ -27,7 +27,8 @@ public class MapEditor_L : MonoBehaviour
     public enum TileEffectType
     {
         Portal,
-        DefinedArea
+        DefinedArea,
+        Wall,
     }
 
     public ToolType toolType;
@@ -38,6 +39,7 @@ public class MapEditor_L : MonoBehaviour
     public float definedAreaZ;
     
     public GameObject floorTilePrefab;
+    public GameObject wallTilePrefab;
     public GameObject definedAreaPrefab;
 
     public Texture currClickedTileTexture;
@@ -52,6 +54,7 @@ public class MapEditor_L : MonoBehaviour
     public Transform definedAreaParent;
     public Dropdown definedAreaDropdown;
     public InputField inputFieldDefinedAreaName;
+    public GameObject canvas;
     Vector3 gridStartPos;
 
     int tileLayerMask;
@@ -197,6 +200,33 @@ public class MapEditor_L : MonoBehaviour
                     }
                 }
                 break;
+            case TileEffectType.Wall:
+                if (Input.GetMouseButton(0))
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hitInfo;
+                    if (Physics.Raycast(ray, out hitInfo))
+                    {
+                        int x = (int)hitInfo.point.x;
+                        int y = (int)hitInfo.point.y;
+                        if (pastTilePos == new Vector2(x, y))
+                        {
+                            print("already exists");
+                            return;
+                        }
+                        /*                    if(Physics.OverlapBox(new Vector3(x,y,floorTileZ),new Vector3(0.5f,0.5f,0.5f),Quaternion.identity,tileLayerMask).Length>0){
+                                                print("Already Exists");
+                                                return;
+                                                //이미 타일이 있는 경우
+                                            }*/
+                        GameObject tile = Instantiate(wallTilePrefab);
+                        tile.transform.SetParent(GameObject.Find("WallParent").transform);
+                        tile.transform.localPosition = new Vector3(x, y, floorTileZ);
+                        pastTilePos.x = x;
+                        pastTilePos.y = y;
+                    }
+                }
+                break;
         }
     }
 
@@ -308,7 +338,6 @@ public class MapEditor_L : MonoBehaviour
                     tile.transform.SetParent(tileParent);
                     tile.transform.localPosition = new Vector3(x, y, floorTileZ);
                     tile.GetComponent<MeshRenderer>().material.mainTexture = currClickedTileTexture;
-                    Debug.Log(currClickedTileTexture.name);
                     pastTilePos.x = x;
                     pastTilePos.y = y;
 
@@ -327,7 +356,9 @@ public class MapEditor_L : MonoBehaviour
     public void OnClickBtnFloor()
     {
         placementType = PlacementType.Floor;
+        TurnOnUi(1);
     }
+
 
     public void OnClickBtnEraser()
     {
@@ -357,6 +388,15 @@ public class MapEditor_L : MonoBehaviour
     public void OnClickBtnTileEffect()
     {
         placementType = PlacementType.TileEffect;
+        TurnOnUi(0);
+    }
+    void TurnOnUi(int index)
+    {
+        for(int i =0; i< canvas.transform.childCount -1; i++)
+        {
+            canvas.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        canvas.transform.GetChild(index).gameObject.SetActive(true);
     }
     public void OnClickBtnPortal()
     {
@@ -366,6 +406,10 @@ public class MapEditor_L : MonoBehaviour
     public void OnClickBtnDefinedArea()
     {
         tileEffectType = TileEffectType.DefinedArea;
+    }
+    public void OnClickBtnWall()
+    {
+        tileEffectType = TileEffectType.Wall;
     }
 
     public Texture ConvertSpriteToTexture(Sprite sprite)

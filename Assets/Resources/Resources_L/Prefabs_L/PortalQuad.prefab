@@ -110,6 +110,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802f74a6ae2d90d459def09f24846e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  portalInfo:
+    moveType: 0
+    placeType: 0
+    definedAreaName: 
+    position: {x: 0, y: 0, z: 0}
   playerZ: 0
 --- !u!1 &2529021392816028201
 GameObject:
@@ -303,7 +308,6 @@ GameObject:
   - component: {fileID: 8016143424283737609}
   - component: {fileID: 8016143424283737610}
   - component: {fileID: 8016143424283737611}
-  - component: {fileID: -6404834838160895398}
   - component: {fileID: 8016143424283737612}
   m_Layer: 6
   m_Name: PortalQuad
@@ -357,7 +361,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 464d70b500214c04b89d1a9f602c1992, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -379,22 +383,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-6404834838160895398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8016143424283737613}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2884f552d0ac25469defe3967d58de1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tileInfo:
-    position: {x: 0, y: 0, z: 0}
-    imageName: 
-    tileType: 1
 --- !u!64 &8016143424283737612
 MeshCollider:
   m_ObjectHideFlags: 0

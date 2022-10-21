@@ -108,17 +108,36 @@ public class FileManager_L : MonoBehaviour
         }
         backGroundInfo.tileList = tileInfos;
         #endregion
-        #region 맵 지정구역 타일 저장
+        #region 맵 지정구역 저장
         GameObject definedArea = GameObject.Find("DefinedAreaParent");
-        a = definedArea.transform.childCount;
-        Debug.Log(a);
-        for (int i = 0; i < a; i++)
+        for(int i =0; i<definedArea.transform.childCount; i++)
         {
-            GameObject areaName = definedArea.transform.GetChild(i).gameObject;
-            for(int j =0; j<areaName.transform.childCount; j++)
+            GameObject gm = definedArea.transform.GetChild(i).gameObject;
+            backGroundInfo.areaName.Add(gm.name);
+            for(int j =0; j<gm.transform.childCount; j++)
             {
-
+                DefinedAreaInfo de = new DefinedAreaInfo();
+                de.areaName = gm.name;
+                de.positon = gm.transform.position;
+                backGroundInfo.definedAreaList.Add(de);
             }
+        }
+        #endregion
+        #region 맵 포탈 저장
+        GameObject portal = GameObject.Find("PortalParent");
+        for(int i=0; i < portal.transform.childCount; i++)
+        {
+            Portal_L portalL = portal.transform.GetChild(i).GetChild(1).GetComponent<Portal_L>();
+            portalL.portalInfo.position = portal.transform.GetChild(i).GetChild(1).position;
+            backGroundInfo.portalList.Add(portalL.portalInfo);
+        }
+        #endregion
+        #region 맵 벽(이동불가능 구역)저장
+        GameObject wall = GameObject.Find("WallParent");
+        for(int i =0; i<portal.transform.childCount; i++)
+        {
+            WallInfo wallInfo = new WallInfo();
+            wallInfo.positon = wall.transform.GetChild(i).position;
         }
         #endregion
         string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
