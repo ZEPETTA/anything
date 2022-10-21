@@ -11,14 +11,7 @@ public class MapInfo
     public int mapWidth;
     public int mapHeight;
     public List<TileInfo> tileList;
-    public enum TileType
-    {
-        Nomal,
-        Potal,
-        DefinedArea,
 
-    }
-    public TileType tileType;
     //public Vector3 scale;
 
     //public Vector3 angle;
@@ -29,6 +22,13 @@ public class TileInfo
 {
     public Vector3 position;
     public string imageName;
+    public enum TileType
+    {
+        Nomal,
+        Potal,
+        DefinedArea,
+    }
+    public TileType tileType;
 }
 
 [System.Serializable]
@@ -61,15 +61,15 @@ public class RoomManager_H : MonoBehaviour
             Vector3 tilePos = info.tileList[i].position;
             Texture tileSprite = Resources.Load<Texture>("Resources_L/" + info.tileList[i].imageName);
             GameObject tile = new GameObject();
-            switch (info.tileType)
+            switch (info.tileList[i].tileType)
             {
-                case MapInfo.TileType.Nomal:
+                case TileInfo.TileType.Nomal:
                     tile = tilePrefab[0];
                     break;
-                case MapInfo.TileType.Potal:
+                case TileInfo.TileType.Potal:
                     tile = tilePrefab[1];
                     break;
-                case MapInfo.TileType.DefinedArea:
+                case TileInfo.TileType.DefinedArea:
                     tile = tilePrefab[2];
                     break;
             }

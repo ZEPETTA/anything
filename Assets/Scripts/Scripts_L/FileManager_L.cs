@@ -93,7 +93,7 @@ public class FileManager_L : MonoBehaviour
             Directory.CreateDirectory(path);
         }
         #endregion
-        #region 맵 타일 저장
+        #region 맵 노말 타일 저장
         GameObject tileParent = GameObject.Find("TileParent");
         int a = tileParent.transform.childCount;
         List<TileInfo> tileInfos = new List<TileInfo>();
@@ -108,7 +108,19 @@ public class FileManager_L : MonoBehaviour
         }
         backGroundInfo.tileList = tileInfos;
         #endregion
-        backGroundInfo.tileType = MapInfo.TileType.Potal;
+        #region 맵 지정구역 타일 저장
+        GameObject definedArea = GameObject.Find("DefinedAreaParent");
+        a = definedArea.transform.childCount;
+        Debug.Log(a);
+        for (int i = 0; i < a; i++)
+        {
+            GameObject areaName = definedArea.transform.GetChild(i).gameObject;
+            for(int j =0; j<areaName.transform.childCount; j++)
+            {
+
+            }
+        }
+        #endregion
         string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
         File.WriteAllText(path + "/mapdata.txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
