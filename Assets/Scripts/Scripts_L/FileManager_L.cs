@@ -142,11 +142,14 @@ public class FileManager_L : MonoBehaviour
         #endregion
         #region 맵 벽(이동불가능 구역)저장
         GameObject wall = GameObject.Find("WallParent");
+        List<WallInfo> wallInfos = new List<WallInfo>();
         for(int i =0; i<wall.transform.childCount; i++)
         {
             WallInfo wallInfo = new WallInfo();
             wallInfo.positon = wall.transform.GetChild(i).position;
+            wallInfos.Add(wallInfo);
         }
+        backGroundInfo.wallList = wallInfos;
         #endregion
         string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
         File.WriteAllText(path + "/mapdata.txt", jsonMap);

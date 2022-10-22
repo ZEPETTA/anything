@@ -22,7 +22,7 @@ public class WallInfo
 {
     public Vector3 positon;
 }
-
+[System.Serializable]
 public class DefinedAreaInfo
 {
     public string areaName;
@@ -50,6 +50,7 @@ public class RoomManager_H : MonoBehaviour
     public GameObject wallPrefab;
     public GameObject tilePrefab;
     public GameObject definedAreaPrefab;
+    public Material invisible;
     public MeshRenderer bg;
     // Start is called before the first frame update
     void Start()
@@ -75,6 +76,7 @@ public class RoomManager_H : MonoBehaviour
         }
         #endregion
         #region 포탈 가져오기
+
         #endregion
         #region 지정구역 가져오기
         GameObject areaParent = GameObject.Find("DefinedAreaParent");
@@ -88,6 +90,8 @@ public class RoomManager_H : MonoBehaviour
         for(int i=0;i<info.definedAreaList.Count; i++)
         {
             GameObject area = Instantiate(definedAreaPrefab);
+            area.transform.position = info.definedAreaList[i].positon;
+            area.transform.parent = areaParent.transform.GetChild(nameDic[info.definedAreaList[i].areaName]);
         }
 
         #endregion
@@ -97,6 +101,7 @@ public class RoomManager_H : MonoBehaviour
             Vector3 wallPos = info.wallList[i].positon;
             GameObject wall = Instantiate(wallPrefab);
             wall.transform.position = wallPos;
+            //wall.GetComponent<MeshRenderer>().material.mainTexture = invisibleTexture;
             wall.transform.parent = GameObject.Find("WallParent").transform;
         }
         #endregion
