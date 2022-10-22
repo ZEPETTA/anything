@@ -127,10 +127,12 @@ public class MapEditor_L : MonoBehaviour
         switch (toolType)
         {
             case ToolType.Stamp:
-                if (placementType == PlacementType.Floor)
+                if (placementType == PlacementType.Floor){
                     Stamp();
-                else if (placementType == PlacementType.TileEffect)
+                }
+                else if (placementType == PlacementType.TileEffect) {
                     TileEffect();
+                }
                 break;
             case ToolType.Eraser:
                 Erase();
@@ -142,7 +144,7 @@ public class MapEditor_L : MonoBehaviour
                 Arrow();
                 break;
         }
-        
+        print(placementType);
     }
     void TileEffect()
     {
@@ -161,10 +163,9 @@ public class MapEditor_L : MonoBehaviour
                     Transform littleParent2 = definedAreaParent.Find(inputFieldDefinedAreaName.text);
                     if (littleParent2 == null)
                     {
-                        littleParent2 = Instantiate(gameObject).transform;
+                        littleParent2 = new GameObject(inputFieldDefinedAreaName.text).transform;
                         littleParent2.SetParent(definedAreaParent);
                         littleParent2.localPosition = Vector3.zero;
-                        littleParent2.name = inputFieldDefinedAreaName.text;
                     }
                 }
                 if (Input.GetMouseButton(0))
@@ -359,6 +360,7 @@ public class MapEditor_L : MonoBehaviour
     {
         placementType = PlacementType.Floor;
         TurnOnUi(1);
+        print("On Click Btn Floor");
     }
 
 
@@ -392,6 +394,7 @@ public class MapEditor_L : MonoBehaviour
         placementType = PlacementType.TileEffect;
         TurnOnUi(0);
     }
+    //d이게 끝임
     void TurnOnUi(int index)
     {
         for(int i =0; i< canvas.transform.childCount -1; i++)
