@@ -45,3 +45,24 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: BackGround
+    uniqueID: 1523216191
+    locked: 0
+  - name: ForeGround
+    uniqueID: 1944001349
+    locked: 0
+  - name: Tile
+    uniqueID: 35779923
+    locked: 0
+  - name: Object
+    uniqueID: 807830725
+    locked: 0
+  - name: UpperObject
+    uniqueID: 1950254843
+    locked: 0
+  - name: TileEffect
+    uniqueID: 2985155179
+    locked: 0
+  - name: Player
+    uniqueID: 75460579
+    locked: 0
