@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEditor;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 
@@ -67,7 +68,10 @@ public class FileManager_H : MonoBehaviour
     {
         string jsonData = JsonUtility.ToJson(info, true);
     }
-
+    public void OnBack()
+    {
+        SceneManager.LoadScene("LoginScene_L");
+    }
     public void Same()
     {
         findSameIdImage.gameObject.SetActive(true);

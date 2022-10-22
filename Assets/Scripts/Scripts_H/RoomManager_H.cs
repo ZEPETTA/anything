@@ -47,6 +47,7 @@ public class UserInfo
 
 public class RoomManager_H : MonoBehaviour
 {
+    public GameObject wallPrefab;
     public GameObject tilePrefab;
     public MeshRenderer bg;
     // Start is called before the first frame update
@@ -61,7 +62,7 @@ public class RoomManager_H : MonoBehaviour
         bg.material.SetTexture("_MainTex", bgTexture);
         #endregion
         #region 타일 가져오기
-        string tileParent = "";
+        string tileParent = "TileParent";
         for(int i =0; i<info.tileList.Count; i++)
         {
             Vector3 tilePos = info.tileList[i].position;
@@ -70,6 +71,28 @@ public class RoomManager_H : MonoBehaviour
             realTile.transform.position = tilePos;
             realTile.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", tileSprite);
             realTile.transform.parent = GameObject.Find(tileParent).transform;
+        }
+        #endregion
+        #region 포탈 가져오기
+        #endregion
+        #region 지정구역 가져오기
+        GameObject areaParent = GameObject.Find("DefinedAreaParent");
+        Dictionary<string, int> nameDic = new Dictionary<string, int>();
+        for(int i=0; i < info.areaName.Count; i++)
+        {
+            GameObject child = new GameObject(info.areaName[i]);
+            child.transform.parent = areaParent.transform;
+        }
+
+
+        #endregion
+        #region 벽 가져오기
+        for(int i =0; i<info.wallList.Count; i++)
+        {
+            Vector3 wallPos = info.wallList[i].positon;
+            GameObject wall = Instantiate(wallPrefab);
+            wall.transform.position = wallPos;
+            wall.transform.parent = GameObject.Find("WallParent").transform;
         }
         #endregion
 

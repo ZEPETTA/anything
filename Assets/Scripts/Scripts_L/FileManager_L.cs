@@ -110,31 +110,39 @@ public class FileManager_L : MonoBehaviour
         #endregion
         #region 맵 지정구역 저장
         GameObject definedArea = GameObject.Find("DefinedAreaParent");
+        List<string> nameList = new List<string>();
+        List<DefinedAreaInfo> definedAreaInfos = new List<DefinedAreaInfo>();
         for(int i =0; i<definedArea.transform.childCount; i++)
         {
             GameObject gm = definedArea.transform.GetChild(i).gameObject;
-            backGroundInfo.areaName.Add(gm.name);
+            nameList.Add(gm.name);
             for(int j =0; j<gm.transform.childCount; j++)
             {
                 DefinedAreaInfo de = new DefinedAreaInfo();
                 de.areaName = gm.name;
                 de.positon = gm.transform.position;
-                backGroundInfo.definedAreaList.Add(de);
+                definedAreaInfos.Add(de);
             }
         }
+        backGroundInfo.definedAreaList = definedAreaInfos;
+        backGroundInfo.areaName = nameList;
         #endregion
         #region 맵 포탈 저장
         GameObject portal = GameObject.Find("PortalParent");
-        for(int i=0; i < portal.transform.childCount; i++)
+        if(portal != null)
         {
-            Portal_L portalL = portal.transform.GetChild(i).GetChild(1).GetComponent<Portal_L>();
-            portalL.portalInfo.position = portal.transform.GetChild(i).GetChild(1).position;
-            backGroundInfo.portalList.Add(portalL.portalInfo);
+            for (int i = 0; i < portal.transform.childCount; i++)
+            {
+                Portal_L portalL = portal.transform.GetChild(i).GetChild(1).GetComponent<Portal_L>();
+                portalL.portalInfo.position = portal.transform.GetChild(i).GetChild(1).position;
+                backGroundInfo.portalList.Add(portalL.portalInfo);
+            }
         }
+        
         #endregion
         #region 맵 벽(이동불가능 구역)저장
         GameObject wall = GameObject.Find("WallParent");
-        for(int i =0; i<portal.transform.childCount; i++)
+        for(int i =0; i<wall.transform.childCount; i++)
         {
             WallInfo wallInfo = new WallInfo();
             wallInfo.positon = wall.transform.GetChild(i).position;
