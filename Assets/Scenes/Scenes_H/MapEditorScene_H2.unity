@@ -3789,6 +3789,7 @@ MonoBehaviour:
   tileEffectType: 0
   floorTileZ: 0.1
   definedAreaZ: 0.09
+  wallTileZ: 0.09
   floorTilePrefab: {fileID: 1768867459882806367, guid: aae4b5e7ab6d0fa4692d499bcc6e0007, type: 3}
   wallTilePrefab: {fileID: 1768867459882806367, guid: e49efbd0201b41a428ad9380ba0be03c, type: 3}
   definedAreaPrefab: {fileID: 5033308362465937397, guid: 0a56834c726854d43a2dfa13d242f755, type: 3}
@@ -5748,7 +5749,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1891087961}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.33728567, y: 4.1537, z: 0.09093556}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
