@@ -91,12 +91,12 @@ public class MapEditor_L : MonoBehaviour
 
         definedAreaDropdown.onValueChanged.AddListener(delegate
         {
-            //print(definedAreaDropdown.captionText.text);
+            print(definedAreaDropdown.captionText.text);
         });
     }
 
 
-    int count = 0;
+
     // Update is called once per frame
     void Update()
     {
@@ -127,10 +127,12 @@ public class MapEditor_L : MonoBehaviour
         switch (toolType)
         {
             case ToolType.Stamp:
-                if (placementType == PlacementType.Floor)
+                if (placementType == PlacementType.Floor){
                     Stamp();
-                else if (placementType == PlacementType.TileEffect)
+                }
+                else if (placementType == PlacementType.TileEffect) {
                     TileEffect();
+                }
                 break;
             case ToolType.Eraser:
                 Erase();
@@ -142,9 +144,7 @@ public class MapEditor_L : MonoBehaviour
                 Arrow();
                 break;
         }
-        count++;
-        Debug.Log(placementType + " " + count);
-        
+        print(placementType);
     }
     void TileEffect()
     {
@@ -163,10 +163,9 @@ public class MapEditor_L : MonoBehaviour
                     Transform littleParent2 = definedAreaParent.Find(inputFieldDefinedAreaName.text);
                     if (littleParent2 == null)
                     {
-                        littleParent2 = Instantiate(gameObject).transform;
+                        littleParent2 = new GameObject(inputFieldDefinedAreaName.text).transform;
                         littleParent2.SetParent(definedAreaParent);
                         littleParent2.localPosition = Vector3.zero;
-                        littleParent2.name = inputFieldDefinedAreaName.text;
                     }
                 }
                 if (Input.GetMouseButton(0))
@@ -186,7 +185,7 @@ public class MapEditor_L : MonoBehaviour
                             int y = (int)hitInfo.point.y;
                             if (pastDefinedAreaPos == new Vector2(x, y))
                             {
-                                //print("already exists");
+                                print("already exists");
                                 return;
                             }
 
@@ -215,7 +214,7 @@ public class MapEditor_L : MonoBehaviour
                         int y = (int)hitInfo.point.y;
                         if (pastWallPos == new Vector2(x, y))
                         {
-                            //print("already exists");
+                            print("already exists");
                             return;
                         }
                         /*                    if(Physics.OverlapBox(new Vector3(x,y,floorTileZ),new Vector3(0.5f,0.5f,0.5f),Quaternion.identity,tileLayerMask).Length>0){
@@ -330,6 +329,7 @@ public class MapEditor_L : MonoBehaviour
                     int y = (int)hitInfo.point.y;
                     if (pastTilePos == new Vector2(x, y))
                     {
+                        print("already exists");
                         return;
                     }
                     /*                    if(Physics.OverlapBox(new Vector3(x,y,floorTileZ),new Vector3(0.5f,0.5f,0.5f),Quaternion.identity,tileLayerMask).Length>0){
@@ -359,8 +359,8 @@ public class MapEditor_L : MonoBehaviour
     public void OnClickBtnFloor()
     {
         placementType = PlacementType.Floor;
-        Debug.Log("OnClickBtnFloor");
         TurnOnUi(1);
+        print("On Click Btn Floor");
     }
 
 
@@ -392,9 +392,9 @@ public class MapEditor_L : MonoBehaviour
     public void OnClickBtnTileEffect()
     {
         placementType = PlacementType.TileEffect;
-        Debug.Log("OnClickBtnTile");
         TurnOnUi(0);
     }
+    //d이게 끝임
     void TurnOnUi(int index)
     {
         for(int i =0; i< canvas.transform.childCount -1; i++)

@@ -3784,7 +3784,9 @@ MonoBehaviour:
   tileEffectType: 0
   floorTileZ: 0.1
   definedAreaZ: 0.09
+  wallTileZ: 0
   floorTilePrefab: {fileID: 1768867459882806367, guid: aae4b5e7ab6d0fa4692d499bcc6e0007, type: 3}
+  wallTilePrefab: {fileID: 0}
   definedAreaPrefab: {fileID: 5033308362465937397, guid: 0a56834c726854d43a2dfa13d242f755, type: 3}
   currClickedTileTexture: {fileID: 0}
   minOrthographicSize: 5
@@ -3799,6 +3801,7 @@ MonoBehaviour:
   definedAreaParent: {fileID: 1492344222}
   definedAreaDropdown: {fileID: 1071546203}
   inputFieldDefinedAreaName: {fileID: 622931932}
+  canvas: {fileID: 1305272376}
 --- !u!4 &1232622449
 Transform:
   m_ObjectHideFlags: 0

@@ -1152,7 +1152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d15b993ceb9fa44ca304e8d76636f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bg: {fileID: 347564332}
+  bg: {fileID: 0}
 --- !u!1 &411419662
 GameObject:
   m_ObjectHideFlags: 0
@@ -3869,11 +3869,11 @@ MonoBehaviour:
   placementType: 0
   tileEffectType: 0
   floorTileZ: -0.01
-  definedAreaZ: 0
-  wallTileZ: 0
+  definedAreaZ: -0.02
+  wallTileZ: -0.02
   floorTilePrefab: {fileID: 1768867459882806367, guid: aae4b5e7ab6d0fa4692d499bcc6e0007, type: 3}
-  wallTilePrefab: {fileID: 0}
-  definedAreaPrefab: {fileID: 0}
+  wallTilePrefab: {fileID: 1768867459882806367, guid: e49efbd0201b41a428ad9380ba0be03c, type: 3}
+  definedAreaPrefab: {fileID: 5033308362465937397, guid: 0a56834c726854d43a2dfa13d242f755, type: 3}
   currClickedTileTexture: {fileID: 0}
   minOrthographicSize: 5
   maxOrthographicSize: 15
@@ -3884,10 +3884,10 @@ MonoBehaviour:
   grid: {fileID: 347564334}
   cursorSquare: {fileID: 1480857565}
   tileParent: {fileID: 713710333}
-  definedAreaParent: {fileID: 0}
-  definedAreaDropdown: {fileID: 0}
-  inputFieldDefinedAreaName: {fileID: 0}
-  canvas: {fileID: 0}
+  definedAreaParent: {fileID: 1492344222}
+  definedAreaDropdown: {fileID: 1071546203}
+  inputFieldDefinedAreaName: {fileID: 622931932}
+  canvas: {fileID: 1305272376}
 --- !u!4 &1232622449
 Transform:
   m_ObjectHideFlags: 0
@@ -5520,7 +5520,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &1694516052
 Animator:
   serializedVersion: 4
