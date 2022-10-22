@@ -49,6 +49,7 @@ public class RoomManager_H : MonoBehaviour
 {
     public GameObject wallPrefab;
     public GameObject tilePrefab;
+    public GameObject definedAreaPrefab;
     public MeshRenderer bg;
     // Start is called before the first frame update
     void Start()
@@ -82,8 +83,12 @@ public class RoomManager_H : MonoBehaviour
         {
             GameObject child = new GameObject(info.areaName[i]);
             child.transform.parent = areaParent.transform;
+            nameDic.Add(info.areaName[i],i);
         }
-
+        for(int i=0;i<info.definedAreaList.Count; i++)
+        {
+            GameObject area = Instantiate(definedAreaPrefab);
+        }
 
         #endregion
         #region 벽 가져오기

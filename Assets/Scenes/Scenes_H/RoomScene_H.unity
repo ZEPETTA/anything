@@ -1432,8 +1432,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8d47721086c57f46af5dd1b576b7e0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallPrefab: {fileID: 0}
+  wallPrefab: {fileID: 1768867459882806367, guid: e49efbd0201b41a428ad9380ba0be03c, type: 3}
   tilePrefab: {fileID: 1768867459882806367, guid: aae4b5e7ab6d0fa4692d499bcc6e0007, type: 3}
+  definedAreaPrefab: {fileID: 0}
   bg: {fileID: 1181179989}
 --- !u!4 &1623578143
 Transform:
