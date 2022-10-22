@@ -1,0 +1,10 @@
+{
+    "backGroundImage": [],
+    "mapWidth": 10,
+    "mapHeight": 10,
+    "tileList": [],
+    "areaName": [],
+    "wallList": [],
+    "portalList": [],
+    "definedAreaList": []
+}

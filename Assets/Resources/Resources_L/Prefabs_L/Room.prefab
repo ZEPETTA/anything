@@ -244,6 +244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8661731279233978085}
   - component: {fileID: 8661731279233978088}
+  - component: {fileID: 6209086806990508355}
   - component: {fileID: 8661731279233978087}
   - component: {fileID: 8661731279233978086}
   m_Layer: 5
@@ -273,7 +274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 61.6, y: -26.1}
+  m_AnchoredPosition: {x: 61.599976, y: -26.099976}
   m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &8661731279233978088
@@ -320,6 +321,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6209086806990508355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8661731279233978084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c408f2aafe5905e4cb28b6d24aabd3e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomName: 
+  roomNameText: {fileID: 8661731278298321307}
 --- !u!222 &8661731279233978087
 CanvasRenderer:
   m_ObjectHideFlags: 0

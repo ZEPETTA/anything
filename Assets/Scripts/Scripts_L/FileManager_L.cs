@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class FileManager_L : MonoBehaviour
 {
+    public string testMapName;
     public MeshRenderer bg;
     byte[] mapImage;
     string path = "";
@@ -18,6 +19,10 @@ public class FileManager_L : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(MapInfo.mapName == null)
+        {
+            MapInfo.mapName = testMapName;
+        }
         savepth = Application.dataPath + "/Resources/Resources_H/MapData";
     }
 
@@ -152,7 +157,7 @@ public class FileManager_L : MonoBehaviour
         backGroundInfo.wallList = wallInfos;
         #endregion
         string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
-        File.WriteAllText(path + "/mapdata.txt", jsonMap);
+        File.WriteAllText(path + "/" + MapInfo.mapName +".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
     }
 }

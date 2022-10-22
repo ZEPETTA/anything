@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
+
+
 [System.Serializable]
 public class MapInfo
 {
-
+    public static string mapName;
     public byte[] backGroundImage;
     public int mapWidth;
     public int mapHeight;
@@ -56,7 +58,7 @@ public class RoomManager_H : MonoBehaviour
     void Start()
     {
         #region 배경화면 가져오기
-        string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/mapdata.txt";
+        string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/"+ MapInfo.mapName +".txt";
         string jsonData = File.ReadAllText(bgpath);
         MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
         Texture2D bgTexture = new Texture2D(info.mapWidth, info.mapHeight);
