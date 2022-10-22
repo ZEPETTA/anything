@@ -37,6 +37,7 @@ public class MapEditor_L : MonoBehaviour
 
     public float floorTileZ;
     public float definedAreaZ;
+    public float wallTileZ;
     
     public GameObject floorTilePrefab;
     public GameObject wallTilePrefab;
@@ -60,6 +61,7 @@ public class MapEditor_L : MonoBehaviour
     int tileLayerMask;
     Vector2 pastTilePos;
     Vector2 pastDefinedAreaPos;
+    Vector2 pastWallPos;
     Vector2 mouseClickPos;
 
 /*    public LineRenderer gridLineRenderer_X;
@@ -209,7 +211,7 @@ public class MapEditor_L : MonoBehaviour
                     {
                         int x = (int)hitInfo.point.x;
                         int y = (int)hitInfo.point.y;
-                        if (pastTilePos == new Vector2(x, y))
+                        if (pastWallPos == new Vector2(x, y))
                         {
                             print("already exists");
                             return;
@@ -221,9 +223,9 @@ public class MapEditor_L : MonoBehaviour
                                             }*/
                         GameObject tile = Instantiate(wallTilePrefab);
                         tile.transform.SetParent(GameObject.Find("WallParent").transform);
-                        tile.transform.localPosition = new Vector3(x, y, floorTileZ);
-                        pastTilePos.x = x;
-                        pastTilePos.y = y;
+                        tile.transform.localPosition = new Vector3(x, y, wallTileZ);
+                        pastWallPos.x = x;
+                        pastWallPos.y = y;
                     }
                 }
                 break;
