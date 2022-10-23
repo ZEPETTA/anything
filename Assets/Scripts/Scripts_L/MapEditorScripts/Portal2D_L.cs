@@ -37,6 +37,8 @@ public class Portal2D_L : MonoBehaviour
     public PortalInfo portalInfo;
     public float playerZ = 0f;
     GameObject definedAreaParent;
+    bool onPlayer = false;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,7 +56,14 @@ public class Portal2D_L : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (onPlayer == true)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                MovePlayer(player);
+                onPlayer = false;
+            }
+        }
     }
 
     void MovePlayer(GameObject collidedObj)
@@ -86,22 +95,13 @@ public class Portal2D_L : MonoBehaviour
                 //각 이름으로 분류된 DefinedArea를 담는 DefinedAreaParent2가 있어야 함
                 //예를 들어, 이름이 "Test"인 DefinedArea(지정영역) < DefinedAreaParent2 < DefinedAreaParent
                 //수정필요
+                player.transform.position = new Vector3(randomDefinedArea.position.x, randomDefinedArea.position.y, playerZ);
 
-                if (portalInfo.moveType == PortalInfo.MoveType.Instant)
-                {
-                    player.transform.position = new Vector3(randomDefinedArea.position.x, randomDefinedArea.position.y, playerZ);
-                }
-                else
-                {
-                    if (Input.GetKeyDown(KeyCode.F))
-                    {
-                        player.transform.position = new Vector3(randomDefinedArea.position.x, randomDefinedArea.position.y, playerZ);
-                    }
-                }
                 break;
             case PortalInfo.PlaceType.OtherSpace:
                 break;
         }
+
     }
 
     /*   private void OnTriggerEnter(Collider other)
@@ -117,8 +117,24 @@ public class Portal2D_L : MonoBehaviour
     {
         if (collision.transform.tag == "Player")
         {
-            print("Player Collided");
-            MovePlayer(collision.transform.gameObject);
+            if (portalInfo.moveType == PortalInfo.MoveType.Instant)
+            {
+                MovePlayer(collision.gameObject);
+            }
+            else
+            {
+                player = collision.gameObject;
+                onPlayer = true;
+            }
+
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Player")
+        {
+            player = null;
+            onPlayer = false;
         }
     }
 }

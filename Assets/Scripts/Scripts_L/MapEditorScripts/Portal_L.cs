@@ -12,6 +12,8 @@ public class Portal_L : MonoBehaviour
     public PortalInfo portalInfo;
     public float playerZ = 0f;
     GameObject definedAreaParent;
+    bool onPlayer = false;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -65,14 +67,29 @@ public class Portal_L : MonoBehaviour
             case PortalInfo.PlaceType.OtherSpace:
                 break;
         }
+        if(onPlayer == true)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                MovePlayer(player);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Player")
         {
-            print("Trigger Entered");
-            MovePlayer(other.transform.gameObject);
+            onPlayer = true;
+            player = other.gameObject;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.transform.tag == "Player")
+        {
+            onPlayer = false;
+            player = null;
         }
     }
 }
