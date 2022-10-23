@@ -318,7 +318,6 @@
     ],
     "areaName": [
         "Test",
-        "Test",
         "333"
     ],
     "wallList": [
