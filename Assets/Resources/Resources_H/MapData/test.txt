@@ -373,10 +373,11 @@
         }
     ],
     "areaName": [
-        "Test"
+        "Test",
+        "Test",
+        "tt"
     ],
     "wallList": [],
-    "portalList": [],
     "definedAreaList": [
         {
             "areaName": "Test",
@@ -404,6 +405,86 @@
         },
         {
             "areaName": "Test",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
             "positon": {
                 "x": 0.0,
                 "y": 0.0,

@@ -125,7 +125,7 @@ public class FileManager_L : MonoBehaviour
             {
                 DefinedAreaInfo de = new DefinedAreaInfo();
                 de.areaName = gm.name;
-                de.positon = gm.transform.position;
+                de.positon = gm.transform.GetChild(j).localPosition;
                 definedAreaInfos.Add(de);
             }
         }
@@ -136,12 +136,17 @@ public class FileManager_L : MonoBehaviour
         GameObject portal = GameObject.Find("PortalParent");
         if(portal != null)
         {
+            List<PortalInfo> portalInfoList = new List<PortalInfo>();
+
             for (int i = 0; i < portal.transform.childCount; i++)
             {
-                Portal_L portalL = portal.transform.GetChild(i).GetChild(1).GetComponent<Portal_L>();
-                portalL.portalInfo.position = portal.transform.GetChild(i).GetChild(1).position;
-                backGroundInfo.portalList.Add(portalL.portalInfo);
+
+                Portal2D_L portalL = portal.transform.GetChild(i).GetComponent<Portal2D_L>();
+                portalInfoList.Add(portalL.portalInfo);
+                //portalL.portalInfo.position = portal.transform.GetChild(i).localPosition;
+
             }
+            backGroundInfo.portalList = portalInfoList;
         }
         
         #endregion

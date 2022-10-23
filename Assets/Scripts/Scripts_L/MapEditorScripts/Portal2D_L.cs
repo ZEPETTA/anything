@@ -1,6 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+[System.Serializable]
+public class PortalInfo
+{
+    public enum MoveType
+    {
+        Key,
+        Instant
+    }
+
+    public enum PlaceType
+    {
+        OtherMap,
+        DefinedArea,
+        OtherSpace
+    }
+    //Key = F키 이동
+    //Instant = 즉시 이동
+
+    public MoveType moveType;
+    public PlaceType placeType;
+
+    public string definedAreaName;
+    public string mapName;
+    public Vector3 position;
+    //이름으로 mapInfo에서 해당 이름의 definedArea의 배열(또는 리스트)을 찾을 수 있어야 함
+    //찾은 area를 Portal_L에서 받아서, 그 중 하나로 이동할 수 있어야 함
+}
 
 public class Portal2D_L : MonoBehaviour
 {
@@ -11,12 +40,12 @@ public class Portal2D_L : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        portalInfo = new PortalInfo();
+        //portalInfo = new PortalInfo();
 
         //===테스트용===
-        portalInfo.definedAreaName = "Test";
+/*        portalInfo.definedAreaName = "Test";
         portalInfo.moveType = PortalInfo.MoveType.Instant;
-        portalInfo.placeType = PortalInfo.PlaceType.DefinedArea;
+        portalInfo.placeType = PortalInfo.PlaceType.DefinedArea;*/
         //==============
 
         definedAreaParent = GameObject.Find("DefinedAreaParent");
@@ -34,6 +63,18 @@ public class Portal2D_L : MonoBehaviour
         switch (portalInfo.placeType)
         {
             case PortalInfo.PlaceType.OtherMap:
+                MapInfo.mapName = portalInfo.mapName;
+                if (portalInfo.moveType == PortalInfo.MoveType.Instant)
+                {
+                    SceneManager.LoadScene("RoomScene_H");
+                }
+                else
+                {
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        SceneManager.LoadScene("RoomScene_H");
+                    }
+                }
                 break;
             case PortalInfo.PlaceType.DefinedArea:
 

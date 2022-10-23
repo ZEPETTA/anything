@@ -1,10 +1,743 @@
 {
     "backGroundImage": [],
-    "mapWidth": 10,
-    "mapHeight": 10,
-    "tileList": [],
-    "areaName": [],
+    "mapWidth": 0,
+    "mapHeight": 0,
+    "tileList": [
+        {
+            "position": {
+                "x": -13.0,
+                "y": 7.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -12.0,
+                "y": 7.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -11.0,
+                "y": 7.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -10.0,
+                "y": 7.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -9.0,
+                "y": 7.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -8.0,
+                "y": 7.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -7.0,
+                "y": 7.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -6.0,
+                "y": 7.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -9.0,
+                "y": 6.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -9.0,
+                "y": 5.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -9.0,
+                "y": 4.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -9.0,
+                "y": 3.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -9.0,
+                "y": 2.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -9.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -10.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -10.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -11.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -12.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -13.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -13.0,
+                "y": 1.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -13.0,
+                "y": 2.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": -16.0,
+                "y": 13.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        },
+        {
+            "position": {
+                "x": 25.0,
+                "y": -4.0,
+                "z": 0.0
+            },
+            "imageName": "genderSelect_normal"
+        }
+    ],
+    "areaName": [
+        "Test",
+        "jj",
+        "tt",
+        "tt2"
+    ],
     "wallList": [],
-    "portalList": [],
-    "definedAreaList": []
+    "portalList": [
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -3.0,
+                "y": 5.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -3.0,
+                "y": 4.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -3.0,
+                "y": 3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -3.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -3.0,
+                "y": 1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -3.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -4.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -23.0,
+                "y": 14.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": 11.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -19.0,
+                "y": 4.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -19.0,
+                "y": 5.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -18.0,
+                "y": 5.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -17.0,
+                "y": 5.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -16.0,
+                "y": 4.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -16.0,
+                "y": 3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -16.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -17.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -18.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -18.0,
+                "y": 1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -18.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -17.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": -16.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt2",
+            "mapName": "",
+            "position": {
+                "x": 24.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        }
+    ],
+    "definedAreaList": [
+        {
+            "areaName": "Test",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "Test",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "Test",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "Test",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "Test",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "Test",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "Test",
+            "positon": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -5.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -4.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -3.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -2.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -1.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -1.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 0.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 1.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 2.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 3.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 4.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": 5.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -10.0,
+                "y": 6.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -19.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -19.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -18.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -18.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -17.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -16.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -16.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -17.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -17.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -24.0,
+                "y": 14.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -8.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -8.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -8.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -8.0,
+                "y": -4.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -7.0,
+                "y": -4.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt2",
+            "positon": {
+                "x": -23.0,
+                "y": 14.0,
+                "z": 0.0
+            }
+        }
+    ]
 }

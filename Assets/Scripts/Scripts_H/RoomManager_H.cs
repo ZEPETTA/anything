@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 
 [System.Serializable]
@@ -52,6 +52,7 @@ public class RoomManager_H : MonoBehaviour
     public GameObject wallPrefab;
     public GameObject tilePrefab;
     public GameObject definedAreaPrefab;
+    public GameObject portalPrefab;
     public Material invisible;
     public MeshRenderer bg;
     // Start is called before the first frame update
@@ -78,7 +79,25 @@ public class RoomManager_H : MonoBehaviour
         }
         #endregion
         #region 포탈 가져오기
+        Transform portalParent = GameObject.Find("PortalParent").transform;
+        if (portalParent)
+        {
+            for(int i = 0; i < info.portalList.Count; i++)
+            {
+                //Vector3 tilePos = info.portalList[i].position;
+                GameObject myPortal = Instantiate(portalPrefab);
+                Portal2D_L portal2D = myPortal.GetComponent<Portal2D_L>();
+                portal2D.portalInfo = new PortalInfo();
+                myPortal.transform.parent = portalParent;
+                myPortal.transform.localPosition = info.portalList[i].position;
 
+                portal2D.portalInfo.position = myPortal.transform.localPosition;
+                portal2D.portalInfo.placeType = info.portalList[i].placeType;
+                portal2D.portalInfo.moveType = info.portalList[i].moveType;
+                portal2D.portalInfo.definedAreaName = info.portalList[i].definedAreaName;
+                portal2D.portalInfo.mapName = info.portalList[i].mapName;
+            }
+        }
         #endregion
         #region 지정구역 가져오기
         GameObject areaParent = GameObject.Find("DefinedAreaParent");
@@ -93,6 +112,7 @@ public class RoomManager_H : MonoBehaviour
         {
             GameObject area = Instantiate(definedAreaPrefab);
             area.transform.position = info.definedAreaList[i].positon;
+            area.GetComponentInChildren<Text>().text = info.definedAreaList[i].areaName;
             area.transform.parent = areaParent.transform.GetChild(nameDic[info.definedAreaList[i].areaName]);
         }
 
