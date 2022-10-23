@@ -377,6 +377,129 @@
         "tt"
     ],
     "wallList": [],
+    "portalList": [
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -7.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -6.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -6.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -5.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -5.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -4.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -4.0,
+                "y": -3.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 0,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": 10.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -1.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": -1.0,
+                "y": -2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "moveType": 1,
+            "placeType": 1,
+            "definedAreaName": "tt",
+            "mapName": "",
+            "position": {
+                "x": 20.0,
+                "y": -1.0,
+                "z": 0.0
+            }
+        }
+    ],
     "definedAreaList": [
         {
             "areaName": "Test",
@@ -487,6 +610,70 @@
             "positon": {
                 "x": 0.0,
                 "y": 0.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -7.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -6.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -5.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -4.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -3.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -2.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -1.0,
+                "y": 2.0,
+                "z": 0.0
+            }
+        },
+        {
+            "areaName": "tt",
+            "positon": {
+                "x": -23.0,
+                "y": 14.0,
                 "z": 0.0
             }
         }

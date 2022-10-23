@@ -1793,7 +1793,7 @@ MonoBehaviour:
   wallPrefab: {fileID: 1768867459882806367, guid: e49efbd0201b41a428ad9380ba0be03c, type: 3}
   tilePrefab: {fileID: 1768867459882806367, guid: aae4b5e7ab6d0fa4692d499bcc6e0007, type: 3}
   definedAreaPrefab: {fileID: 5033308362465937397, guid: 0a56834c726854d43a2dfa13d242f755, type: 3}
-  portalPrefab: {fileID: 0}
+  portalPrefab: {fileID: 8016143424283737613, guid: b9d0f384c03b54c46b1684ca6dded4c4, type: 3}
   invisible: {fileID: 0}
   bg: {fileID: 1181179989}
 --- !u!4 &1623578143
