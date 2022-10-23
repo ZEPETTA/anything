@@ -16,6 +16,7 @@ public class CharacterMove_H : MonoBehaviour
     private Animator animator;
     public Sprite[] imoticon;
     public GameObject imoticonPrefab;
+    public GameObject pressFKey;
     private KeyCode[] keyCodes = {
 KeyCode.Alpha1,
 KeyCode.Alpha2,
@@ -27,12 +28,15 @@ KeyCode.Alpha7,
 KeyCode.Alpha8,
 KeyCode.Alpha9,
 };
+    bool inUrlObj = false;
+    URLObj_H urlObj;
     void Start()
     {
         animator = GetComponent<Animator>();
     }
     void Update()
     {
+        pressFKey.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, -0.5f, 0));
         if (!myCharacter)
         {
             return;
@@ -57,6 +61,13 @@ KeyCode.Alpha9,
                 SpriteRenderer spriteRenderer = imo.GetComponent<SpriteRenderer>();
                 spriteRenderer.sprite = imoticon[i];
                 imo.transform.parent = gameObject.transform;
+            }
+        }
+        if(inUrlObj == true)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                urlObj.GoToURL();
             }
         }
     }
@@ -91,5 +102,24 @@ KeyCode.Alpha9,
         animator.SetBool("Walking", false);
         currentWalkCount = 0;
         canMove = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "URLObj")
+        {
+            pressFKey.SetActive(true);
+            inUrlObj = true;
+            urlObj = collision.GetComponent<URLObj_H>();
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "URLObj")
+        {
+            pressFKey.SetActive(false);
+            inUrlObj = false;
+            urlObj = null;
+        }
     }
 }
