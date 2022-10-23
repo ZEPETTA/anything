@@ -20,6 +20,15 @@ public class MapInfo
     
 }
 [System.Serializable]
+public class ObjectInfo
+{
+    public Vector3 Position;
+    public enum objectType
+    {
+
+    }
+}
+[System.Serializable]
 public class WallInfo
 {
     public Vector3 positon;

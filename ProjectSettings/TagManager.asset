@@ -8,6 +8,7 @@ TagManager:
   - BackGround
   - Tile
   - DefinedAreaParent
+  - URLObj
   layers:
   - Default
   - TransparentFX
@@ -57,12 +58,12 @@ TagManager:
   - name: Object
     uniqueID: 807830725
     locked: 0
+  - name: Player
+    uniqueID: 75460579
+    locked: 0
   - name: UpperObject
     uniqueID: 1950254843
     locked: 0
   - name: TileEffect
     uniqueID: 2985155179
-    locked: 0
-  - name: Player
-    uniqueID: 75460579
     locked: 0
