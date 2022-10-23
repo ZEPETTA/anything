@@ -25,7 +25,8 @@ public class ObjectInfo
     public Vector3 Position;
     public enum objectType
     {
-
+        Text,
+        Image,
     }
 }
 [System.Serializable]
