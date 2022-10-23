@@ -644,6 +644,7 @@ public class MapEditor_L : MonoBehaviour
             canvas.transform.GetChild(i).gameObject.SetActive(false);
         }
         canvas.transform.GetChild(index).gameObject.SetActive(true);
+      
     }
     public void OnClickBtnPortal()
     {
