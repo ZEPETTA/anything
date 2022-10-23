@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System.IO;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -42,6 +43,7 @@ public class MapEditor_L : MonoBehaviour
     public GameObject floorTilePrefab;
     public GameObject wallTilePrefab;
     public GameObject definedAreaPrefab;
+    public GameObject portalPrefab;
 
     public Texture currClickedTileTexture;
     public float minOrthographicSize = 2f;
@@ -53,34 +55,136 @@ public class MapEditor_L : MonoBehaviour
     public Transform cursorSquare;
     public Transform tileParent;
     public Transform definedAreaParent;
+    public Transform portalParent;
+
     public Dropdown definedAreaDropdown;
     public InputField inputFieldDefinedAreaName;
+
+    public InputField inputFieldPortalOtherMapName;
+    public InputField inputFieldPortalDefinedAreaName;
+
     public GameObject canvas;
+    public MeshRenderer bg;
+
+    public GameObject panelPortalToDefinedArea;
+    public GameObject panelPortalToOtherMap;
+    public GameObject checkImageDefinedArea;
+    public GameObject checkImageOtherMap;
+    public GameObject checkImageKey;
+    public GameObject checkImageInstant;
+    public GameObject checkImageKey_DefinedArea;
+    public GameObject checkImageInstant_DefinedArea;
+
+    //UI 클릭 시에는 맵 생성되지 않게
+    int layerMaskUI;
+    PortalInfo portalInfo;
     Vector3 gridStartPos;
 
     int tileLayerMask;
     Vector2 pastTilePos;
     Vector2 pastDefinedAreaPos;
     Vector2 pastWallPos;
+    Vector2 pastPortalPos;
     Vector2 mouseClickPos;
 
-/*    public LineRenderer gridLineRenderer_X;
-    public LineRenderer gridLineRenderer_Y;*/
+    
+
+    /*    public LineRenderer gridLineRenderer_X;
+        public LineRenderer gridLineRenderer_Y;*/
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        #region 배경화면 가져오기
+        string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/" + MapInfo.mapName + ".txt";
+        string jsonData = File.ReadAllText(bgpath);
+        MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
+        Texture2D bgTexture = new Texture2D(info.mapWidth, info.mapHeight);
+        bgTexture.LoadImage(info.backGroundImage);
+        bg.material.SetTexture("_MainTex", bgTexture);
+        #endregion
+        #region 타일 가져오기
+        string tileParent = "TileParent";
+        for (int i = 0; i < info.tileList.Count; i++)
+        {
+            Vector3 tilePos = info.tileList[i].position;
+            Texture tileSprite = Resources.Load<Texture>("Resources_L/" + info.tileList[i].imageName);
+            GameObject realTile = Instantiate(floorTilePrefab);
+            realTile.transform.position = tilePos;
+            realTile.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", tileSprite);
+            realTile.transform.parent = GameObject.Find(tileParent).transform;
+        }
+        #endregion
+        #region 포탈 가져오기
+        Transform portalParent = GameObject.Find("PortalParent").transform;
+        if (portalParent)
+        {
+            for (int i = 0; i < info.portalList.Count; i++)
+            {
+                //Vector3 tilePos = info.portalList[i].position;
+                GameObject myPortal = Instantiate(portalPrefab);
+                Portal2D_L portal2D = myPortal.GetComponent<Portal2D_L>();
+                portal2D.portalInfo = new PortalInfo();
+                myPortal.transform.parent = portalParent;
+                myPortal.transform.localPosition = info.portalList[i].position;
+
+                portal2D.portalInfo.position = myPortal.transform.localPosition;
+                portal2D.portalInfo.placeType = info.portalList[i].placeType;
+                portal2D.portalInfo.moveType = info.portalList[i].moveType;
+                portal2D.portalInfo.definedAreaName = info.portalList[i].definedAreaName;
+                portal2D.portalInfo.mapName = info.portalList[i].mapName;
+            }
+        }
+        #endregion
+        #region 지정구역 가져오기
+        GameObject areaParent = GameObject.Find("DefinedAreaParent");
+        Dictionary<string, int> nameDic = new Dictionary<string, int>();
+        for (int i = 0; i < info.areaName.Count; i++)
+        {
+            GameObject child = new GameObject(info.areaName[i]);
+            child.transform.parent = areaParent.transform;
+            nameDic.Add(info.areaName[i], i);
+        }
+        for (int i = 0; i < info.definedAreaList.Count; i++)
+        {
+            GameObject area = Instantiate(definedAreaPrefab);
+            area.transform.position = info.definedAreaList[i].positon;
+            area.GetComponentInChildren<Text>().text = info.definedAreaList[i].areaName;
+            area.transform.parent = areaParent.transform.GetChild(nameDic[info.definedAreaList[i].areaName]);
+        }
+
+        #endregion
+        #region 벽 가져오기
+        for (int i = 0; i < info.wallList.Count; i++)
+        {
+            Vector3 wallPos = info.wallList[i].positon;
+            GameObject wall = Instantiate(wallTilePrefab);
+            wall.transform.position = wallPos;
+            //wall.GetComponent<MeshRenderer>().material.mainTexture = invisibleTexture;
+            wall.transform.parent = GameObject.Find("WallParent").transform;
+        }
+        #endregion
+
+
+
+        //================
+        #region 포탈값 초기화
+        portalInfo = new PortalInfo();
+        portalInfo.placeType = PortalInfo.PlaceType.DefinedArea;
+        portalInfo.moveType = PortalInfo.MoveType.Key;
+        #endregion
 
         toolType = ToolType.Stamp;
         placementType = PlacementType.Floor;
         pastTilePos = Vector2.zero;
         pastDefinedAreaPos = Vector2.zero;
+        pastPortalPos = Vector2.zero;
         tileLayerMask = 1 << LayerMask.NameToLayer("Tile");
         gridStartPos = grid.transform.position;
         gridStartPos.x -= grid.transform.localScale.x * 0.5f;
         gridStartPos.y -= grid.transform.localScale.y * 0.5f;
 
+        layerMaskUI = (1 << LayerMask.NameToLayer("UI"));
 
         /*for (int y = 0; y < height; y++)
         {
@@ -93,6 +197,8 @@ public class MapEditor_L : MonoBehaviour
         {
             print(definedAreaDropdown.captionText.text);
         });
+
+        
     }
 
 
@@ -151,7 +257,93 @@ public class MapEditor_L : MonoBehaviour
         switch (tileEffectType)
         {
             case TileEffectType.Portal:
+                if (portalInfo.placeType == PortalInfo.PlaceType.DefinedArea)
+                {
+                    if (inputFieldPortalDefinedAreaName.text.Length < 1)
+                    {
+                        break;
+                    }
 
+                    if (Input.GetMouseButton(0))
+                    {
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                        RaycastHit hitInfo;
+                        /*                        if (Physics.Raycast(ray, out hitInfo, float.PositiveInfinity, layerMaskUI))
+                                                {
+                                                    break;
+                                                }*/
+
+                        if (Physics.Raycast(ray, out hitInfo))
+                        {
+                            Debug.Log(hitInfo.transform.tag);
+
+                            int x = (int)hitInfo.point.x;
+                            int y = (int)hitInfo.point.y;
+                            if (pastPortalPos == new Vector2(x, y))
+                            {
+                                print("already exists");
+                                return;
+                            }
+
+                            GameObject tile = Instantiate(portalPrefab);
+                            tile.transform.SetParent(portalParent);
+                            tile.transform.localPosition = new Vector3(x, y, definedAreaZ);
+                            Portal2D_L portal2D = tile.GetComponent<Portal2D_L>();
+                            portal2D.portalInfo = new PortalInfo();
+                            portal2D.portalInfo.definedAreaName = inputFieldPortalDefinedAreaName.text;
+                            portal2D.portalInfo.moveType = portalInfo.moveType;
+                            portal2D.portalInfo.placeType = portalInfo.placeType;
+                            portal2D.portalInfo.position = tile.transform.localPosition;
+
+                            pastPortalPos.x = x;
+                            pastPortalPos.y = y;
+                        }
+                    }
+                }
+                else if(portalInfo.placeType == PortalInfo.PlaceType.OtherMap)
+                {
+                    if (inputFieldPortalOtherMapName.text.Length < 1)
+                    {
+                        break;
+                    }
+                    if (Input.GetMouseButton(0))
+                    {
+                        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                        RaycastHit hitInfo;
+/*                        if (Physics.Raycast(ray, out hitInfo, float.PositiveInfinity, layerMaskUI))
+                        {
+                            break;
+                        }*/
+
+                            if (Physics.Raycast(ray, out hitInfo))
+                        {
+                            Debug.Log(hitInfo.transform.tag);
+
+                            int x = (int)hitInfo.point.x;
+                            int y = (int)hitInfo.point.y;
+                            if (pastPortalPos == new Vector2(x, y))
+                            {
+                                print("already exists");
+                                return;
+                            }
+
+                            GameObject tile = Instantiate(portalPrefab);
+                            tile.transform.SetParent(portalParent);
+                            tile.transform.localPosition = new Vector3(x, y, definedAreaZ);
+                            Portal2D_L portal2D = tile.GetComponent<Portal2D_L>();
+                            portal2D.portalInfo = new PortalInfo();
+                            portal2D.portalInfo.mapName = inputFieldPortalOtherMapName.text;
+                            portal2D.portalInfo.moveType = portalInfo.moveType;
+                            portal2D.portalInfo.placeType = portalInfo.placeType;
+                            portal2D.portalInfo.position = tile.transform.localPosition;
+
+                            pastPortalPos.x = x;
+                            pastPortalPos.y = y;
+                        }
+                    }
+                }
                 break;
             case TileEffectType.DefinedArea:
                 if (inputFieldDefinedAreaName.text.Length < 1)
@@ -356,6 +548,8 @@ public class MapEditor_L : MonoBehaviour
         }
     }
 
+    #region 버튼 OnClick 함수
+
     public void OnClickBtnFloor()
     {
         placementType = PlacementType.Floor;
@@ -394,7 +588,55 @@ public class MapEditor_L : MonoBehaviour
         placementType = PlacementType.TileEffect;
         TurnOnUi(0);
     }
-    //d이게 끝임
+    
+    public void OnClickBtnPortalToDefinedArea()
+    {
+        portalInfo.placeType = PortalInfo.PlaceType.DefinedArea;
+        panelPortalToDefinedArea.SetActive(true);
+        panelPortalToOtherMap.SetActive(false);
+
+        checkImageDefinedArea.SetActive(true);
+        checkImageOtherMap.SetActive(false);
+    }
+
+    public void OnClickBtnPortalToOtherMap()
+    {
+        portalInfo.placeType = PortalInfo.PlaceType.OtherMap;
+        panelPortalToDefinedArea.SetActive(false);
+        panelPortalToOtherMap.SetActive(true);
+
+        checkImageDefinedArea.SetActive(false);
+        checkImageOtherMap.SetActive(true);
+    }
+
+    public void OnClickBtnPortalMoveKey()
+    {
+        portalInfo.moveType = PortalInfo.MoveType.Key;
+        checkImageKey.SetActive(true);
+        checkImageInstant.SetActive(false);
+    }
+
+    public void OnClickBtnPortalMoveInstant()
+    {
+        portalInfo.moveType = PortalInfo.MoveType.Instant;
+        checkImageKey.SetActive(false);
+        checkImageInstant.SetActive(true);
+    }
+
+    public void OnClickBtnPortalDefinedMoveKey()
+    {
+        portalInfo.moveType = PortalInfo.MoveType.Key;
+        checkImageKey_DefinedArea.SetActive(true);
+        checkImageInstant_DefinedArea.SetActive(false);
+    }
+
+    public void OnClickBtnPortalDefinedMoveInstant()
+    {
+        portalInfo.moveType = PortalInfo.MoveType.Instant;
+        checkImageKey_DefinedArea.SetActive(false);
+        checkImageInstant_DefinedArea.SetActive(true);
+    }
+
     void TurnOnUi(int index)
     {
         for(int i =0; i< canvas.transform.childCount -1; i++)
@@ -416,6 +658,7 @@ public class MapEditor_L : MonoBehaviour
     {
         tileEffectType = TileEffectType.Wall;
     }
+    #endregion
 
     public Texture ConvertSpriteToTexture(Sprite sprite)
     {

@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scenes_H/RoomScene_H.unity
     guid: c2b18875f9d519844890be36f69e6338
+  - enabled: 1
+    path: Assets/Scenes/Scenes_L/MapEditorScene_L2.unity
+    guid: f1f641faa2c32164b8d71991c04369fb
   m_configObjects: {}
