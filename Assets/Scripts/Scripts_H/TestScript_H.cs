@@ -5,6 +5,10 @@ using UnityEngine;
 public class ObjectInfo
 {
     public Vector3 Position;
+    public enum objectType
+    {
+
+    }
 }
 public class TestScript_H : MonoBehaviour
 {

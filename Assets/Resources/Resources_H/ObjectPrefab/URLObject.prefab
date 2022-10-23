@@ -68,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7747714949502447062}
   - component: {fileID: 7747714949502447063}
-  - component: {fileID: 2475681696517688663}
+  - component: {fileID: -6592232992201129988}
   m_Layer: 0
   m_Name: URLObject
   m_TagString: URLObj
@@ -132,7 +132,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 946811b00ff054746bc7599a859a62e5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -144,29 +144,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &2475681696517688663
-BoxCollider2D:
+--- !u!114 &-6592232992201129988
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7747714949502447060}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4.08, y: 4.08}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.08, y: 4.08}
-  m_EdgeRadius: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff367c8773a13004fa195374d85ca138, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  urlLink: https://docs.google.com/spreadsheets/d/1LatmQjWUM82l0rmQCsufMPkWkK_grPDbwxdeIKchP-M/edit#gid=342731973
