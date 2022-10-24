@@ -24,6 +24,8 @@ public class MapInfo
 public class ObjectInfo
 {
     public string objName;
+    public int objWidth;
+    public int objHeight;
     public Vector3 Position;
     public enum ObjectType
     {
