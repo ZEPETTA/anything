@@ -8,7 +8,7 @@ TagManager:
   - BackGround
   - Tile
   - DefinedAreaParent
-  - URLObj
+  - Object
   layers:
   - Default
   - TransparentFX

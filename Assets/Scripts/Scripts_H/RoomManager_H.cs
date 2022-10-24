@@ -17,17 +17,46 @@ public class MapInfo
     public List<WallInfo> wallList;
     public List<PortalInfo> portalList;
     public List<DefinedAreaInfo> definedAreaList;
-    
+    public List<ObjectInfo> objectList;
 }
 [System.Serializable]
 public class ObjectInfo
 {
+    public string objName;
     public Vector3 Position;
-    public enum objectType
+    public enum ObjectType
     {
         Text,
         Image,
     }
+    public ObjectType objType;
+    public bool upperObj;
+    public byte[] image;
+    public string text;
+    public enum ObjectSkill
+    {
+        urlObj,
+        changeObj,
+        talkingObj,
+        animationObj,
+        textObj,
+        imageObj,
+        passwordObj,
+    }
+    public ObjectSkill objSkill;
+    public string urlSkill;
+    public byte[] changeSkill;
+    public string talkingSkill;
+    //애니메이션 어케해야할지 고민중
+    public string textSkill;
+    public byte[] imageSkill;
+
+    public enum InteractionType
+    {
+        pressF,
+        touch,
+    }
+    public InteractionType interactionType;
 }
 [System.Serializable]
 public class WallInfo

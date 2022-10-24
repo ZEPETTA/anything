@@ -1152,6 +1152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d15b993ceb9fa44ca304e8d76636f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testMapName: 
   bg: {fileID: 347564332}
 --- !u!1 &411419662
 GameObject:
@@ -3874,6 +3875,7 @@ MonoBehaviour:
   floorTilePrefab: {fileID: 1768867459882806367, guid: aae4b5e7ab6d0fa4692d499bcc6e0007, type: 3}
   wallTilePrefab: {fileID: 0}
   definedAreaPrefab: {fileID: 0}
+  portalPrefab: {fileID: 0}
   currClickedTileTexture: {fileID: 0}
   minOrthographicSize: 5
   maxOrthographicSize: 15
@@ -3885,9 +3887,21 @@ MonoBehaviour:
   cursorSquare: {fileID: 1480857565}
   tileParent: {fileID: 713710333}
   definedAreaParent: {fileID: 0}
+  portalParent: {fileID: 0}
   definedAreaDropdown: {fileID: 0}
   inputFieldDefinedAreaName: {fileID: 0}
+  inputFieldPortalOtherMapName: {fileID: 0}
+  inputFieldPortalDefinedAreaName: {fileID: 0}
   canvas: {fileID: 0}
+  bg: {fileID: 0}
+  panelPortalToDefinedArea: {fileID: 0}
+  panelPortalToOtherMap: {fileID: 0}
+  checkImageDefinedArea: {fileID: 0}
+  checkImageOtherMap: {fileID: 0}
+  checkImageKey: {fileID: 0}
+  checkImageInstant: {fileID: 0}
+  checkImageKey_DefinedArea: {fileID: 0}
+  checkImageInstant_DefinedArea: {fileID: 0}
 --- !u!4 &1232622449
 Transform:
   m_ObjectHideFlags: 0
@@ -5559,6 +5573,7 @@ MonoBehaviour:
   walkCount: 20
   imoticon: []
   imoticonPrefab: {fileID: 0}
+  pressFKey: {fileID: 0}
 --- !u!212 &1694516054
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -28,15 +28,14 @@ KeyCode.Alpha7,
 KeyCode.Alpha8,
 KeyCode.Alpha9,
 };
-    bool inUrlObj = false;
-    URLObj_H urlObj;
+    public bool inObj = false;
+    public ObjectInfo_H objInfo;
     void Start()
     {
         animator = GetComponent<Animator>();
     }
     void Update()
     {
-        pressFKey.transform.position = Camera.main.WorldToScreenPoint(transform.position + new Vector3(0, -0.5f, 0));
         if (!myCharacter)
         {
             return;
@@ -63,11 +62,11 @@ KeyCode.Alpha9,
                 imo.transform.parent = gameObject.transform;
             }
         }
-        if(inUrlObj == true)
+        if(inObj == true)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                urlObj.GoToURL();
+                objInfo.OnPlayerCall();
             }
         }
     }
@@ -102,24 +101,5 @@ KeyCode.Alpha9,
         animator.SetBool("Walking", false);
         currentWalkCount = 0;
         canMove = true;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.tag == "URLObj")
-        {
-            pressFKey.SetActive(true);
-            inUrlObj = true;
-            urlObj = collision.GetComponent<URLObj_H>();
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.tag == "URLObj")
-        {
-            pressFKey.SetActive(false);
-            inUrlObj = false;
-            urlObj = null;
-        }
     }
 }
