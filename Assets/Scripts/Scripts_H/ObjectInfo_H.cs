@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectInfo_H : MonoBehaviour
 {
     public ObjectInfo objectInfo;
+    GameObject speechBubble;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,10 @@ public class ObjectInfo_H : MonoBehaviour
         {
             GetComponent<MeshRenderer>().sortingLayerName = "Object";
         }
+        if(objectInfo.objSkill == ObjectInfo.ObjectSkill.talkingObj)
+        {
+            speechBubble = transform.Find("SpeechCanvas").GetChild(0).gameObject;
+        }
         
     }
     public void OnPlayerCall()
@@ -30,6 +36,25 @@ public class ObjectInfo_H : MonoBehaviour
         {
             UrlObj();
         }
+        else if (objectInfo.objSkill == ObjectInfo.ObjectSkill.changeObj)
+        {
+            ChangeObj();
+        }
+        else if(objectInfo.objSkill == ObjectInfo.ObjectSkill.talkingObj)
+        {
+            SpeechObj();
+        }
+    }
+    void SpeechObj()
+    {
+        speechBubble.SetActive(true);
+        speechBubble.transform.GetChild(0).GetComponent<Text>().text = objectInfo.talkingSkill;
+    }
+    void ChangeObj()
+    {
+        Texture2D objTexture = new Texture2D(objectInfo.objWidth,objectInfo.objHeight);
+        objTexture.LoadImage(objectInfo.imageSkill);
+        gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", objTexture);
     }
 
     private void OnTriggerEnter(Collider other)
