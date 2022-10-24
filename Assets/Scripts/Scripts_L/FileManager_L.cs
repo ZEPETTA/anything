@@ -161,6 +161,22 @@ public class FileManager_L : MonoBehaviour
         }
         backGroundInfo.wallList = wallInfos;
         #endregion
+        #region 스폰 지점 저장
+        Transform spawnPointParent = GameObject.Find("SpawnPointParent").transform;
+        if (spawnPointParent)
+        {
+            List<SpawnPointInfo> spawnPointInfoList = new List<SpawnPointInfo>();
+            for(int i = 0; i < spawnPointParent.childCount; i++)
+            {
+                SpawnPointInfo info = new SpawnPointInfo();
+                info.position = spawnPointParent.GetChild(i).localPosition;
+                spawnPointInfoList.Add(info);
+
+            }
+            backGroundInfo.spawnPointInfoList = spawnPointInfoList;
+        }
+        #endregion
+
         string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
         File.WriteAllText(path + "/" + MapInfo.mapName +".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");

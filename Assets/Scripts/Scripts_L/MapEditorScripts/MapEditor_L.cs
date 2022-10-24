@@ -30,6 +30,7 @@ public class MapEditor_L : MonoBehaviour
         Portal,
         DefinedArea,
         Wall,
+        SpawnPoint
     }
 
     public ToolType toolType;
@@ -44,6 +45,7 @@ public class MapEditor_L : MonoBehaviour
     public GameObject wallTilePrefab;
     public GameObject definedAreaPrefab;
     public GameObject portalPrefab;
+    public GameObject spawnPrefab;
 
     public Texture currClickedTileTexture;
     public float minOrthographicSize = 2f;
@@ -77,6 +79,7 @@ public class MapEditor_L : MonoBehaviour
     public GameObject scrollViewMyObject;
     public GameObject scrollViewMyUpperObject;
 
+    public List<Vector3> spawnPointPosList; //로드 시, 리스트에 위치 넣어두고 랜덤 위치에 캐릭터 옮김
     //UI 클릭 시에는 맵 생성되지 않게
     int layerMaskUI;
     PortalInfo portalInfo;
@@ -87,6 +90,7 @@ public class MapEditor_L : MonoBehaviour
     Vector2 pastDefinedAreaPos;
     Vector2 pastWallPos;
     Vector2 pastPortalPos;
+    Vector2 pastSpawnPointPos;
     Vector2 mouseClickPos;
 
     
@@ -166,7 +170,22 @@ public class MapEditor_L : MonoBehaviour
             wall.transform.parent = GameObject.Find("WallParent").transform;
         }
         #endregion
+        #region 스폰 지점 가져오기
+        Transform spawnPointParent = GameObject.Find("SpawnPointParent").transform;
+        if (spawnPointParent)
+        {
+            spawnPointPosList = new List<Vector3>();
 
+            for (int i = 0; i < info.spawnPointInfoList.Count; i++)
+            {
+                GameObject spawnPoint = Instantiate(spawnPrefab);
+                spawnPoint.transform.parent = spawnPointParent;
+                spawnPoint.transform.localPosition = info.spawnPointInfoList[i].position;
+                spawnPointPosList.Add(spawnPoint.transform.localPosition);
+
+            }
+        }
+        #endregion
 
 
         //================
@@ -181,6 +200,7 @@ public class MapEditor_L : MonoBehaviour
         pastTilePos = Vector2.zero;
         pastDefinedAreaPos = Vector2.zero;
         pastPortalPos = Vector2.zero;
+        pastSpawnPointPos = Vector2.zero;
         tileLayerMask = 1 << LayerMask.NameToLayer("Tile");
         gridStartPos = grid.transform.position;
         gridStartPos.x -= grid.transform.localScale.x * 0.5f;
@@ -421,6 +441,33 @@ public class MapEditor_L : MonoBehaviour
                         tile.transform.localPosition = new Vector3(x, y, wallTileZ);
                         pastWallPos.x = x;
                         pastWallPos.y = y;
+                    }
+                }
+                break;
+            case TileEffectType.SpawnPoint:
+                if (Input.GetMouseButton(0))
+                {
+                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                    RaycastHit hitInfo;
+                    if (Physics.Raycast(ray, out hitInfo))
+                    {
+                        int x = (int)hitInfo.point.x;
+                        int y = (int)hitInfo.point.y;
+                        if (pastSpawnPointPos == new Vector2(x, y))
+                        {
+                            print("already exists");
+                            return;
+                        }
+                        /*                    if(Physics.OverlapBox(new Vector3(x,y,floorTileZ),new Vector3(0.5f,0.5f,0.5f),Quaternion.identity,tileLayerMask).Length>0){
+                                                print("Already Exists");
+                                                return;
+                                                //이미 타일이 있는 경우
+                                            }*/
+                        GameObject tile = Instantiate(spawnPrefab);
+                        tile.transform.SetParent(GameObject.Find("SpawnPointParent").transform);
+                        tile.transform.localPosition = new Vector3(x, y, wallTileZ);
+                        pastSpawnPointPos.x = x;
+                        pastSpawnPointPos.y = y;
                     }
                 }
                 break;
@@ -683,7 +730,10 @@ public class MapEditor_L : MonoBehaviour
     {
         tileEffectType = TileEffectType.Wall;
     }
-
+    public void OnClickBtnSpawnPoint()
+    {
+        tileEffectType = TileEffectType.SpawnPoint;
+    }
 
     #endregion
 

@@ -18,6 +18,7 @@ public class MapInfo
     public List<PortalInfo> portalList;
     public List<DefinedAreaInfo> definedAreaList;
     public List<ObjectInfo> objectList;
+    public List<SpawnPointInfo> spawnPointInfoList;
 }
 [System.Serializable]
 public class ObjectInfo
@@ -78,6 +79,12 @@ public class TileInfo
 }
 
 [System.Serializable]
+public class SpawnPointInfo
+{
+    public Vector3 position;
+}
+
+[System.Serializable]
 public class UserInfo
 {
     public string id;
@@ -92,11 +99,14 @@ public class RoomManager_H : MonoBehaviour
     public GameObject tilePrefab;
     public GameObject definedAreaPrefab;
     public GameObject portalPrefab;
+    public GameObject spawnPointPrefab;
+    public List<Vector3> spawnPointPosList; //로드 시, 리스트에 위치 넣어두고 랜덤 위치에 캐릭터 옮김
     public Material invisible;
     public MeshRenderer bg;
     // Start is called before the first frame update
     void Start()
     {
+
         #region 배경화면 가져오기
         string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/"+ MapInfo.mapName +".txt";
         string jsonData = File.ReadAllText(bgpath);
@@ -166,7 +176,30 @@ public class RoomManager_H : MonoBehaviour
             wall.transform.parent = GameObject.Find("WallParent").transform;
         }
         #endregion
+        #region 스폰 지점 가져오기
+        Transform spawnPointParent = GameObject.Find("SpawnPointParent").transform;
+        if (spawnPointParent)
+        {
+            spawnPointPosList = new List<Vector3>();
 
+            for(int i = 0; i < info.spawnPointInfoList.Count; i++)
+            {
+                GameObject spawnPoint = Instantiate(spawnPointPrefab);
+                spawnPoint.transform.parent = spawnPointParent;
+                spawnPoint.transform.localPosition = info.spawnPointInfoList[i].position;
+                spawnPointPosList.Add(spawnPoint.transform.localPosition);
+                
+            }
+        }
+        #endregion
+        if (spawnPointPosList.Count > 0)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            int randPos = Random.Range(0, spawnPointPosList.Count);
+            player.transform.position = spawnPointPosList[randPos];
+        }
+        //스폰 지점에 캐릭터 위치
+        //포톤 도입 시 캐릭터 찾는 부분 수정 필요
     }
     // Update is called once per frame
     void Update()
