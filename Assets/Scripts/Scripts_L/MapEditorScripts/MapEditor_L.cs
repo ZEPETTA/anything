@@ -74,6 +74,8 @@ public class MapEditor_L : MonoBehaviour
     public GameObject checkImageInstant;
     public GameObject checkImageKey_DefinedArea;
     public GameObject checkImageInstant_DefinedArea;
+    public GameObject scrollViewMyObject;
+    public GameObject scrollViewMyUpperObject;
 
     //UI 클릭 시에는 맵 생성되지 않게
     int layerMaskUI;
@@ -588,7 +590,29 @@ public class MapEditor_L : MonoBehaviour
         placementType = PlacementType.TileEffect;
         TurnOnUi(0);
     }
-    
+    public void OnClickBtnObject()
+    {
+        placementType = PlacementType.Object;
+        TurnOnUi(2);
+    }
+    public void OnClickBtnUpperObject()
+    {
+        placementType = PlacementType.UpperObject;
+        TurnOnUi(3);
+    }
+
+    public void OnClickBtnMyObject()
+    {
+        bool b = scrollViewMyObject.activeSelf ? false : true;
+        scrollViewMyObject.SetActive(b);
+    }
+
+    public void OnClickBtnMyUpperObject()
+    {
+        bool b = scrollViewMyUpperObject.activeSelf ? false : true;
+        scrollViewMyUpperObject.SetActive(b);
+    }
+
     public void OnClickBtnPortalToDefinedArea()
     {
         portalInfo.placeType = PortalInfo.PlaceType.DefinedArea;
@@ -659,6 +683,8 @@ public class MapEditor_L : MonoBehaviour
     {
         tileEffectType = TileEffectType.Wall;
     }
+
+
     #endregion
 
     public Texture ConvertSpriteToTexture(Sprite sprite)
