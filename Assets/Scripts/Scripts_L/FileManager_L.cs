@@ -176,7 +176,15 @@ public class FileManager_L : MonoBehaviour
             backGroundInfo.spawnPointInfoList = spawnPointInfoList;
         }
         #endregion
-
+        #region 오브젝트 저장
+        GameObject objectP = GameObject.Find("ObjectParent");
+        List<ObjectInfo> objectInfos = new List<ObjectInfo>();
+        for(int i =0; i < objectP.transform.childCount; i++)
+        {
+            objectInfos.Add(objectP.transform.GetChild(i).GetChild(0).gameObject.GetComponent<ObjectInfo_H>().objectInfo);
+        }
+        backGroundInfo.objectList = objectInfos;
+        #endregion
         string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
         File.WriteAllText(path + "/" + MapInfo.mapName +".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");

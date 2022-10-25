@@ -247,7 +247,44 @@ public class MapEditor_L : MonoBehaviour
     }
 
 
+    void UiOnOff()
+    {
+        if (objSkill.value == 0)
+        {
 
+            for (int i = 0; i < skillUI.Length; i++)
+            {
+                skillUI[i].SetActive(false);
+            }
+        }
+        else if (objSkill.value == 1)
+        {
+
+            for (int i = 0; i < skillUI.Length; i++)
+            {
+                skillUI[i].SetActive(false);
+            }
+            skillUI[0].SetActive(true);
+        }
+        else if (objSkill.value == 2)
+        {
+
+            for (int i = 0; i < skillUI.Length; i++)
+            {
+                skillUI[i].SetActive(false);
+            }
+            skillUI[0].SetActive(true);
+        }
+        else if (objSkill.value == 2)
+        {
+
+            for (int i = 0; i < skillUI.Length; i++)
+            {
+                skillUI[i].SetActive(false);
+            }
+            skillUI[1].SetActive(true);
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -264,7 +301,8 @@ public class MapEditor_L : MonoBehaviour
                     }
                 }
         */
-        
+        objSkill.onValueChanged.AddListener(delegate { UiOnOff(); });
+       
 
         MoveCursorSquare();
 
@@ -350,6 +388,12 @@ public class MapEditor_L : MonoBehaviour
     }
     #endregion
     public Texture2D objImage;
+    public InputField objName;
+    public Dropdown objSkill;
+    public GameObject[] skillUI;
+    public Toggle objInteraction;
+    public InputField objURL;
+    public Texture2D objChangeImage;
     void StampObjectImage()
     {
         if(objImage != null)
@@ -376,10 +420,44 @@ public class MapEditor_L : MonoBehaviour
                             print("already exists");
                             return;
                         }
+                        pastTilePos = new Vector2(x, y);
                         GameObject obj = Instantiate(objectPrefab);
                         obj.transform.position = new Vector3(x, y, 0);
                         //obj.transform.localScale = new Vector3(objImage.width /1920, objImage.height/1080, 0);
-                        obj.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetTexture("_mainTex", objImage);
+                        obj.transform.parent = objectParent;
+                        obj.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", (Texture)objImage);
+                        ObjectInfo objinfo = obj.transform.GetChild(0).GetComponent<ObjectInfo_H>().objectInfo;
+                        objinfo.Position = obj.transform.position;
+                        objinfo.image = objImage.EncodeToPNG();
+                        objinfo.upperObj = false;
+                        objinfo.objType = ObjectInfo.ObjectType.Image;
+                        objinfo.objName = objName.text;
+                        if (objInteraction.isOn)
+                        {
+                            objinfo.interactionType = ObjectInfo.InteractionType.pressF;
+                        }
+                        else
+                        {
+                            objinfo.interactionType = ObjectInfo.InteractionType.touch;
+                        }
+                        if (objSkill.value == 0)
+                        {
+                            objinfo.objSkill = ObjectInfo.ObjectSkill.nomalObj;
+                        }
+                        else if (objSkill.value == 1)
+                        {
+                            objinfo.objSkill = ObjectInfo.ObjectSkill.urlObj;
+                            objinfo.urlSkill = objURL.text;
+                        }
+                        else if (objSkill.value == 2)
+                        {
+                            objinfo.objSkill = ObjectInfo.ObjectSkill.talkingObj;
+                            objinfo.talkingSkill = objURL.text;
+                        }
+                        else if (objSkill.value == 3)
+                        {
+                            objinfo.objSkill = ObjectInfo.ObjectSkill.changeObj;
+                        }
                     }
                 }
             }

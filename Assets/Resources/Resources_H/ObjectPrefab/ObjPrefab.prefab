@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fa9b91b1c728d634eb24fccaa523aec4, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectInfo:
-    objName: TimeLineObject
+    objName: 
     objWidth: 0
     objHeight: 0
     Position: {x: 0, y: 0, z: 0}

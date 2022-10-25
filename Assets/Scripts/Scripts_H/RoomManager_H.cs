@@ -38,13 +38,10 @@ public class ObjectInfo
     public string text;
     public enum ObjectSkill
     {
+        nomalObj,
         urlObj,
         changeObj,
         talkingObj,
-        animationObj,
-        textObj,
-        imageObj,
-        passwordObj,
     }
     public ObjectSkill objSkill;
     public string urlSkill;
@@ -102,6 +99,7 @@ public class RoomManager_H : MonoBehaviour
     public GameObject definedAreaPrefab;
     public GameObject portalPrefab;
     public GameObject spawnPointPrefab;
+    public GameObject objectPrefab;
     public List<Vector3> spawnPointPosList; //로드 시, 리스트에 위치 넣어두고 랜덤 위치에 캐릭터 옮김
     public Material invisible;
     public MeshRenderer bg;
@@ -192,6 +190,17 @@ public class RoomManager_H : MonoBehaviour
                 spawnPointPosList.Add(spawnPoint.transform.localPosition);
                 
             }
+        }
+        #endregion
+        #region 오브젝트 가져오기
+        GameObject objectParent = GameObject.Find("ObjectParent");
+        for(int i =0; i< info.objectList.Count; i++)
+        {
+            GameObject obj = Instantiate(objectPrefab);
+            obj.transform.position = info.objectList[i].Position;
+            Debug.Log("야!!!");
+            obj.transform.GetChild(0).gameObject.GetComponent<ObjectInfo_H>().objectInfo = info.objectList[i];
+            obj.transform.parent = objectParent.transform;
         }
         #endregion
         if (spawnPointPosList.Count > 0)

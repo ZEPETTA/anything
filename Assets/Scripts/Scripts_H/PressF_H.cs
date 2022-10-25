@@ -18,6 +18,14 @@ public class PressF_H : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(objinfo == null)
+        {
+            return;
+        }
+        if(objinfo.interactionType == ObjectInfo.InteractionType.touch)
+        {
+            return;
+        }
         if(collision.tag == "Player" && objinfo.interactionType == ObjectInfo.InteractionType.pressF)
         {
             CharacterMove_H character = collision.GetComponent<CharacterMove_H>();
@@ -33,6 +41,10 @@ public class PressF_H : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        if (objinfo.interactionType == ObjectInfo.InteractionType.touch)
+        {
+            return;
+        }
         if (collision.tag == "Player" && objinfo.interactionType == ObjectInfo.InteractionType.pressF)
         {
             CharacterMove_H character = collision.GetComponent<CharacterMove_H>();

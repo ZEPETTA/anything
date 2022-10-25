@@ -28,7 +28,12 @@ public class ObjectInfo_H : MonoBehaviour
         {
             speechBubble = transform.Find("SpeechCanvas").GetChild(0).gameObject;
         }
-        
+        if(objectInfo.image.Length > 0)
+        {
+            Texture2D texture = new Texture2D(objectInfo.objWidth,objectInfo.objHeight);
+            texture.LoadImage(objectInfo.image);
+            GetComponent<MeshRenderer>().material.SetTexture("_MainTex", (Texture)texture);
+        }
     }
     public void OnPlayerCall()
     {
