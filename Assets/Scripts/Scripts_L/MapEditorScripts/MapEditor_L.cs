@@ -5,9 +5,22 @@ using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
 public class MapEditor_L : MonoBehaviour
 {
+    public static MapEditor_L instance;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public enum ToolType
     {
         None,
@@ -32,10 +45,16 @@ public class MapEditor_L : MonoBehaviour
         Wall,
         SpawnPoint
     }
+    public enum ObjectType
+    {
+        Text,
+        Image,
+    }
 
     public ToolType toolType;
     public PlacementType placementType;
     public TileEffectType tileEffectType;
+    public ObjectType objectType;
 
     public float floorTileZ;
     public float definedAreaZ;
@@ -46,6 +65,8 @@ public class MapEditor_L : MonoBehaviour
     public GameObject definedAreaPrefab;
     public GameObject portalPrefab;
     public GameObject spawnPrefab;
+    public GameObject objectPrefab;
+    public GameObject objectButtonPrefab;
 
     public Texture currClickedTileTexture;
     public float minOrthographicSize = 2f;
@@ -56,8 +77,10 @@ public class MapEditor_L : MonoBehaviour
     public Transform grid;
     public Transform cursorSquare;
     public Transform tileParent;
+    public Transform objectParent;
     public Transform definedAreaParent;
     public Transform portalParent;
+    public Transform objectButtonParent;
 
     public Dropdown definedAreaDropdown;
     public InputField inputFieldDefinedAreaName;
@@ -241,6 +264,7 @@ public class MapEditor_L : MonoBehaviour
                     }
                 }
         */
+        
 
         MoveCursorSquare();
 
@@ -261,6 +285,21 @@ public class MapEditor_L : MonoBehaviour
                 else if (placementType == PlacementType.TileEffect) {
                     TileEffect();
                 }
+                else if(placementType == PlacementType.Object)
+                {
+                    if(objectType == ObjectType.Text)
+                    {
+
+                    }
+                    else if (objectType == ObjectType.Image)
+                    {
+                        StampObjectImage();
+                    }
+                }
+                else if(placementType == PlacementType.UpperObject)
+                {
+
+                }
                 break;
             case ToolType.Eraser:
                 Erase();
@@ -273,6 +312,82 @@ public class MapEditor_L : MonoBehaviour
                 break;
         }
         print(placementType);
+    }
+    public void SelectText()
+    {
+        objectType = ObjectType.Text;
+    }
+    #region 오브젝트 이미지 가져오기
+    string path;
+    GameObject objButton;
+    public void SelectImage()
+    {
+        objectType = ObjectType.Image;
+        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+        if(path.Length > 0)
+        {
+            objButton = Instantiate(objectButtonPrefab);
+            objButton.transform.parent = objectButtonParent;
+            StartCoroutine(GetTexture());
+        }
+    }
+    IEnumerator GetTexture()
+    {
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + path);
+        yield return www.SendWebRequest();
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            Texture2D texture2D = (Texture2D)myTexture;
+            Sprite sprite = Sprite.Create(texture2D, new Rect(0, 0, texture2D.width, texture2D.height), new Vector2(0.5f,0.5f));
+            objButton.GetComponent<Image>().sprite = sprite;
+            
+        }
+    }
+    #endregion
+    public Texture2D objImage;
+    void StampObjectImage()
+    {
+        if(objImage != null)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                RaycastHit hitInfo;
+
+                if (Physics.Raycast(ray, out hitInfo))
+                {
+
+                    if (hitInfo.transform.tag == "Object")
+                    {
+                        return;
+                    }
+                    if (hitInfo.transform.tag == "BackGround")
+                    {
+                        int x = (int)hitInfo.point.x;
+                        int y = (int)hitInfo.point.y;
+                        if (pastTilePos == new Vector2(x, y))
+                        {
+                            print("already exists");
+                            return;
+                        }
+                        GameObject obj = Instantiate(objectPrefab);
+                        obj.transform.position = new Vector3(x, y, 0);
+                        //obj.transform.localScale = new Vector3(objImage.width /1920, objImage.height/1080, 0);
+                        obj.transform.GetChild(0).GetComponent<MeshRenderer>().material.SetTexture("_mainTex", objImage);
+                    }
+                }
+            }
+        }
+        
+        
+        
+
     }
     void TileEffect()
     {
