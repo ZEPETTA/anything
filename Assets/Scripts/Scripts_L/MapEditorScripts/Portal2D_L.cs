@@ -16,7 +16,8 @@ public class PortalInfo
     {
         OtherMap,
         DefinedArea,
-        OtherSpace
+        OtherSpace,
+        DetailMajor
     }
     //Key = F키 이동
     //Instant = 즉시 이동
@@ -99,6 +100,10 @@ public class Portal2D_L : MonoBehaviour
 
                 break;
             case PortalInfo.PlaceType.OtherSpace:
+                break;
+            case PortalInfo.PlaceType.DetailMajor:
+                MapInfo.mapName = portalInfo.mapName;
+                SceneManager.LoadScene("RoomScene_H");
                 break;
         }
 
