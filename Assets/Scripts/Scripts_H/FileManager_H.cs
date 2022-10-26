@@ -33,12 +33,16 @@ public class FileManager_H : MonoBehaviour
 
     public InputField phoneNumInputfield;
     public Button phoneNumCheckButton;
+    public Button phoneCheckButtonImage;
 
     public Button closeImage;
-
+    [SerializeField]
     bool[] singUpCheck = new bool[6] { false, false, false, false, false, false};
     public Button signUpButton;
     public Toggle signUpToggle;
+
+    public GameObject CardUP;
+    public Image SelectImage;
 
     private void Start()
     {
@@ -83,6 +87,10 @@ public class FileManager_H : MonoBehaviour
                 signUpButton.interactable = false;
                 break;
             }
+            if (i == singUpCheck.Length - 1)
+            {
+                signUpButton.interactable = true;
+            }
         }
         #endregion
     }
@@ -110,7 +118,6 @@ public class FileManager_H : MonoBehaviour
         string str = @"[~!@\#$%^&*\()\=+|\\/:;?""<>']";
         Regex regex = new Regex(str);
         //passwordChecker = Regex.Replace(info.password,@"[ ^0-9a-zA-Z°¡-ÆR ]{1,10}", "", RegexOptions.Singleline);
-        Debug.Log(regex.IsMatch(password));
         if(regex.IsMatch(password))
         {
             NoText[1].gameObject.SetActive(true);
@@ -152,8 +159,12 @@ public class FileManager_H : MonoBehaviour
             OKText[3].gameObject.SetActive(false);
             NoText[3].gameObject.SetActive(true);
         }
-        
 
+
+    }
+    public void OnClickButtonImage()
+    {
+        phoneCheckButtonImage.gameObject.SetActive(false);
     }
     public void OnPhoneNumBTNClick()
     {
@@ -161,22 +172,23 @@ public class FileManager_H : MonoBehaviour
         OKText[3].gameObject.SetActive(true);
         NoText[3].gameObject.SetActive(false);
         singUpCheck[3] = true;
+        phoneCheckButtonImage.gameObject.SetActive(true);
     }
     #endregion
-    #region °¡ÀÔ ÆÄÆ®
-    public void OnSignButton()
+    #region ÇÐ°úÀü°ø ÀÎÁõ ÆÄÆ®
+    public void OnCardButton()
     {
-        signUpImage.gameObject.SetActive(false);
+        CardUP.SetActive(true);
     }
-    #endregion
     public void OpeinFileExplorer()
     {
         path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
         StartCoroutine(GetTexture());
     }
-
-    
-
+    public void XCardButton()
+    {
+        CardUP.SetActive(false);
+    }
     IEnumerator GetTexture()
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + path);
@@ -189,8 +201,18 @@ public class FileManager_H : MonoBehaviour
         {
             Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             rawImage.texture = myTexture;
+            singUpCheck[4] = true;
+            SelectImage.gameObject.SetActive(true);
         }
     }
+    #endregion
+    #region °¡ÀÔ ÆÄÆ®
+    public void OnSignButton()
+    {
+        signUpImage.gameObject.SetActive(false);
+    }
+    #endregion
+    
 
     public void OnJoin()
     {
