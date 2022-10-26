@@ -22,4 +22,5 @@ public class Room_H : MonoBehaviour
         }
         roomNameText.text = roomName;
     }
+
 }
