@@ -86,10 +86,15 @@ public class LobbyManager_L : MonoBehaviour
     }
     public void MakeMap()
     {
+        SpaceInfo.spaceName = mapMakerInputField[0].text;
+        SpaceInfo spaceInfo = new SpaceInfo();
         MapInfo.mapName = mapMakerInputField[0].text;
         MapInfo info = new MapInfo();
-        string jsonMap = JsonUtility.ToJson(info, true);
-        File.WriteAllText(Application.dataPath + "/Resources/Resources_H/MapData" + "/" + MapInfo.mapName + ".txt", jsonMap);
+        List<MapInfo> mapInfos = new List<MapInfo>();
+        mapInfos.Add(info);
+        spaceInfo.mapList = mapInfos;
+        string jsonMap = JsonUtility.ToJson(spaceInfo, true);
+        File.WriteAllText(Application.dataPath + "/Resources/Resources_H/MapData" + "/" + SpaceInfo.spaceName + ".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
     }
 

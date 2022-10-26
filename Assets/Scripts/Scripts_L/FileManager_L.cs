@@ -16,6 +16,7 @@ public class FileManager_L : MonoBehaviour
     string savepth;
     int mapWidth;
     int mapHeight;
+    SpaceInfo spaceInfo;
     // Start is called before the first frame update
     void Start()
     {

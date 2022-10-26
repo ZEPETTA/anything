@@ -1874,6 +1874,7 @@ MonoBehaviour:
   - {fileID: 1196741042}
   - {fileID: 0}
   - {fileID: 0}
+  roomPanel: {fileID: 0}
 --- !u!4 &1507581208
 Transform:
   m_ObjectHideFlags: 0
