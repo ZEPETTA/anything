@@ -14,6 +14,7 @@ public class LobbyManager_L : MonoBehaviour
     string clickedRoomName;
     public GameObject roomPrefab;
     public InputField[] mapMakerInputField;
+    public GameObject roomPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,7 +34,7 @@ public class LobbyManager_L : MonoBehaviour
                 continue;
             }
             GameObject room = Instantiate(roomPrefab);
-            room.transform.SetParent(rooms.transform, false);
+            room.transform.SetParent(roomPanel.transform, false);
             room.GetComponent<Room_H>().roomName = fileInfos[i].Name;
         }
     }

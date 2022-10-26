@@ -9,6 +9,7 @@ TagManager:
   - Tile
   - DefinedAreaParent
   - Object
+  - MainRoom
   layers:
   - Default
   - TransparentFX
