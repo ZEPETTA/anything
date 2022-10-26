@@ -89,7 +89,8 @@ public class UserInfo
     public string id;
     public string password;
     public string name;
-    public string collegeName;
+    public string phoneNumber;
+    public string departmentName;
 }
 
 public class RoomManager_H : MonoBehaviour
