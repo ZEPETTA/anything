@@ -87,8 +87,6 @@ public class LobbyManager_L : MonoBehaviour
     {
         MapInfo.mapName = mapMakerInputField[0].text;
         MapInfo info = new MapInfo();
-        info.mapWidth = int.Parse(mapMakerInputField[1].text);
-        info.mapHeight = int.Parse(mapMakerInputField[2].text);
         string jsonMap = JsonUtility.ToJson(info, true);
         File.WriteAllText(Application.dataPath + "/Resources/Resources_H/MapData" + "/" + MapInfo.mapName + ".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
