@@ -9,6 +9,7 @@ public class LoginManager_L : MonoBehaviour
     public InputField inputFieldId;
     public InputField inputFieldPW;
     public Button btnLogin;
+    public GameObject signUP;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +40,6 @@ public class LoginManager_L : MonoBehaviour
 
     public void OnClickBtnSignup()
     {
-        SceneManager.LoadScene("SignUpScene_H");
+       signUP.SetActive(true);
     }
 }
