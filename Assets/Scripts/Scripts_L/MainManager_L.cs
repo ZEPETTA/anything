@@ -24,6 +24,10 @@ public class MainManager_L : MonoBehaviourPunCallbacks
         
     }
 
+    public void GoInfoScene()
+    {
+        SceneManager.LoadScene("MyInfoScene_H");
+    }
 
     public void OnClickMajor()
     {
