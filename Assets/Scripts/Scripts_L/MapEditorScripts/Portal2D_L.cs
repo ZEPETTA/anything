@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
+using Photon.Realtime;
 
 [System.Serializable]
 public class PortalInfo
@@ -32,13 +34,14 @@ public class PortalInfo
     //찾은 area를 Portal_L에서 받아서, 그 중 하나로 이동할 수 있어야 함
 }
 
-public class Portal2D_L : MonoBehaviour
+public class Portal2D_L : MonoBehaviourPunCallbacks
 {
     //포털과 충돌할 수 있도록, 포털 오브젝트의 z값이 플레이어와 닿도록 설정하기
     public PortalInfo portalInfo;
     public float playerZ = 0f;
     GameObject definedAreaParent;
     bool onPlayer = false;
+    bool goOtherRoom = false;
     GameObject player;
     // Start is called before the first frame update
     void Start()
@@ -57,6 +60,7 @@ public class Portal2D_L : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (onPlayer == true)
         {
             if (Input.GetKeyDown(KeyCode.F))
@@ -102,12 +106,65 @@ public class Portal2D_L : MonoBehaviour
             case PortalInfo.PlaceType.OtherSpace:
                 break;
             case PortalInfo.PlaceType.DetailMajor:
-                MapInfo.mapName = portalInfo.mapName;
-                SceneManager.LoadScene("RoomScene_H");
+                LeaveRoom();
+                //MapInfo.mapName = portalInfo.mapName;
+                //SceneManager.LoadScene("RoomScene_H");
+                //PhotonNetwork.LoadLevel(MapInfo.mapName);
                 break;
         }
 
     }
+
+    void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+    void JoinLobby()
+    {
+        PhotonNetwork.JoinLobby();
+    }
+
+    void JoinMajorRoom()
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 10;
+        roomOptions.IsVisible = true;
+        
+        PhotonNetwork.JoinOrCreateRoom(portalInfo.mapName, roomOptions, null);
+    }
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        if (goOtherRoom)
+        {
+            print("다른 방으로");
+            print("On Left Room 로비 안에 있나요?? : " + PhotonNetwork.InLobby);
+            JoinLobby();
+            //JoinMajorRoom();
+        }
+        else
+        {
+            print("로비로 나가기");
+            //PhotonNetwork.LoadLevel("LobbyScene_L");
+        }
+    }
+
+    public override void OnJoinedLobby()
+    {
+        base.OnJoinedLobby();
+        JoinMajorRoom();
+        //print("로비 안에 있나요?? : " + PhotonNetwork.InLobby);
+
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        print("방으로 이동");
+        PhotonNetwork.LoadLevel(portalInfo.mapName);
+    }
+
+
 
     /*   private void OnTriggerEnter(Collider other)
        {
@@ -125,6 +182,7 @@ public class Portal2D_L : MonoBehaviour
             if (portalInfo.moveType == PortalInfo.MoveType.Instant)
             {
                 MovePlayer(collision.gameObject);
+                goOtherRoom = true;
             }
             else
             {
@@ -140,6 +198,7 @@ public class Portal2D_L : MonoBehaviour
         {
             player = null;
             onPlayer = false;
+            goOtherRoom = false;
         }
     }
 }

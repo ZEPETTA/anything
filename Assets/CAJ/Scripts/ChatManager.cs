@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 
 public class ChatManager : MonoBehaviourPun
 {
+    public string userNickname_tmp;
+
     //ChatItem 공장
     public GameObject chatItemFactory;
     
@@ -25,14 +27,20 @@ public class ChatManager : MonoBehaviourPun
         inputChat.onSubmit.AddListener(OnSubmit);
 
         Cursor.visible = false;
+
+        nickColor = new Color(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f));
     }
     
     void OnSubmit(string s)
     {
-        string chatText = PhotonNetwork.NickName + " : " + s;
-        
-        photonView.RPC("RpcAddChat", RpcTarget.All, chatText);
-        
+        //string chatText = PhotonNetwork.NickName + " : " + s;
+        //string chatText = userNickname_tmp + " : " + s;
+        string chatText = "<color=#" + ColorUtility.ToHtmlStringRGB(nickColor) + ">" + userNickname_tmp + "</color>" + " " + "<color=green>"+s+"</color>";
+        //photonView.RPC("RpcAddChat", RpcTarget.All, chatText);
+
+        GameObject item = Instantiate(chatItemFactory, trContent);
+        item.GetComponent<Text>().text = chatText;
+
         //Debug.Log(s);
         //photonView.RPC("RpcAddChat", RpcTarget.All, s);
 

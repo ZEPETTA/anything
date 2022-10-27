@@ -1814,6 +1814,7 @@ MonoBehaviour:
   scrollViewMyObject: {fileID: 0}
   scrollViewMyUpperObject: {fileID: 0}
   spawnPointPosList: []
+  quadBG: {fileID: 0}
   objImage: {fileID: 0}
   objName: {fileID: 0}
   objSkill: {fileID: 0}
@@ -2985,7 +2986,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1549490576206094799, guid: b9d0f384c03b54c46b1684ca6dded4c4, type: 3}
       propertyPath: portalInfo.mapName
-      value: XR
+      value: XRMinorRoom_H
       objectReference: {fileID: 0}
     - target: {fileID: 1549490576206094799, guid: b9d0f384c03b54c46b1684ca6dded4c4, type: 3}
       propertyPath: portalInfo.moveType

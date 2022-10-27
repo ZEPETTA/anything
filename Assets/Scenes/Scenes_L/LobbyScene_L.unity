@@ -1869,12 +1869,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapMaker: {fileID: 1446859346}
+  searchInputField: {fileID: 0}
   roomPrefab: {fileID: 8661731279233978084, guid: bb168a8b75ef4184eadcf3a9d5b2d107, type: 3}
-  mapMakerInputField:
-  - {fileID: 1196741042}
-  - {fileID: 0}
-  - {fileID: 0}
   roomPanel: {fileID: 0}
+  roomsPanel: {fileID: 0}
 --- !u!4 &1507581208
 Transform:
   m_ObjectHideFlags: 0
