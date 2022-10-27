@@ -29,6 +29,11 @@ public class MainManager_L : MonoBehaviourPunCallbacks
         SceneManager.LoadScene("MyInfoScene_H");
     }
 
+    public void GoLobbyScene()
+    {
+        SceneManager.LoadScene("LobbyScene_L");
+    }
+
     public void OnClickMajor()
     {
         clickedObject = EventSystem.current.currentSelectedGameObject;

@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1920
     height: 989
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 350}
   m_MaxSize: {x: 10000, y: 10000}
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 134
+  controlID: 10542
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 29
+  controlID: 10548
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_MinSize: {x: 100, y: 200}
   m_MaxSize: {x: 8096, y: 16192}
   vertical: 1
-  controlID: 74
+  controlID: 10511
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -341,7 +341,7 @@ MonoBehaviour:
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
-  m_EnterPlayModeBehavior: 0
+  m_EnterPlayModeBehavior: 1
   m_UseMipMap: 0
   m_VSyncEnabled: 0
   m_Gizmos: 0
@@ -642,9 +642,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0, y: 0, z: 0}
+    m_Target: {x: 779.1457, y: 512.0588, z: -2.0020447}
     speed: 2
-    m_Value: {x: 0.00005722046, y: 0.000032186508, z: 0}
+    m_Value: {x: 779.1457, y: 512.0588, z: -2.0020447}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -683,7 +683,7 @@ MonoBehaviour:
       m_Fade:
         m_Target: 0
         speed: 2
-        m_Value: 1
+        m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -691,13 +691,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.035984296, y: 0.020984843, z: -0.0007556786, w: 0.9991334}
+    m_Target: {x: 0.016499162, y: -0.0029996042, z: 0.000049595026, w: 0.9998621}
     speed: 2
-    m_Value: {x: 0, y: 0, z: 0, w: 1}
+    m_Value: {x: 0.016499119, y: -0.0029995963, z: 0.000049594895, w: 0.99985945}
   m_Size:
-    m_Target: 0.70710677
+    m_Target: 650.02454
     speed: 2
-    m_Value: 0.7071073
+    m_Value: 650.02454
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -879,23 +879,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: b2e80000
-      m_LastClickedID: 59570
-      m_ExpandedIDs: 6aa3ffffbaa3ffff3ea4ffff96a4fffff0a4ffff74a5ffff3aa6ffff48a7ffff9ca7ffff72abffff2cadffffd2aeffff20afffff90afffff74b0ffff6ab1ffff2ac2ffff80c5ffffd6c5ffffa2c6ffff94caffff58ceffffc6cfffff1ed3ffff72d4ffffe4d7ffff6ad9ffffcadaffff5adcffff62e4ffffd6e8ffff9ceaffff2cebffff9ef2ffffe8f2ffffd6f7ffff74f9fffff8faffff70820000ac85000090c400000ad8000072d900007cd900008ad9000060da0000f4db00008add000028de00006ede000080e60000
+      m_SelectedIDs: 5021ffff
+      m_LastClickedID: -57008
+      m_ExpandedIDs: 5021ffffae24ffff5a28ffff9a34ffff4235ffff9437ffffb63cffff0e3dffffa23dfffff23dffff6841ffff8458ffffb45effffc05effffda5effff2661ffff4064ffff0e67ffffd467ffffc479ffff407affff4484ffff24b4ffff58c1ffff9ecdffff00d9fffff4ffffff149500003a950000d2950000e29500000a9600005696000040f300009af30000d6160100c817010042190100061a01000a1b01005a1b01008e2b0100062c0100902c0100f82d0100822e01009a310100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: RoomImg
-        m_OriginalName: RoomImg
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 59984
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 10}
       m_SearchString: 
@@ -946,36 +946,36 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Scripts_L
+    - Assets/Scenes/Scenes_L
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Scripts/Scripts_L
+  - Assets/Scenes/Scenes_L
   m_LastFoldersGridSize: 16
   m_LastProjectPath: C:\Users\HP\Desktop\Unity\Project\Civilization_Lyd_Hjh_Alpha\Civilization_Lyd_Hjh_Alpha\anything
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 60}
-    m_SelectedIDs: 36640000
-    m_LastClickedID: 25654
-    m_ExpandedIDs: 0000000026640000286400002a6400002c6400002e64000030640000326400003464000036640000386400003a6400003c6400003e64000000ca9a3b
+    scrollPos: {x: 0, y: 141}
+    m_SelectedIDs: 4a980000
+    m_LastClickedID: 38986
+    m_ExpandedIDs: 000000005a9700005c9700005e97000060970000629700006497000066970000689700006a9700006c9700006e9700007097000072970000249c0000749d0000409f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: ObjectPrefab
+      m_OriginalName: ObjectPrefab
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 38970
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_SearchString: 
@@ -989,7 +989,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000026640000286400002a6400002c6400002e64000030640000326400003464000036640000386400003a6400003c6400003e640000
+    m_ExpandedIDs: 000000005a9700005c9700005e97000060970000629700006497000066970000689700006a9700006c9700006e970000709700007297000010980000409f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1016,22 +1016,22 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c6230000b46200004e910000aa930000006400002265000024ad000000000000
+    m_HadKeyboardFocusLastEvent: 0
+    m_ExpandedInstanceIDs: c6230000b46200004e910000aa930000006400002265000024ad0000000000009c970000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: LobbyScene_L
-      m_OriginalName: LobbyScene_L
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 25860
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 11}
     m_CreateAssetUtility:
