@@ -13,7 +13,6 @@ public class LobbyManager_L : MonoBehaviour
     GameObject outlineImage;
     string clickedRoomName;
     public GameObject roomPrefab;
-    public InputField[] mapMakerInputField;
     public GameObject roomPanel;
     // Start is called before the first frame update
     void Start()
@@ -86,7 +85,6 @@ public class LobbyManager_L : MonoBehaviour
     }
     public void MakeMap()
     {
-        MapInfo.mapName = mapMakerInputField[0].text;
         MapInfo info = new MapInfo();
         string jsonMap = JsonUtility.ToJson(info, true);
         File.WriteAllText(Application.dataPath + "/Resources/Resources_H/MapData" + "/" + MapInfo.mapName + ".txt", jsonMap);

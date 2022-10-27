@@ -95,6 +95,7 @@ public class UserInfo
 
 public class RoomManager_H : MonoBehaviour
 {
+    public MapInfo mapInfo;
     public GameObject wallPrefab;
     public GameObject tilePrefab;
     public GameObject definedAreaPrefab;
@@ -104,6 +105,7 @@ public class RoomManager_H : MonoBehaviour
     public List<Vector3> spawnPointPosList; //로드 시, 리스트에 위치 넣어두고 랜덤 위치에 캐릭터 옮김
     public Material invisible;
     public MeshRenderer bg;
+    public GameObject quadBG;
     // Start is called before the first frame update
     void Start()
     {
@@ -112,6 +114,8 @@ public class RoomManager_H : MonoBehaviour
         string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/"+ MapInfo.mapName +".txt";
         string jsonData = File.ReadAllText(bgpath);
         MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
+        mapInfo = info;
+        quadBG.transform.localScale = new Vector3(info.mapWidth/20, info.mapHeight/20, 1);
         Texture2D bgTexture = new Texture2D(info.mapWidth, info.mapHeight);
         bgTexture.LoadImage(info.backGroundImage);
         bg.material.SetTexture("_MainTex", bgTexture);

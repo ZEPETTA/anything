@@ -116,7 +116,7 @@ public class MapEditor_L : MonoBehaviour
     Vector2 pastSpawnPointPos;
     Vector2 mouseClickPos;
 
-    
+    public GameObject quadBG;
 
     /*    public LineRenderer gridLineRenderer_X;
         public LineRenderer gridLineRenderer_Y;*/
@@ -128,6 +128,7 @@ public class MapEditor_L : MonoBehaviour
         string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/" + MapInfo.mapName + ".txt";
         string jsonData = File.ReadAllText(bgpath);
         MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
+        quadBG.transform.localScale = new Vector3(info.mapWidth / 20, info.mapHeight / 20, 1);
         Texture2D bgTexture = new Texture2D(info.mapWidth, info.mapHeight);
         bgTexture.LoadImage(info.backGroundImage);
         bg.material.SetTexture("_MainTex", bgTexture);

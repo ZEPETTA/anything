@@ -3085,6 +3085,7 @@ MonoBehaviour:
   scrollViewMyObject: {fileID: 0}
   scrollViewMyUpperObject: {fileID: 0}
   spawnPointPosList: []
+  quadBG: {fileID: 0}
   objImage: {fileID: 0}
   objName: {fileID: 0}
   objSkill: {fileID: 0}
@@ -9812,6 +9813,7 @@ MonoBehaviour:
   scrollViewMyObject: {fileID: 1972364924}
   scrollViewMyUpperObject: {fileID: 1191316968}
   spawnPointPosList: []
+  quadBG: {fileID: 347564330}
   objImage: {fileID: 0}
   objName: {fileID: 1111504898}
   objSkill: {fileID: 2041168258}
