@@ -12,20 +12,28 @@ public class LobbyManager_L : MonoBehaviour
     GameObject clickedObject;
     GameObject outlineImage;
     string clickedRoomName;
+    public InputField searchInputField;
     public GameObject roomPrefab;
     public GameObject roomPanel;
+    public Transform roomsPanel;
+    List<Room_H> spaceName = new List<Room_H>();
     // Start is called before the first frame update
     void Start()
     {
         clickedRoomName = "RoomScene_H";
         LoadRoomList();
+        searchInputField.onValueChanged.AddListener(OnSearchFilterValueChange);
+    }
+
+    void OnSearchFilterValueChange(string value)
+    {
+
     }
 
     void LoadRoomList()
     {
         DirectoryInfo directoryInfo = new DirectoryInfo(Application.dataPath + "/Resources/Resources_H/MapData");
         FileInfo[] fileInfos = directoryInfo.GetFiles("*.txt");
-        GameObject rooms = GameObject.Find("RoomsPanel");
         for(int i =0; i < fileInfos.Length; i++)
         {
             if (i == 0)
@@ -33,8 +41,9 @@ public class LobbyManager_L : MonoBehaviour
                 continue;
             }
             GameObject room = Instantiate(roomPrefab);
-            room.transform.SetParent(roomPanel.transform, false);
+            room.transform.SetParent(roomsPanel, false);
             room.GetComponent<Room_H>().roomName = fileInfos[i].Name;
+            spaceName.Add(room.GetComponent<Room_H>());
         }
     }
 
@@ -75,20 +84,26 @@ public class LobbyManager_L : MonoBehaviour
         }
 
     }
-    public void OnClickCreateRoom()
-    {
-        mapMaker.SetActive(true);
-    }
-    public void OnQuit()
-    {
-        mapMaker.SetActive(false);
-    }
     public void MakeMap()
     {
         MapInfo info = new MapInfo();
         string jsonMap = JsonUtility.ToJson(info, true);
         File.WriteAllText(Application.dataPath + "/Resources/Resources_H/MapData" + "/" + MapInfo.mapName + ".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.tag == "Player")
+        {
+            mapMaker.SetActive(true);
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            mapMaker.SetActive(false);
+        }
     }
 
 }
