@@ -4,6 +4,14 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class SpaceInfo
+{
+    public List<MapInfo> mapList;
+    public string makerID;
+    public static string spaceName;
+    public string spaceIntroduction;
+}
 
 [System.Serializable]
 public class MapInfo
