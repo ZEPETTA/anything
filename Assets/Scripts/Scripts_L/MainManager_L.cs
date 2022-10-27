@@ -23,6 +23,10 @@ public class MainManager_L : MonoBehaviour
         
     }
 
+    public void GoInfoScene()
+    {
+        SceneManager.LoadScene("MyInfoScene_H");
+    }
 
     public void OnClickMajor()
     {
