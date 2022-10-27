@@ -107,7 +107,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
                 break;
             case PortalInfo.PlaceType.DetailMajor:
                 LeaveRoom();
-                //MapInfo.mapName = portalInfo.mapName;
+                MapInfo.mapName = portalInfo.mapName;
                 //SceneManager.LoadScene("RoomScene_H");
                 //PhotonNetwork.LoadLevel(MapInfo.mapName);
                 break;
@@ -139,7 +139,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
         {
             print("다른 방으로");
             print("On Left Room 로비 안에 있나요?? : " + PhotonNetwork.InLobby);
-            JoinLobby();
+            //JoinLobby();
             //JoinMajorRoom();
         }
         else
@@ -149,10 +149,18 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
         }
     }
 
+    public override void OnConnectedToMaster()
+    {
+        base.OnConnectedToMaster();
+        JoinMajorRoom();
+        print("방 나왔음");
+    }
+
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
-        JoinMajorRoom();
+        print("OnJoinedLobby 호출");
+        
         //print("로비 안에 있나요?? : " + PhotonNetwork.InLobby);
 
     }
@@ -161,7 +169,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         print("방으로 이동");
-        PhotonNetwork.LoadLevel(portalInfo.mapName);
+        PhotonNetwork.LoadLevel(MapInfo.mapName);
     }
 
 
