@@ -30,6 +30,7 @@ KeyCode.Alpha9,
 };
     public bool inObj = false;
     public ObjectInfo_H objInfo;
+    public UserInfo user;
     void Start()
     {
         animator = GetComponent<Animator>();

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpeechBubble_H : MonoBehaviour
 {
     public float speechTime = 1f;
+    public bool thisisObject = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +15,10 @@ public class SpeechBubble_H : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = Camera.main.WorldToScreenPoint(transform.parent.parent.position + new Vector3(0, 2f, 0));
+        if(thisisObject == true)
+        {
+            gameObject.transform.position = Camera.main.WorldToScreenPoint(transform.parent.parent.position + new Vector3(0, 2f, 0));
+        }
     }
     private void OnEnable()
     {
