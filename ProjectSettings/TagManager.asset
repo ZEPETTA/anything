@@ -68,3 +68,6 @@ TagManager:
   - name: TileEffect
     uniqueID: 2985155179
     locked: 0
+  - name: FixedObjects
+    uniqueID: 1642392673
+    locked: 0
