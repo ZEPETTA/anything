@@ -39,7 +39,11 @@ public class NoticeBoardManager_L : MonoBehaviour
 
         postit.GetComponentInChildren<Text>().text = inputPostit.text;
         inputPostit.text = "";
+        toggleList[0].isOn = true;
+        categoryType = CategoryType.Chat;
+
         noticeBoardWriteView.SetActive(false);
+
     }
 
     public void OnToggleSwitch()
