@@ -7,11 +7,11 @@ public class FixedObject_L : MonoBehaviour
     public enum FixedObjectType
     {
         NewsStand,
-        GuestBook
+        NoticeBoard
     }
 
     public GameObject panelNewsStand;
-    public GameObject panelGuestBook;
+    public GameObject panelNoticeBoard;
 
     public FixedObjectType fixedObjectType;
 
@@ -42,8 +42,8 @@ public class FixedObject_L : MonoBehaviour
             case FixedObjectType.NewsStand:
                 panelNewsStand.SetActive(true);
                 break;
-            case FixedObjectType.GuestBook:
-                panelGuestBook.SetActive(true);
+            case FixedObjectType.NoticeBoard:
+                panelNoticeBoard.SetActive(true);
                 break;
         }
     }
