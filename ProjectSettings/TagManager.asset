@@ -10,6 +10,9 @@ TagManager:
   - DefinedAreaParent
   - Object
   - MainRoom
+  - MajorArtWorkItem
+  - MajorWorkEditBtn
+  - MyInfoManager_L
   layers:
   - Default
   - TransparentFX
