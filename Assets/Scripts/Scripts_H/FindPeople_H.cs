@@ -40,6 +40,7 @@ public class FindPeople_H : MonoBehaviour
     {
         if (CalenderOn == true && Input.GetKeyDown(KeyCode.F))
         {
+            Debug.Log("Hello??");
             findDialog.SetActive(true);
         }
         if(searchOn == true && Input.GetKeyDown(KeyCode.Return))

@@ -17,6 +17,7 @@ public class Calendar_H : MonoBehaviour
     {
         if(CalenderOn == true && Input.GetKeyDown(KeyCode.F))
         {
+            Debug.Log("HEyt");
             calendar.GetComponent<CalendarController>().ShowCalendar();
         }
     }

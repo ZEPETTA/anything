@@ -222,6 +222,7 @@ public class FileManager_H : MonoBehaviour
             rawImage.texture = myTexture;
             singUpCheck[4] = true;
             SelectImage.gameObject.SetActive(true);
+            Invoke("ProtoTest",2f);
             //byte[] textuerData = convertedTexture.EncodeToJPG();
             //if (Directory.Exists(pythonDirectory) == false)
             //{
@@ -229,6 +230,10 @@ public class FileManager_H : MonoBehaviour
             //}
             //File.WriteAllBytes(pythonDirectory + "/cardImage.jpg", textuerData);
         }
+    }
+    void ProtoTest() //프로토 용 임시 함수
+    {
+        cardCheckText.text ="예술공학과로\n인증되셨습니다";
     }
 
     IEnumerator GetString()
