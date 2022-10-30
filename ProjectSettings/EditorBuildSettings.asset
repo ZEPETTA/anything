@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Scenes_H/XRMinorRoom_H.unity
     guid: 7c49c6ff2b2990046a3c3c79fcc6ae4e
   - enabled: 1
+    path: Assets/Scenes/Scenes_H/CSMajorRoom_H_TEST.unity
+    guid: e6711e6a5cbbc25438dc0696caa59f06
+  - enabled: 1
     path: Assets/Scenes/Scenes_H/RoomScene_H.unity
     guid: c2b18875f9d519844890be36f69e6338
   - enabled: 1
