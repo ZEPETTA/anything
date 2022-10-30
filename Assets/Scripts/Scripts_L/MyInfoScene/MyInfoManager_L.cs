@@ -20,10 +20,52 @@ public class MyInfoManager_L : MonoBehaviour
     public GameObject currClickedMajorWorkItem;
     public RawImage majorWorkDetail;
 
+
+    [Header("Edit할 InputField, Text 오브젝트")]
+    public GameObject inputNickname;
+    public GameObject textPW;
+    public GameObject inputDetailMajor;
+    public GameObject inputKeyword;
+    public GameObject inputSpecialty;
+    public GameObject inputVision;
+    public GameObject inputUrl;
+
+    [Header("Edit 반영할 Text 오브젝트")]
+    public GameObject textNickname;
+    public GameObject textDetailMajor;
+    public GameObject textKeyword;
+    public GameObject textSpecialty;
+    public GameObject textVision;
+    public GameObject textUrl;
+
+    [Header("Edit 관련 Button 오브젝트")]
+    public GameObject btnCheckNickname;
+    public GameObject btnChangePhoneNum;
+    public GameObject btnWithdraw;
+    public GameObject btnChangeDepart; 
+    public GameObject btnSave;
+    public GameObject btnEdit;
+
+    public List<InputField> inputFieldList;
+    public List<Text> textList;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
+        inputFieldList.Add(inputNickname.GetComponent<InputField>());
+        inputFieldList.Add(inputDetailMajor.GetComponent<InputField>());
+        inputFieldList.Add(inputKeyword.GetComponent<InputField>());
+        inputFieldList.Add(inputSpecialty.GetComponent<InputField>());
+        inputFieldList.Add(inputVision.GetComponent<InputField>());
+        inputFieldList.Add(inputUrl.GetComponentInChildren<InputField>());
+
+        textList.Add(textNickname.GetComponent<Text>());
+        textList.Add(textDetailMajor.GetComponent<Text>());
+        textList.Add(textKeyword.GetComponent<Text>());
+        textList.Add(textSpecialty.GetComponent<Text>());
+        textList.Add(textVision.GetComponent<Text>());
+        textList.Add(textUrl.GetComponent<Text>());
     }
 
     // Update is called once per frame
@@ -96,5 +138,66 @@ public class MyInfoManager_L : MonoBehaviour
     {
         Destroy(currClickedMajorWorkItem);
         panelMajorWorkEdit.SetActive(false);
+    }
+
+    public void OnClickBtnEdit()
+    {
+        btnEdit.SetActive(false);
+        btnSave.SetActive(true);
+
+        for(int i = 0; i < inputFieldList.Count; i++)
+        {
+            inputFieldList[i].text = textList[i].text;
+        }
+
+        inputNickname.SetActive(true);
+        btnCheckNickname.SetActive(true);
+        btnChangePhoneNum.SetActive(true);
+        textPW.SetActive(true);
+        btnWithdraw.SetActive(true);
+        inputDetailMajor.SetActive(true);
+        inputKeyword.SetActive(true);
+        inputSpecialty.SetActive(true);
+        inputVision.SetActive(true);
+        inputUrl.SetActive(true);
+        btnChangeDepart.SetActive(true);
+
+        textNickname.SetActive(false);
+        textDetailMajor.SetActive(false);
+        textKeyword.SetActive(false);
+        textSpecialty.SetActive(false);
+        textVision.SetActive(false);
+
+
+        
+    }
+
+    public void OnClickBtnSave()
+    {
+        btnEdit.SetActive(true);
+        btnSave.SetActive(false);
+
+        for(int i = 0; i < inputFieldList.Count; i++)
+        {
+            textList[i].text = inputFieldList[i].text;
+        }
+
+        inputNickname.SetActive(false);
+        btnCheckNickname.SetActive(false);
+        btnChangePhoneNum.SetActive(false);
+        textPW.SetActive(false);
+        btnWithdraw.SetActive(false);
+        inputDetailMajor.SetActive(false);
+        inputKeyword.SetActive(false);
+        inputSpecialty.SetActive(false);
+        inputVision.SetActive(false);
+        inputUrl.SetActive(false);
+        btnChangeDepart.SetActive(false);
+
+        textNickname.SetActive(true);
+        textDetailMajor.SetActive(true);
+        textKeyword.SetActive(true);
+        textSpecialty.SetActive(true);
+        textVision.SetActive(true);
     }
 }
