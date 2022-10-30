@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
-
+using SFB;
 
 
 
@@ -176,13 +176,30 @@ public class FileManager_H : MonoBehaviour
     }
     #endregion
     #region 학과전공 인증 파트
+    public string pythonDirectory;
+    public Text cardCheckText;
+    public Button xCardButton;
     public void OnCardButton()
     {
         CardUP.SetActive(true);
     }
+    public string WriteResult(string[] paths)
+    {
+        string result = "";
+        if (paths.Length == 0)
+        {
+            return "";
+        }
+        foreach (string p in paths)
+        {
+            result += p + "\n";
+        }
+        return result;
+    }
     public void OpeinFileExplorer()
     {
-        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+        path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
+        //path = EditorUtility.OpenFilePanel("Show all images(.jpg)", "", "jpg");
         StartCoroutine(GetTexture());
     }
     public void XCardButton()
@@ -191,6 +208,7 @@ public class FileManager_H : MonoBehaviour
     }
     IEnumerator GetTexture()
     {
+        //xCardButton.interactable = false;
         UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + path);
         yield return www.SendWebRequest();
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError)
@@ -200,9 +218,35 @@ public class FileManager_H : MonoBehaviour
         else
         {
             Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            Texture2D convertedTexture = (Texture2D)myTexture;
             rawImage.texture = myTexture;
             singUpCheck[4] = true;
             SelectImage.gameObject.SetActive(true);
+            //byte[] textuerData = convertedTexture.EncodeToJPG();
+            //if (Directory.Exists(pythonDirectory) == false)
+            //{
+            //    Directory.CreateDirectory(pythonDirectory);
+            //}
+            //File.WriteAllBytes(pythonDirectory + "/cardImage.jpg", textuerData);
+        }
+    }
+
+    IEnumerator GetString()
+    {
+        FileInfo fileInfo = new FileInfo(pythonDirectory +"/cardData.txt");
+        string value = "";
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+            if (fileInfo.Exists)
+            {
+                StreamReader reader = new StreamReader(pythonDirectory + "/cardData.txt");
+                value = reader.ReadToEnd();
+                reader.Close();
+                cardCheckText.text = value + "과로 인증되셨습니다";
+                xCardButton.interactable = true;
+                break;
+            }
         }
     }
     #endregion

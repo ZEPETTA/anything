@@ -6,6 +6,7 @@ using System.IO;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
+using SFB;
 
 public class MapEditor_L : MonoBehaviour
 {
@@ -357,12 +358,26 @@ public class MapEditor_L : MonoBehaviour
         objectType = ObjectType.Text;
     }
     #region 오브젝트 이미지 가져오기
+    public string WriteResult(string[] paths)
+    {
+        string result = "";
+        if (paths.Length == 0)
+        {
+            return "";
+        }
+        foreach (string p in paths)
+        {
+            result += p + "\n";
+        }
+        return result;
+    }
     string path;
     GameObject objButton;
     public void SelectImage()
     {
         objectType = ObjectType.Image;
-        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+        path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
+        //path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
         if(path.Length > 0)
         {
             objButton = Instantiate(objectButtonPrefab);

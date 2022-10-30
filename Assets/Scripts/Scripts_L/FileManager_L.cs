@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using UnityEditor;
 using System.IO;
 using UnityEngine.SceneManagement;
+using SFB;
 
 public class FileManager_L : MonoBehaviour
 {
@@ -32,16 +33,35 @@ public class FileManager_L : MonoBehaviour
     {
         
     }
-
+    public string WriteResult(string[] paths)
+    {
+        string result = "";
+        if (paths.Length == 0)
+        {
+            return "";
+        }
+        foreach (string p in paths)
+        {
+            result += p + "\n";
+        }
+        return result;
+    }
     public void OnClickSetBG()
     {
-        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+#if UNITY_EDITOR
+        //path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+        path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
+#else
+        
+#endif
         StartCoroutine(IESetBG());
     }
 
     public void OnClickSetFG()
     {
-        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+        path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
+        //path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+
         StartCoroutine(IESetFG());
     }
 
@@ -88,7 +108,7 @@ public class FileManager_L : MonoBehaviour
     }
     public void SaveMap()
     {
-        #region 맵 배경 저장
+#region 맵 배경 저장
         MapInfo backGroundInfo = new MapInfo();
         backGroundInfo.backGroundImage = mapImage;
         backGroundInfo.mapWidth = mapWidth;
@@ -98,8 +118,8 @@ public class FileManager_L : MonoBehaviour
         {
             Directory.CreateDirectory(path);
         }
-        #endregion
-        #region 맵 노말 타일 저장
+#endregion
+#region 맵 노말 타일 저장
         GameObject tileParent = GameObject.Find("TileParent");
         int a = tileParent.transform.childCount;
         List<TileInfo> tileInfos = new List<TileInfo>();
@@ -113,8 +133,8 @@ public class FileManager_L : MonoBehaviour
             tileInfos.Add(tileInfo);
         }
         backGroundInfo.tileList = tileInfos;
-        #endregion
-        #region 맵 지정구역 저장
+#endregion
+#region 맵 지정구역 저장
         GameObject definedArea = GameObject.Find("DefinedAreaParent");
         List<string> nameList = new List<string>();
         List<DefinedAreaInfo> definedAreaInfos = new List<DefinedAreaInfo>();
@@ -132,8 +152,8 @@ public class FileManager_L : MonoBehaviour
         }
         backGroundInfo.definedAreaList = definedAreaInfos;
         backGroundInfo.areaName = nameList;
-        #endregion
-        #region 맵 포탈 저장
+#endregion
+#region 맵 포탈 저장
         GameObject portal = GameObject.Find("PortalParent");
         if(portal != null)
         {
@@ -150,8 +170,8 @@ public class FileManager_L : MonoBehaviour
             backGroundInfo.portalList = portalInfoList;
         }
         
-        #endregion
-        #region 맵 벽(이동불가능 구역)저장
+#endregion
+#region 맵 벽(이동불가능 구역)저장
         GameObject wall = GameObject.Find("WallParent");
         List<WallInfo> wallInfos = new List<WallInfo>();
         for(int i =0; i<wall.transform.childCount; i++)
@@ -161,8 +181,8 @@ public class FileManager_L : MonoBehaviour
             wallInfos.Add(wallInfo);
         }
         backGroundInfo.wallList = wallInfos;
-        #endregion
-        #region 스폰 지점 저장
+#endregion
+#region 스폰 지점 저장
         Transform spawnPointParent = GameObject.Find("SpawnPointParent").transform;
         if (spawnPointParent)
         {
@@ -176,8 +196,8 @@ public class FileManager_L : MonoBehaviour
             }
             backGroundInfo.spawnPointInfoList = spawnPointInfoList;
         }
-        #endregion
-        #region 오브젝트 저장
+#endregion
+#region 오브젝트 저장
         GameObject objectP = GameObject.Find("ObjectParent");
         List<ObjectInfo> objectInfos = new List<ObjectInfo>();
         for(int i =0; i < objectP.transform.childCount; i++)
@@ -185,7 +205,7 @@ public class FileManager_L : MonoBehaviour
             objectInfos.Add(objectP.transform.GetChild(i).GetChild(0).gameObject.GetComponent<ObjectInfo_H>().objectInfo);
         }
         backGroundInfo.objectList = objectInfos;
-        #endregion
+#endregion
         string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
         File.WriteAllText(path + "/" + MapInfo.mapName +".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
