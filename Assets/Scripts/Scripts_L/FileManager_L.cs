@@ -17,7 +17,8 @@ public class FileManager_L : MonoBehaviour
     string savepth;
     int mapWidth;
     int mapHeight;
-    SpaceInfo spaceInfo;
+    public int mapSize = 0;
+    public MapInfo[] mapinfos;
     // Start is called before the first frame update
     void Start()
     {
@@ -110,7 +111,6 @@ public class FileManager_L : MonoBehaviour
         #region 맵 배경 저장
         SpaceInfo spaceInfo = new SpaceInfo();
         MapInfo backGroundInfo = new MapInfo();
-        spaceInfo.mapList.Add(backGroundInfo);
         backGroundInfo.backGroundImage = mapImage;
         backGroundInfo.mapWidth = mapWidth;
         backGroundInfo.mapHeight = mapHeight;
@@ -206,8 +206,25 @@ public class FileManager_L : MonoBehaviour
             objectInfos.Add(objectP.transform.GetChild(i).GetChild(0).gameObject.GetComponent<ObjectInfo_H>().objectInfo);
         }
         backGroundInfo.objectList = objectInfos;
-#endregion
-        string jsonMap = JsonUtility.ToJson(spaceInfo,true);
+        #endregion
+        #region 맵사이즈 저장
+        switch (mapSize)
+        {
+            case 0:
+                backGroundInfo.mapSize = MapInfo.MapSize.Small;
+                break;
+            case 1:
+                backGroundInfo.mapSize = MapInfo.MapSize.Mideum;
+                break;
+            case 2:
+                backGroundInfo.mapSize = MapInfo.MapSize.Big;
+                break;
+        }
+        #endregion
+        List<MapInfo> mapInfos = new List<MapInfo>();
+        mapInfos.Add(backGroundInfo);
+        spaceInfo.mapList = mapInfos;
+        string jsonMap = JsonUtility.ToJson(spaceInfo);
         File.WriteAllText(path + "/" + SpaceInfo.spaceName +".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
     }

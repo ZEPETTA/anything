@@ -128,7 +128,7 @@ public class RoomManager_H : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-
+        
         #region 배경화면 가져오기
         string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/"+ SpaceInfo.spaceName +".txt";
         string jsonData = File.ReadAllText(bgpath);

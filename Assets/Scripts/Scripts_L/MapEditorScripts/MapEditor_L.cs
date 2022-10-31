@@ -120,18 +120,21 @@ public class MapEditor_L : MonoBehaviour
     public GameObject quadBG;
     /*    public LineRenderer gridLineRenderer_X;
         public LineRenderer gridLineRenderer_Y;*/
-
-    public void BigToggle()
+    public FileManager_L fileManger;
+    public void SmallToggle()
     {
         quadBG.transform.localScale = new Vector3(60, 30, 1);
+        fileManger.mapSize = 0;
     }
     public void MideumToggle()
     {
         quadBG.transform.localScale = new Vector3(120, 60, 1);
+        fileManger.mapSize = 1;
     }
-    public void SmallToggle()
+    public void BigToggle()
     {
         quadBG.transform.localScale = new Vector3(180, 60, 1);
+        fileManger.mapSize = 2;
     }
     // Start is called before the first frame update
     void Start()
