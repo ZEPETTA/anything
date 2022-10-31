@@ -187,6 +187,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
     {
         if (collision.transform.tag == "Player")
         {
+            print("방 들어감");
             if (portalInfo.moveType == PortalInfo.MoveType.Instant)
             {
                 MovePlayer(collision.gameObject);
