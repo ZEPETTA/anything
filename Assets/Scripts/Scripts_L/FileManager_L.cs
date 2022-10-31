@@ -21,9 +21,9 @@ public class FileManager_L : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(MapInfo.mapName == null)
+        if(SpaceInfo.spaceName == null)
         {
-            MapInfo.mapName = testMapName;
+            SpaceInfo.spaceName = testMapName;
         }
         savepth = Application.dataPath + "/Resources/Resources_H/MapData";
     }
@@ -49,8 +49,9 @@ public class FileManager_L : MonoBehaviour
     public void OnClickSetBG()
     {
 #if UNITY_EDITOR
-        //path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
-        path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
+        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+        //path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
+        Debug.Log(path);
 #else
         
 #endif
@@ -59,8 +60,8 @@ public class FileManager_L : MonoBehaviour
 
     public void OnClickSetFG()
     {
-        path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
-        //path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+        //path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
+        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
 
         StartCoroutine(IESetFG());
     }
@@ -108,8 +109,10 @@ public class FileManager_L : MonoBehaviour
     }
     public void SaveMap()
     {
-#region ∏  πË∞Ê ¿˙¿Â
+        #region ∏  πË∞Ê ¿˙¿Â
+        SpaceInfo spaceInfo = new SpaceInfo();
         MapInfo backGroundInfo = new MapInfo();
+        spaceInfo.mapList.Add(backGroundInfo);
         backGroundInfo.backGroundImage = mapImage;
         backGroundInfo.mapWidth = mapWidth;
         backGroundInfo.mapHeight = mapHeight;
@@ -206,8 +209,8 @@ public class FileManager_L : MonoBehaviour
         }
         backGroundInfo.objectList = objectInfos;
 #endregion
-        string jsonMap = JsonUtility.ToJson(backGroundInfo,true);
-        File.WriteAllText(path + "/" + MapInfo.mapName +".txt", jsonMap);
+        string jsonMap = JsonUtility.ToJson(spaceInfo,true);
+        File.WriteAllText(path + "/" + SpaceInfo.spaceName +".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
     }
 }

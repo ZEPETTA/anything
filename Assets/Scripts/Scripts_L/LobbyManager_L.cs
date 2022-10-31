@@ -69,7 +69,7 @@ public class LobbyManager_L : MonoBehaviour
                     if(outlineImage == clickedObject.transform.GetChild(0).gameObject)
                     {
                         //clickedRoomName = clickedObject.GetComponentInChildren<Text>().text;
-                        MapInfo.mapName = clickedObject.GetComponent<Room_H>().roomName;
+                        SpaceInfo.spaceName = clickedObject.GetComponent<Room_H>().roomName;
                         SceneManager.LoadScene(clickedRoomName);
                         break;
                     }
@@ -86,9 +86,9 @@ public class LobbyManager_L : MonoBehaviour
     }
     public void MakeMap()
     {
-        MapInfo info = new MapInfo();
+        SpaceInfo info = new SpaceInfo();
         string jsonMap = JsonUtility.ToJson(info, true);
-        File.WriteAllText(Application.dataPath + "/Resources/Resources_H/MapData" + "/" + MapInfo.mapName + ".txt", jsonMap);
+        File.WriteAllText(Application.dataPath + "/Resources/Resources_H/MapData" + "/" + SpaceInfo.spaceName + ".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
     }
     private void OnTriggerEnter2D(Collider2D collision)
