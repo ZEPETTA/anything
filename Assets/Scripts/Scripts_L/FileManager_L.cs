@@ -67,6 +67,7 @@ public class FileManager_L : MonoBehaviour
 
     IEnumerator IESetBG()
     {
+        
         UnityWebRequest www = UnityWebRequestTexture.GetTexture("file:///" + path);
 
         yield return www.SendWebRequest();

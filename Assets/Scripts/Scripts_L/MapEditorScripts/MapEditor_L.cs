@@ -736,9 +736,23 @@ public class MapEditor_L : MonoBehaviour
 
             if (Physics.Raycast(ray, out hitInfo))
             {
+                print(hitInfo.transform.gameObject.name);
+
                 if (hitInfo.transform.tag == "Tile" || hitInfo.transform.tag == "Object")
                 {
                     Destroy(hitInfo.transform.gameObject);
+                }
+            }
+            Vector2 wp = Camera.main.ScreenToWorldPoint(Input.mousePosition); // ÅÍÄ¡ÇÑ ÁÂÇ¥¸¦ °¡Á® ¿È
+            Ray2D ray2D = new Ray2D(wp, Vector2.zero);
+     
+            RaycastHit2D hit2D = Physics2D.Raycast(Vector2.zero, wp);
+
+            if (hit2D)
+            {
+                if (hit2D.transform.tag == "Tile" || hit2D.transform.tag == "Object")
+                {
+                    Destroy(hit2D.transform.gameObject);
                 }
             }
         }
