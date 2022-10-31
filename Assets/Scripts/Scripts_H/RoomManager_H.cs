@@ -17,6 +17,13 @@ public class SpaceInfo
 public class MapInfo
 {
     public static string mapName;
+    public enum MapSize
+    {
+        Big,
+        Mideum,
+        Small
+    }
+    public MapSize mapSize;
     public byte[] backGroundImage;
     public int mapWidth;
     public int mapHeight;
@@ -119,9 +126,11 @@ public class RoomManager_H : MonoBehaviour
     {
 
         #region 배경화면 가져오기
-        string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/"+ MapInfo.mapName +".txt";
+        string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/"+ SpaceInfo.spaceName +".txt";
         string jsonData = File.ReadAllText(bgpath);
-        MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
+        SpaceInfo spaceInfo = JsonUtility.FromJson<SpaceInfo>(jsonData);
+        //MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
+        MapInfo info = spaceInfo.mapList[0];
         mapInfo = info;
         quadBG.transform.localScale = new Vector3(info.mapWidth/20, info.mapHeight/20, 1);
         Texture2D bgTexture = new Texture2D(info.mapWidth, info.mapHeight);
