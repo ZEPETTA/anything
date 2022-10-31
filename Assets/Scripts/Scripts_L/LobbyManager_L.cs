@@ -1,12 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using System.IO;
+using UnityEngine.UI;
+using Photon.Pun;
 
-public class LobbyManager_L : MonoBehaviour
+public class LobbyManager_L : MonoBehaviourPun
 {
     public GameObject mapMaker;
     GameObject clickedObject;
@@ -17,12 +17,14 @@ public class LobbyManager_L : MonoBehaviour
     public GameObject roomPanel;
     public Transform roomsPanel;
     List<Room_H> spaceName = new List<Room_H>();
+    DetailMajorManager_L detailMajorManager;
     // Start is called before the first frame update
     void Start()
     {
         clickedRoomName = "RoomScene_H";
         LoadRoomList();
         searchInputField.onValueChanged.AddListener(OnSearchFilterValueChange);
+        detailMajorManager = GameObject.Find("DetailMajorManager").GetComponent<DetailMajorManager_L>();
     }
 
     void OnSearchFilterValueChange(string value)
@@ -70,6 +72,7 @@ public class LobbyManager_L : MonoBehaviour
                     {
                         //clickedRoomName = clickedObject.GetComponentInChildren<Text>().text;
                         SpaceInfo.spaceName = clickedObject.GetComponent<Room_H>().roomName;
+                        PhotonNetwork.Destroy(detailMajorManager.player);
                         SceneManager.LoadScene(clickedRoomName);
                         break;
                     }

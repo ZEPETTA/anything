@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 [System.Serializable]
 public class SpaceInfo
@@ -108,7 +109,7 @@ public class UserInfo
     public string departmentName;
 }
 
-public class RoomManager_H : MonoBehaviour
+public class RoomManager_H : MonoBehaviourPun
 {
     public MapInfo mapInfo;
     public GameObject wallPrefab;
@@ -121,6 +122,9 @@ public class RoomManager_H : MonoBehaviour
     public Material invisible;
     public MeshRenderer bg;
     public GameObject quadBG;
+
+    public GameObject player;
+    public Transform playerSpawnPos;
     // Start is called before the first frame update
     void Start()
     {
@@ -225,12 +229,17 @@ public class RoomManager_H : MonoBehaviour
             obj.transform.parent = objectParent.transform;
         }
         #endregion
+
+        player = PhotonNetwork.Instantiate("$Main_Character_1_0_2D", playerSpawnPos.position, Quaternion.identity);
+        player.GetComponent<CharacterMove_H>().enabled = true;
+
         if (spawnPointPosList.Count > 0)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
             int randPos = Random.Range(0, spawnPointPosList.Count);
             player.transform.position = spawnPointPosList[randPos];
         }
+
+
         //스폰 지점에 캐릭터 위치
         //포톤 도입 시 캐릭터 찾는 부분 수정 필요
     }

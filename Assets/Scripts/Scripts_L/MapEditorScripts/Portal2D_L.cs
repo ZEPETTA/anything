@@ -43,6 +43,8 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
     bool onPlayer = false;
     bool goOtherRoom = false;
     GameObject player;
+
+    MajorRoomManager_L majorRoomManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -55,12 +57,13 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
         //==============
 
         definedAreaParent = GameObject.Find("DefinedAreaParent");
+
+        majorRoomManager = GameObject.Find("MajorRoomManager").GetComponent<MajorRoomManager_L>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
         if (onPlayer == true)
         {
             if (Input.GetKeyDown(KeyCode.F))
@@ -152,6 +155,8 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
+        if (majorRoomManager.player)
+            PhotonNetwork.Destroy(majorRoomManager.player);
         JoinMajorRoom();
         print("방 나왔음");
     }
@@ -169,7 +174,9 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         print("방으로 이동");
-        PhotonNetwork.LoadLevel(SpaceInfo.spaceName);
+        //PhotonNetwork.LoadLevel(SpaceInfo.spaceName);
+
+        SceneManager.LoadScene(SpaceInfo.spaceName);
     }
 
 

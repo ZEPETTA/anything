@@ -48,20 +48,17 @@ public class FileManager_L : MonoBehaviour
     }
     public void OnClickSetBG()
     {
-#if UNITY_EDITOR
-        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
-        //path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
+        //path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+        path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
         Debug.Log(path);
-#else
-        
-#endif
+
         StartCoroutine(IESetBG());
     }
 
     public void OnClickSetFG()
     {
-        //path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
-        path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
+        path = WriteResult(StandaloneFileBrowser.OpenFilePanel("Open File", "", "", false));
+        //path = EditorUtility.OpenFilePanel("Show all images(.png)", "", "png");
 
         StartCoroutine(IESetFG());
     }

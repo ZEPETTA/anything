@@ -1829,6 +1829,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: $Main_Character_1_0_2D
       objectReference: {fileID: 0}
+    - target: {fileID: 1246517028338502516, guid: ff4dfb00bc62c9143bb8b0c5f9de2f30, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5592528000011319473, guid: ff4dfb00bc62c9143bb8b0c5f9de2f30, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -3855,6 +3859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapInfo:
+    mapSize: 0
     backGroundImage: 
     mapWidth: 0
     mapHeight: 0
@@ -3875,6 +3880,8 @@ MonoBehaviour:
   invisible: {fileID: 0}
   bg: {fileID: 1181179989}
   quadBG: {fileID: 1181179987}
+  player: {fileID: 0}
+  playerSpawnPos: {fileID: 2009762683}
 --- !u!4 &1623578143
 Transform:
   m_ObjectHideFlags: 0
@@ -4155,6 +4162,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 1
   m_VerticalFit: 2
+--- !u!1 &2009762682
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2009762683}
+  m_Layer: 0
+  m_Name: DefaultSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 3936346786652291628, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2009762683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009762682}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2091552839
 GameObject:
   m_ObjectHideFlags: 0

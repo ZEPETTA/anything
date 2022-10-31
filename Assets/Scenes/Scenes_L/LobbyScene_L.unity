@@ -2985,7 +2985,7 @@ PrefabInstance:
       objectReference: {fileID: 923872025}
     - target: {fileID: 9032411772641415998, guid: e5c2e0894792b0740865ca4db6afe123, type: 3}
       propertyPath: majorSceneName
-      value: CSMajorRoom_H_TEST
+      value: CSMajorRoom_H
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5c2e0894792b0740865ca4db6afe123, type: 3}

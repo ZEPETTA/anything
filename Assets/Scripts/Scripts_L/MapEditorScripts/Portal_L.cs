@@ -13,6 +13,7 @@ public class Portal_L : MonoBehaviour
     public float playerZ = 0f;
     GameObject definedAreaParent;
     bool onPlayer = false;
+
     GameObject player;
     // Start is called before the first frame update
     void Start()
@@ -26,6 +27,7 @@ public class Portal_L : MonoBehaviour
         //==============
 
         definedAreaParent = GameObject.Find("DefinedAreaParent");
+
     }
 
     // Update is called once per frame
