@@ -116,19 +116,32 @@ public class MapEditor_L : MonoBehaviour
     Vector2 pastPortalPos;
     Vector2 pastSpawnPointPos;
     Vector2 mouseClickPos;
-
+    public int mapCount;
     public GameObject quadBG;
-
     /*    public LineRenderer gridLineRenderer_X;
         public LineRenderer gridLineRenderer_Y;*/
 
+    public void BigToggle()
+    {
+        quadBG.transform.localScale = new Vector3(60, 30, 1);
+    }
+    public void MideumToggle()
+    {
+        quadBG.transform.localScale = new Vector3(120, 60, 1);
+    }
+    public void SmallToggle()
+    {
+        quadBG.transform.localScale = new Vector3(180, 60, 1);
+    }
     // Start is called before the first frame update
     void Start()
     {
         #region 배경화면 가져오기
-        string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/" + MapInfo.mapName + ".txt";
+        string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/" + SpaceInfo.spaceName + ".txt";
         string jsonData = File.ReadAllText(bgpath);
-        MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
+        SpaceInfo spaceInfo = JsonUtility.FromJson<SpaceInfo>(jsonData);
+        MapInfo info = spaceInfo.mapList[0];
+        //MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
         //quadBG.transform.localScale = new Vector3(info.mapWidth / 20, info.mapHeight / 20, 1);
         Texture2D bgTexture = new Texture2D(info.mapWidth, info.mapHeight);
         bgTexture.LoadImage(info.backGroundImage);
@@ -329,7 +342,7 @@ public class MapEditor_L : MonoBehaviour
                 {
                     if(objectType == ObjectType.Text)
                     {
-
+                        StampObjectText();
                     }
                     else if (objectType == ObjectType.Image)
                     {
@@ -351,7 +364,6 @@ public class MapEditor_L : MonoBehaviour
                 Arrow();
                 break;
         }
-        print(placementType);
     }
     public void SelectText()
     {
@@ -478,10 +490,49 @@ public class MapEditor_L : MonoBehaviour
                 }
             }
         }
-        
-        
-        
+    }
+    
+    public void ButtonTextObj()
+    {
+        objTextInputField.gameObject.SetActive(true);
+        scrollViewMyObject.SetActive(false);
+    }
+    public InputField objTextInputField;
+    public GameObject textObj;
+    void StampObjectText()
+    {
+        if (objTextInputField.text.Length > 0)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
+                RaycastHit hitInfo;
+
+                if (Physics.Raycast(ray, out hitInfo))
+                {
+
+                    if (hitInfo.transform.tag == "Object")
+                    {
+                        return;
+                    }
+                    if (hitInfo.transform.tag == "BackGround")
+                    {
+                        int x = (int)hitInfo.point.x;
+                        int y = (int)hitInfo.point.y;
+                        if (pastTilePos == new Vector2(x, y))
+                        {
+                            print("already exists");
+                            return;
+                        }
+                        pastTilePos = new Vector2(x, y);
+                        GameObject obj = Instantiate(textObj);
+                        obj.transform.position = new Vector3(x, y, 0);
+                        obj.GetComponent<TextMesh>().text = objTextInputField.text;
+                    }
+                }
+            }
+        }
     }
     void TileEffect()
     {
@@ -875,6 +926,7 @@ public class MapEditor_L : MonoBehaviour
     {
         bool b = scrollViewMyObject.activeSelf ? false : true;
         scrollViewMyObject.SetActive(b);
+        objTextInputField.gameObject.SetActive(false);
     }
 
     public void OnClickBtnMyUpperObject()

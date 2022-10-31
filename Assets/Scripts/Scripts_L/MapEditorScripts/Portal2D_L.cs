@@ -77,7 +77,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
         switch (portalInfo.placeType)
         {
             case PortalInfo.PlaceType.OtherMap:
-                MapInfo.mapName = portalInfo.mapName;
+                SpaceInfo.spaceName = portalInfo.mapName;
                 if (portalInfo.moveType == PortalInfo.MoveType.Instant)
                 {
                     SceneManager.LoadScene("RoomScene_H");
@@ -107,7 +107,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
                 break;
             case PortalInfo.PlaceType.DetailMajor:
                 LeaveRoom();
-                MapInfo.mapName = portalInfo.mapName;
+                SpaceInfo.spaceName = portalInfo.mapName;
                 //SceneManager.LoadScene("RoomScene_H");
                 //PhotonNetwork.LoadLevel(MapInfo.mapName);
                 break;
@@ -169,7 +169,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         print("방으로 이동");
-        PhotonNetwork.LoadLevel(MapInfo.mapName);
+        PhotonNetwork.LoadLevel(SpaceInfo.spaceName);
     }
 
 
