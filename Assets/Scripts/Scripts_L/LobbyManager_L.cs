@@ -5,8 +5,9 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
 
-public class LobbyManager_L : MonoBehaviourPun
+public class LobbyManager_L : MonoBehaviourPunCallbacks
 {
     public GameObject mapMaker;
     GameObject clickedObject;
@@ -72,8 +73,9 @@ public class LobbyManager_L : MonoBehaviourPun
                     {
                         //clickedRoomName = clickedObject.GetComponentInChildren<Text>().text;
                         SpaceInfo.spaceName = clickedObject.GetComponent<Room_H>().roomName;
-                        PhotonNetwork.Destroy(detailMajorManager.player);
-                        SceneManager.LoadScene(clickedRoomName);
+                        //PhotonNetwork.Destroy(detailMajorManager.player);
+                        LeaveRoom();
+                        //SceneManager.LoadScene(clickedRoomName);
                         break;
                     }
                     if (outlineImage)
@@ -87,6 +89,56 @@ public class LobbyManager_L : MonoBehaviourPun
         }
 
     }
+
+
+
+    void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+    void JoinLobby()
+    {
+        PhotonNetwork.JoinLobby();
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        base.OnConnectedToMaster();
+
+        if (PhotonNetwork.IsConnectedAndReady)
+            PhotonNetwork.JoinLobby();
+        print("방 나왔음");
+    }
+
+    public override void OnJoinedLobby()
+    {
+        base.OnJoinedLobby();
+
+        if (PhotonNetwork.IsConnectedAndReady)
+            JoinUserRoom();
+
+        print("OnJoinedLobby 호출");
+
+    }
+
+    void JoinUserRoom()
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 10;
+        roomOptions.IsVisible = true;
+
+        PhotonNetwork.JoinOrCreateRoom(SpaceInfo.spaceName, roomOptions, null);
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        print("방으로 이동");
+        //PhotonNetwork.LoadLevel(SpaceInfo.spaceName);
+        PhotonNetwork.IsMessageQueueRunning = false;
+        SceneManager.LoadScene(clickedRoomName);
+    }
+
     public void MakeMap()
     {
         SpaceInfo info = new SpaceInfo();
@@ -96,14 +148,14 @@ public class LobbyManager_L : MonoBehaviourPun
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.tag == "Player" && collision.gameObject.GetPhotonView().IsMine)
         {
             mapMaker.SetActive(true);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.tag == "Player" && collision.gameObject.GetPhotonView().IsMine)
         {
             mapMaker.SetActive(false);
         }

@@ -45,6 +45,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
     GameObject player;
 
     MajorRoomManager_L majorRoomManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -133,7 +134,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
         roomOptions.MaxPlayers = 10;
         roomOptions.IsVisible = true;
         
-        PhotonNetwork.JoinOrCreateRoom(portalInfo.mapName, roomOptions, null);
+        PhotonNetwork.JoinOrCreateRoom(SpaceInfo.spaceName, roomOptions, null);
     }
     public override void OnLeftRoom()
     {
@@ -155,19 +156,34 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        if (majorRoomManager.player)
-            PhotonNetwork.Destroy(majorRoomManager.player);
-        JoinMajorRoom();
+
+        if (PhotonNetwork.IsConnectedAndReady)
+            PhotonNetwork.JoinLobby();
         print("방 나왔음");
     }
 
     public override void OnJoinedLobby()
     {
         base.OnJoinedLobby();
+
+/*        if (majorRoomManager.player)
+            PhotonNetwork.Destroy(majorRoomManager.player);*/
+
+        print(PhotonNetwork.CurrentLobby.Name);
+
+        if (PhotonNetwork.IsConnectedAndReady)
+            JoinMajorRoom();
+
         print("OnJoinedLobby 호출");
         
         //print("로비 안에 있나요?? : " + PhotonNetwork.InLobby);
 
+    }
+
+    [PunRPC]
+    void PrintCurrLobby()
+    {
+        print(PhotonNetwork.CurrentLobby.Name);
     }
 
     public override void OnJoinedRoom()
@@ -175,7 +191,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         print("방으로 이동");
         //PhotonNetwork.LoadLevel(SpaceInfo.spaceName);
-
+        PhotonNetwork.IsMessageQueueRunning = false;
         SceneManager.LoadScene(SpaceInfo.spaceName);
     }
 
