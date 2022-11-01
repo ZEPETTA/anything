@@ -139,14 +139,89 @@ public class MapEditor_L : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetMap(SpaceInfo.spaceName);
+        toolType = ToolType.Stamp;
+        placementType = PlacementType.Floor;
+        pastTilePos = Vector2.zero;
+        pastDefinedAreaPos = Vector2.zero;
+        pastPortalPos = Vector2.zero;
+        pastSpawnPointPos = Vector2.zero;
+        tileLayerMask = 1 << LayerMask.NameToLayer("Tile");
+        gridStartPos = grid.transform.position;
+        gridStartPos.x -= grid.transform.localScale.x * 0.5f;
+        gridStartPos.y -= grid.transform.localScale.y * 0.5f;
+
+        layerMaskUI = (1 << LayerMask.NameToLayer("UI"));
+
+        /*for (int y = 0; y < height; y++)
+        {
+            //gridLineRenderer_X.positionCount += 2;
+            gridLineRenderer_X.SetPosition(y * 2, new Vector3(gridStartPos.x, gridStartPos.y + y, gridStartPos.z));
+            gridLineRenderer_X.SetPosition(y * 2 + 1, new Vector3(gridStartPos.x+width, gridStartPos.y + y, gridStartPos.z));
+        }*/
+
+        definedAreaDropdown.onValueChanged.AddListener(delegate
+        {
+            print(definedAreaDropdown.captionText.text);
+        });
+
+        
+    }
+    public void ReturnZero()
+    {
+        bg.material.SetTexture("_MainTex",null);
+        GameObject parent;
+        parent = GameObject.Find("TileParent");
+        //Destroy(parent);
+        int childCount = 0;
+        childCount = parent.transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            Debug.Log(parent.transform.childCount);
+            Destroy(parent.transform.GetChild(i).gameObject);
+            //Destroy(parent.transform.GetChild(0));
+        }
+        parent = GameObject.Find("PortalParent");
+        childCount = parent.transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            Destroy(parent.transform.GetChild(i).gameObject);
+        }
+        parent = GameObject.Find("DefinedAreaParent");
+        childCount = parent.transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            Destroy(parent.transform.GetChild(i).gameObject);
+        }
+        parent = GameObject.Find("WallParent");
+        childCount = parent.transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            Destroy(parent.transform.GetChild(i).gameObject);
+        }
+        parent = GameObject.Find("SpawnPointParent");
+        childCount = parent.transform.childCount;
+        for (int i = 0; i < childCount; i++)
+        {
+            Destroy(parent.transform.GetChild(i).gameObject);
+        }
+
+        portalInfo = new PortalInfo();
+        portalInfo.placeType = PortalInfo.PlaceType.DefinedArea;
+        portalInfo.moveType = PortalInfo.MoveType.Key;
+    }
+
+
+    public void SetMap(string mapName)
+    {
         #region 배경화면 가져오기
-        string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/" + SpaceInfo.spaceName + ".txt";
+        string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/" + mapName + ".txt";
         string jsonData = File.ReadAllText(bgpath);
         SpaceInfo spaceInfo = JsonUtility.FromJson<SpaceInfo>(jsonData);
         MapInfo info = spaceInfo.mapList[0];
         //MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
         //quadBG.transform.localScale = new Vector3(info.mapWidth / 20, info.mapHeight / 20, 1);
-        Texture2D bgTexture = new Texture2D(info.mapWidth, info.mapHeight);
+        Texture2D bgTexture = new Texture2D(0, 0);
         bgTexture.LoadImage(info.backGroundImage);
         bg.material.SetTexture("_MainTex", bgTexture);
         #endregion
@@ -235,35 +310,106 @@ public class MapEditor_L : MonoBehaviour
         portalInfo.placeType = PortalInfo.PlaceType.DefinedArea;
         portalInfo.moveType = PortalInfo.MoveType.Key;
         #endregion
-
-        toolType = ToolType.Stamp;
-        placementType = PlacementType.Floor;
-        pastTilePos = Vector2.zero;
-        pastDefinedAreaPos = Vector2.zero;
-        pastPortalPos = Vector2.zero;
-        pastSpawnPointPos = Vector2.zero;
-        tileLayerMask = 1 << LayerMask.NameToLayer("Tile");
-        gridStartPos = grid.transform.position;
-        gridStartPos.x -= grid.transform.localScale.x * 0.5f;
-        gridStartPos.y -= grid.transform.localScale.y * 0.5f;
-
-        layerMaskUI = (1 << LayerMask.NameToLayer("UI"));
-
-        /*for (int y = 0; y < height; y++)
-        {
-            //gridLineRenderer_X.positionCount += 2;
-            gridLineRenderer_X.SetPosition(y * 2, new Vector3(gridStartPos.x, gridStartPos.y + y, gridStartPos.z));
-            gridLineRenderer_X.SetPosition(y * 2 + 1, new Vector3(gridStartPos.x+width, gridStartPos.y + y, gridStartPos.z));
-        }*/
-
-        definedAreaDropdown.onValueChanged.AddListener(delegate
-        {
-            print(definedAreaDropdown.captionText.text);
-        });
-
-        
     }
+    
+    public void ChangeMap(MapInfo changeInfo)
+    {
+        MapInfo info = changeInfo;
+        //MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
+        //quadBG.transform.localScale = new Vector3(info.mapWidth / 20, info.mapHeight / 20, 1);
+        Texture2D bgTexture = new Texture2D(0, 0);
+        bgTexture.LoadImage(info.backGroundImage);
+        bg.material.SetTexture("_MainTex", bgTexture);
+        #region 타일 가져오기
+        string tileParent = "TileParent";
+        if (info.tileList == null && info.backGroundImage == null)
+        {
+            return;
+        }
+        for (int i = 0; i < info.tileList.Count; i++)
+        {
+            Vector3 tilePos = info.tileList[i].position;
+            Texture tileSprite = Resources.Load<Texture>("Resources_L/" + info.tileList[i].imageName);
+            GameObject realTile = Instantiate(floorTilePrefab);
+            realTile.transform.position = tilePos;
+            realTile.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", tileSprite);
+            realTile.transform.parent = GameObject.Find(tileParent).transform;
+        }
+        #endregion
+        #region 포탈 가져오기
+        Transform portalParent = GameObject.Find("PortalParent").transform;
+        if (portalParent)
+        {
+            for (int i = 0; i < info.portalList.Count; i++)
+            {
+                //Vector3 tilePos = info.portalList[i].position;
+                GameObject myPortal = Instantiate(portalPrefab);
+                Portal2D_L portal2D = myPortal.GetComponent<Portal2D_L>();
+                portal2D.portalInfo = new PortalInfo();
+                myPortal.transform.parent = portalParent;
+                myPortal.transform.localPosition = info.portalList[i].position;
 
+                portal2D.portalInfo.position = myPortal.transform.localPosition;
+                portal2D.portalInfo.placeType = info.portalList[i].placeType;
+                portal2D.portalInfo.moveType = info.portalList[i].moveType;
+                portal2D.portalInfo.definedAreaName = info.portalList[i].definedAreaName;
+                portal2D.portalInfo.mapName = info.portalList[i].mapName;
+            }
+        }
+        #endregion
+        #region 지정구역 가져오기
+        GameObject areaParent = GameObject.Find("DefinedAreaParent");
+        Dictionary<string, int> nameDic = new Dictionary<string, int>();
+        for (int i = 0; i < info.areaName.Count; i++)
+        {
+            GameObject child = new GameObject(info.areaName[i]);
+            child.transform.parent = areaParent.transform;
+            nameDic.Add(info.areaName[i], i);
+        }
+        for (int i = 0; i < info.definedAreaList.Count; i++)
+        {
+            GameObject area = Instantiate(definedAreaPrefab);
+            area.transform.position = info.definedAreaList[i].positon;
+            area.GetComponentInChildren<Text>().text = info.definedAreaList[i].areaName;
+            area.transform.parent = areaParent.transform.GetChild(nameDic[info.definedAreaList[i].areaName]);
+        }
+
+        #endregion
+        #region 벽 가져오기
+        for (int i = 0; i < info.wallList.Count; i++)
+        {
+            Vector3 wallPos = info.wallList[i].positon;
+            GameObject wall = Instantiate(wallTilePrefab);
+            wall.transform.position = wallPos;
+            //wall.GetComponent<MeshRenderer>().material.mainTexture = invisibleTexture;
+            wall.transform.parent = GameObject.Find("WallParent").transform;
+        }
+        #endregion
+        #region 스폰 지점 가져오기
+        Transform spawnPointParent = GameObject.Find("SpawnPointParent").transform;
+        if (spawnPointParent)
+        {
+            spawnPointPosList = new List<Vector3>();
+
+            for (int i = 0; i < info.spawnPointInfoList.Count; i++)
+            {
+                GameObject spawnPoint = Instantiate(spawnPrefab);
+                spawnPoint.transform.parent = spawnPointParent;
+                spawnPoint.transform.localPosition = info.spawnPointInfoList[i].position;
+                spawnPointPosList.Add(spawnPoint.transform.localPosition);
+
+            }
+        }
+        #endregion
+
+
+        //================
+        #region 포탈값 초기화
+        portalInfo = new PortalInfo();
+        portalInfo.placeType = PortalInfo.PlaceType.DefinedArea;
+        portalInfo.moveType = PortalInfo.MoveType.Key;
+        #endregion
+    }
 
     void UiOnOff()
     {

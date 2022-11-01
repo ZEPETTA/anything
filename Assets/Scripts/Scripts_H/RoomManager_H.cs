@@ -26,8 +26,6 @@ public class MapInfo
     }
     public MapSize mapSize;
     public byte[] backGroundImage;
-    public int mapWidth;
-    public int mapHeight;
     public List<TileInfo> tileList;
     public List<string> areaName;
     public List<WallInfo> wallList;
@@ -111,7 +109,8 @@ public class UserInfo
 
 public class RoomManager_H : MonoBehaviourPun
 {
-    public MapInfo mapInfo;
+    public SpaceInfo spaceInfo;
+    //public MapInfo mapInfo;
     public GameObject wallPrefab;
     public GameObject tilePrefab;
     public GameObject definedAreaPrefab;
@@ -128,16 +127,26 @@ public class RoomManager_H : MonoBehaviourPun
     // Start is called before the first frame update
     void Start()
     {
-        
         #region 배경화면 가져오기
         string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/"+ SpaceInfo.spaceName +".txt";
         string jsonData = File.ReadAllText(bgpath);
-        SpaceInfo spaceInfo = JsonUtility.FromJson<SpaceInfo>(jsonData);
+        spaceInfo = JsonUtility.FromJson<SpaceInfo>(jsonData);
         //MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
         MapInfo info = spaceInfo.mapList[0];
-        mapInfo = info;
-        quadBG.transform.localScale = new Vector3(info.mapWidth/20, info.mapHeight/20, 1);
-        Texture2D bgTexture = new Texture2D(info.mapWidth, info.mapHeight);
+        //mapInfo = info;
+        if(info.mapSize == MapInfo.MapSize.Big)
+        {
+            quadBG.transform.localScale = new Vector3(180,90 , 1);
+        }
+        else if(info.mapSize == MapInfo.MapSize.Mideum)
+        {
+            quadBG.transform.localScale = new Vector3(120, 60, 1);
+        }
+        else
+        {
+            quadBG.transform.localScale = new Vector3(60, 30, 1);
+        }
+        Texture2D bgTexture = new Texture2D(0, 0);
         bgTexture.LoadImage(info.backGroundImage);
         bg.material.SetTexture("_MainTex", bgTexture);
         #endregion
@@ -230,8 +239,8 @@ public class RoomManager_H : MonoBehaviourPun
         }
         #endregion
 
-        player = PhotonNetwork.Instantiate("$Main_Character_1_0_2D", playerSpawnPos.position, Quaternion.identity);
-        player.GetComponent<CharacterMove_H>().enabled = true;
+        //player = PhotonNetwork.Instantiate("$Main_Character_1_0_2D", playerSpawnPos.position, Quaternion.identity);
+        //player.GetComponent<CharacterMove_H>().enabled = true;
 
         if (spawnPointPosList.Count > 0)
         {
