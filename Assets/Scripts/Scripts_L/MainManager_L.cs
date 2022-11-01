@@ -15,7 +15,13 @@ public class MainManager_L : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        photonView.RPC("RPCPrintNickname", RpcTarget.All);
+    }
 
+    [PunRPC]
+    void RPCPrintNickname()
+    {
+        print("로비씬 닉네임 : " + PhotonNetwork.NickName);
     }
 
     // Update is called once per frame

@@ -2469,6 +2469,7 @@ MonoBehaviour:
   spawnPointPosList: []
   mapCount: 0
   quadBG: {fileID: 0}
+  fileManger: {fileID: 0}
   objImage: {fileID: 0}
   objName: {fileID: 0}
   objSkill: {fileID: 0}
@@ -3300,7 +3301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1464477782
 Rigidbody2D:
   serializedVersion: 4
