@@ -1961,7 +1961,7 @@ MonoBehaviour:
   m_Follow: {fileID: 170875019}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 10
+    OrthographicSize: 15
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -2186,7 +2186,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -2210,7 +2210,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105822035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.089999914, y: 0.95, z: -10}
+  m_LocalPosition: {x: -0.0900352, y: 0.93981427, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2603,7 +2603,7 @@ Transform:
   m_GameObject: {fileID: 1181179987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 192, y: 108, z: 5}
+  m_LocalScale: {x: 60, y: 30, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1249914222}
@@ -3861,8 +3861,6 @@ MonoBehaviour:
   mapInfo:
     mapSize: 0
     backGroundImage: 
-    mapWidth: 0
-    mapHeight: 0
     tileList: []
     areaName: []
     wallList: []

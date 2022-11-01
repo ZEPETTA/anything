@@ -1,0 +1,1 @@
+{"mapList":[{"mapSize":1,"backGroundImage":[],"mapWidth":0,"mapHeight":0,"tileList":[],"areaName":[],"wallList":[],"portalList":[],"definedAreaList":[],"objectList":[],"spawnPointInfoList":[]}],"makerID":"","spaceIntroduction":""}
