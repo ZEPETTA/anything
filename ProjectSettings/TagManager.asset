@@ -13,6 +13,7 @@ TagManager:
   - MajorArtWorkItem
   - MajorWorkEditBtn
   - MyInfoManager_L
+  - GameManager
   layers:
   - Default
   - TransparentFX

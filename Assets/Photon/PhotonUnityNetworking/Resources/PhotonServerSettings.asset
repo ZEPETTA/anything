@@ -44,6 +44,9 @@ MonoBehaviour:
   - RespawnSpaceship
   - RpcAddChat
   - PrintCurrLobby
+  - RPCEmoji
+  - RPCPrintNickname
+  - RpcSetPlayerIdx
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

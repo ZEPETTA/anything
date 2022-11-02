@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class CharacterMove_H : MonoBehaviour
+using Photon.Pun;
+public class CharacterMove_H : MonoBehaviourPun
 {
     public bool myCharacter = true;
     public float speed;
@@ -31,13 +31,21 @@ KeyCode.Alpha9,
     public bool inObj = false;
     public ObjectInfo_H objInfo;
     public UserInfo user;
+    public int idx;
+
     void Start()
     {
+        if (photonView.IsMine)
+        {
+            user = new UserInfo();
+
+            user.name = PhotonNetwork.NickName;
+        }
         animator = GetComponent<Animator>();
     }
     void Update()
     {
-        if (!myCharacter)
+        if (photonView.IsMine == false)
         {
             return;
         }
@@ -54,14 +62,22 @@ KeyCode.Alpha9,
         {
             if (Input.GetKeyDown(keyCodes[i]))
             {
-                GameObject imo = gameObject.transform.GetChild(0).gameObject;
+                photonView.RPC("RPCEmoji", RpcTarget.All, i, idx);
+
+/*                GameObject imo = gameObject.transform.GetChild(0).gameObject;
                 EmoDestory_H emo = imo.GetComponent<EmoDestory_H>();
                 emo.emoOn = true;
                 emo.checkTime = 0;
                 SpriteRenderer spriteRenderer = imo.GetComponent<SpriteRenderer>();
                 spriteRenderer.sprite = imoticon[i];
-                imo.transform.parent = gameObject.transform;
+                imo.transform.parent = gameObject.transform;*/
             }
+
+            //키를 눌렀을 때
+            //나의 아이디를 찾은 후, <==여기까진 로컬
+            //아이디를 통해 해당 키의 이모티콘을 켜주는 것 <==이건 RPC로 해야함
+
+            //  photonView.RPC("RPCEmoji", RpcTarget.All, i);
         }
         if(inObj == true)
         {
@@ -71,6 +87,29 @@ KeyCode.Alpha9,
             }
         }
     }
+
+    [PunRPC]
+    void RPCEmoji(int num, int myIdx)
+    {
+//        if (GetComponent<CharacterMove_H>().enabled)
+//        {
+            GameObject[] playerArray = GameObject.FindGameObjectsWithTag("Player");
+            for(int i = 0; i < playerArray.Length; i++)
+            {
+                if (playerArray[i].GetComponent<CharacterMove_H>().idx == myIdx)
+                {
+                    GameObject imo = playerArray[i].transform.GetChild(0).gameObject;
+                    EmoDestory_H emo = imo.GetComponent<EmoDestory_H>();
+                    emo.emoOn = true;
+                    emo.checkTime = 0;
+                    imo.GetComponent<SpriteRenderer>().sprite = imoticon[num];
+                    imo.transform.parent = playerArray[i].transform;
+                }
+            }
+            
+//        }
+    }
+
     IEnumerator MoveCoroutine()
     {
         if (Input.GetKey(KeyCode.LeftShift))

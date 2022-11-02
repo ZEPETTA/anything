@@ -384,7 +384,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7286520994618350939}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f11cf7571db2f3408c2564bdb26e3ac, type: 3}
   m_Name: 
@@ -406,6 +406,7 @@ MonoBehaviour:
     name: "\uD64D\uC9C4"
     phoneNumber: 
     departmentName: 
+  idx: 0
 --- !u!95 &7286520994618350948
 Animator:
   serializedVersion: 4
@@ -567,7 +568,7 @@ GameObject:
   - component: {fileID: 7286520995884066694}
   m_Layer: 0
   m_Name: Quad
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
