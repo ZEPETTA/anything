@@ -43,9 +43,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
     bool onPlayer = false;
     bool goOtherRoom = false;
     GameObject player;
-
     MajorRoomManager_L majorRoomManager;
-
     // Start is called before the first frame update
     void Start()
     {

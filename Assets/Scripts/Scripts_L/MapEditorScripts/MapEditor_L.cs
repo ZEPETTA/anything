@@ -222,14 +222,18 @@ public class MapEditor_L : MonoBehaviour
         {
             fileManger.mapinfos.Add(spaceInfo.mapList[i]);
             Dropdown.OptionData option = new Dropdown.OptionData();
+            Debug.Log(fileManger.mapinfos[i].mapName);
             if(fileManger.mapinfos[i].mapName == null)
             {
                 option.text = "Map" + i.ToString();
                 fileManger.mapinfos[i].mapName = "Map" + i.ToString();
+                Debug.Log("TLqkf");
             }
             else
             {
                 option.text = fileManger.mapinfos[i].mapName;
+                //fileManger.mapinfos[i].mapName = "Map" + i.ToString();
+                Debug.Log("whw");
             }
             fileManger.mapDropdown.options.Add(option);
             fileManger.mapDropdown.value = 0;

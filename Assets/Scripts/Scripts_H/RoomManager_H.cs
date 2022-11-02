@@ -148,9 +148,12 @@ public class RoomManager_H : MonoBehaviourPun
         MapInfo info = new MapInfo();
         for(int i=0; i<spaceInfo.mapList.Count; i++)
         {
+            //Debug.Log(spaceInfo.mapList[i].mapName);
              if(spaceInfo.mapList[i].mapName == MapInfo.nowMapName)
             {
                 info = spaceInfo.mapList[i];
+                Debug.Log("mynameis" + MapInfo.nowMapName);
+                break;
             }
             if(i == spaceInfo.mapList.Count - 1)
             {

@@ -18,6 +18,6 @@ public class RoomUIManager_L : MonoBehaviour
     
     public void OnClickBtnMapEditor()
     {
-        SceneManager.LoadScene("MapEditorScene_L2");
+        SceneManager.LoadScene("MapEditorScene_H");
     }
 }

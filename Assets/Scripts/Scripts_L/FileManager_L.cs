@@ -115,118 +115,122 @@ public class FileManager_L : MonoBehaviour
     }
     void ChangeMap(int option)
     {
-        #region 맵 배경 저장
-        MapInfo backGroundInfo = new MapInfo();
-        Texture2D mainTex = (Texture2D)bg.material.mainTexture;
-        backGroundInfo.backGroundImage = mainTex.EncodeToPNG();
-        string path = Application.dataPath + "/Resources/Resources_H/MapData";
-        if (Directory.Exists(path) == false)
-        {
-            Directory.CreateDirectory(path);
-        }
-        #endregion
-        #region 맵 노말 타일 저장
-        GameObject tileParent = GameObject.Find("TileParent");
-        int a = tileParent.transform.childCount;
-        List<TileInfo> tileInfos = new List<TileInfo>();
-        for (int i = 0; i < a; i++)
-        {
-            GameObject tile = tileParent.transform.GetChild(i).gameObject;
-            TileInfo_H tileInfo_h = tile.GetComponent<TileInfo_H>();
-            TileInfo tileInfo = tileInfo_h.tileInfo;
-            tileInfo.imageName = tile.GetComponent<MeshRenderer>().material.mainTexture.name;
-            tileInfo.position = tile.transform.position;
-            tileInfos.Add(tileInfo);
-        }
-        backGroundInfo.tileList = tileInfos;
-        #endregion
-        #region 맵 지정구역 저장
-        GameObject definedArea = GameObject.Find("DefinedAreaParent");
-        List<string> nameList = new List<string>();
-        List<DefinedAreaInfo> definedAreaInfos = new List<DefinedAreaInfo>();
-        for (int i = 0; i < definedArea.transform.childCount; i++)
-        {
-            GameObject gm = definedArea.transform.GetChild(i).gameObject;
-            nameList.Add(gm.name);
-            for (int j = 0; j < gm.transform.childCount; j++)
-            {
-                DefinedAreaInfo de = new DefinedAreaInfo();
-                de.areaName = gm.name;
-                de.positon = gm.transform.GetChild(j).localPosition;
-                definedAreaInfos.Add(de);
-            }
-        }
-        backGroundInfo.definedAreaList = definedAreaInfos;
-        backGroundInfo.areaName = nameList;
-        #endregion
-        #region 맵 포탈 저장
-        GameObject portal = GameObject.Find("PortalParent");
-        if (portal != null)
-        {
-            List<PortalInfo> portalInfoList = new List<PortalInfo>();
+        #region 주석
+        //#region 맵 배경 저장
+        //MapInfo backGroundInfo = new MapInfo();
+        //Texture2D mainTex = (Texture2D)bg.material.mainTexture;
+        //backGroundInfo.backGroundImage = mainTex.EncodeToPNG();
+        //string path = Application.dataPath + "/Resources/Resources_H/MapData";
+        //if (Directory.Exists(path) == false)
+        //{
+        //    Directory.CreateDirectory(path);
+        //}
+        //#endregion
+        //#region 맵 노말 타일 저장
+        //GameObject tileParent = GameObject.Find("TileParent");
+        //int a = tileParent.transform.childCount;
+        //List<TileInfo> tileInfos = new List<TileInfo>();
+        //for (int i = 0; i < a; i++)
+        //{
+        //    GameObject tile = tileParent.transform.GetChild(i).gameObject;
+        //    TileInfo_H tileInfo_h = tile.GetComponent<TileInfo_H>();
+        //    TileInfo tileInfo = tileInfo_h.tileInfo;
+        //    tileInfo.imageName = tile.GetComponent<MeshRenderer>().material.mainTexture.name;
+        //    tileInfo.position = tile.transform.position;
+        //    tileInfos.Add(tileInfo);
+        //}
+        //backGroundInfo.tileList = tileInfos;
+        //#endregion
+        //#region 맵 지정구역 저장
+        //GameObject definedArea = GameObject.Find("DefinedAreaParent");
+        //List<string> nameList = new List<string>();
+        //List<DefinedAreaInfo> definedAreaInfos = new List<DefinedAreaInfo>();
+        //for (int i = 0; i < definedArea.transform.childCount; i++)
+        //{
+        //    GameObject gm = definedArea.transform.GetChild(i).gameObject;
+        //    nameList.Add(gm.name);
+        //    for (int j = 0; j < gm.transform.childCount; j++)
+        //    {
+        //        DefinedAreaInfo de = new DefinedAreaInfo();
+        //        de.areaName = gm.name;
+        //        de.positon = gm.transform.GetChild(j).localPosition;
+        //        definedAreaInfos.Add(de);
+        //    }
+        //}
+        //backGroundInfo.definedAreaList = definedAreaInfos;
+        //backGroundInfo.areaName = nameList;
+        //#endregion
+        //#region 맵 포탈 저장
+        //GameObject portal = GameObject.Find("PortalParent");
+        //if (portal != null)
+        //{
+        //    List<PortalInfo> portalInfoList = new List<PortalInfo>();
 
-            for (int i = 0; i < portal.transform.childCount; i++)
-            {
+        //    for (int i = 0; i < portal.transform.childCount; i++)
+        //    {
 
-                Portal2D_L portalL = portal.transform.GetChild(i).GetComponent<Portal2D_L>();
-                portalInfoList.Add(portalL.portalInfo);
-                //portalL.portalInfo.position = portal.transform.GetChild(i).localPosition;
+        //        Portal2D_L portalL = portal.transform.GetChild(i).GetComponent<Portal2D_L>();
+        //        portalInfoList.Add(portalL.portalInfo);
+        //        //portalL.portalInfo.position = portal.transform.GetChild(i).localPosition;
 
-            }
-            backGroundInfo.portalList = portalInfoList;
-        }
+        //    }
+        //    backGroundInfo.portalList = portalInfoList;
+        //}
 
-        #endregion
-        #region 맵 벽(이동불가능 구역)저장
-        GameObject wall = GameObject.Find("WallParent");
-        List<WallInfo> wallInfos = new List<WallInfo>();
-        for (int i = 0; i < wall.transform.childCount; i++)
-        {
-            WallInfo wallInfo = new WallInfo();
-            wallInfo.positon = wall.transform.GetChild(i).position;
-            wallInfos.Add(wallInfo);
-        }
-        backGroundInfo.wallList = wallInfos;
-        #endregion
-        #region 스폰 지점 저장
-        Transform spawnPointParent = GameObject.Find("SpawnPointParent").transform;
-        if (spawnPointParent)
-        {
-            List<SpawnPointInfo> spawnPointInfoList = new List<SpawnPointInfo>();
-            for (int i = 0; i < spawnPointParent.childCount; i++)
-            {
-                SpawnPointInfo info = new SpawnPointInfo();
-                info.position = spawnPointParent.GetChild(i).localPosition;
-                spawnPointInfoList.Add(info);
+        //#endregion
+        //#region 맵 벽(이동불가능 구역)저장
+        //GameObject wall = GameObject.Find("WallParent");
+        //List<WallInfo> wallInfos = new List<WallInfo>();
+        //for (int i = 0; i < wall.transform.childCount; i++)
+        //{
+        //    WallInfo wallInfo = new WallInfo();
+        //    wallInfo.positon = wall.transform.GetChild(i).position;
+        //    wallInfos.Add(wallInfo);
+        //}
+        //backGroundInfo.wallList = wallInfos;
+        //#endregion
+        //#region 스폰 지점 저장
+        //Transform spawnPointParent = GameObject.Find("SpawnPointParent").transform;
+        //if (spawnPointParent)
+        //{
+        //    List<SpawnPointInfo> spawnPointInfoList = new List<SpawnPointInfo>();
+        //    for (int i = 0; i < spawnPointParent.childCount; i++)
+        //    {
+        //        SpawnPointInfo info = new SpawnPointInfo();
+        //        info.position = spawnPointParent.GetChild(i).localPosition;
+        //        spawnPointInfoList.Add(info);
 
-            }
-            backGroundInfo.spawnPointInfoList = spawnPointInfoList;
-        }
+        //    }
+        //    backGroundInfo.spawnPointInfoList = spawnPointInfoList;
+        //}
+        //#endregion
+        //#region 오브젝트 저장
+        //GameObject objectP = GameObject.Find("ObjectParent");
+        //List<ObjectInfo> objectInfos = new List<ObjectInfo>();
+        //for (int i = 0; i < objectP.transform.childCount; i++)
+        //{
+        //    objectInfos.Add(objectP.transform.GetChild(i).GetChild(0).gameObject.GetComponent<ObjectInfo_H>().objectInfo);
+        //}
+        //backGroundInfo.objectList = objectInfos;
+        //#endregion
+        //#region 맵사이즈 저장
+        //switch (mapSize)
+        //{
+        //    case 0:
+        //        backGroundInfo.mapSize = MapInfo.MapSize.Small;
+        //        break;
+        //    case 1:
+        //        backGroundInfo.mapSize = MapInfo.MapSize.Mideum;
+        //        break;
+        //    case 2:
+        //        backGroundInfo.mapSize = MapInfo.MapSize.Big;
+        //        break;
+        //}
+        //#endregion
+        //mapinfos[nowMapIdx] = backGroundInfo;
         #endregion
-        #region 오브젝트 저장
-        GameObject objectP = GameObject.Find("ObjectParent");
-        List<ObjectInfo> objectInfos = new List<ObjectInfo>();
-        for (int i = 0; i < objectP.transform.childCount; i++)
-        {
-            objectInfos.Add(objectP.transform.GetChild(i).GetChild(0).gameObject.GetComponent<ObjectInfo_H>().objectInfo);
-        }
-        backGroundInfo.objectList = objectInfos;
-        #endregion
-        #region 맵사이즈 저장
-        switch (mapSize)
-        {
-            case 0:
-                backGroundInfo.mapSize = MapInfo.MapSize.Small;
-                break;
-            case 1:
-                backGroundInfo.mapSize = MapInfo.MapSize.Mideum;
-                break;
-            case 2:
-                backGroundInfo.mapSize = MapInfo.MapSize.Big;
-                break;
-        }
-        #endregion
-        mapinfos[nowMapIdx] = backGroundInfo;
+        SaveMap(mapinfos[nowMapIdx].mapName,nowMapIdx);
+        Debug.Log(nowMapIdx);
         nowMapIdx = option;
         mapEditor.ReturnZero();
         mapEditor.ChangeMap(mapinfos[option]);
@@ -245,7 +249,7 @@ public class FileManager_L : MonoBehaviour
     public void MakeMap(string txt)
     {
         mapinfos.Add(new MapInfo());
-        SaveMap(txt);
+        SaveMap(txt,mapDropdown.value);
         //mapEditor.ReturnZero();
         //mapEditor.ChangeMap(mapinfos[mapDropdown.options.Count -1]);
         Dropdown.OptionData option = new Dropdown.OptionData();
@@ -255,7 +259,7 @@ public class FileManager_L : MonoBehaviour
         mapNameInputField.gameObject.SetActive(false);
     }
 
-    public void SaveMap(string mapName)
+    public void SaveMap(string mapName,int whatInfo)
     {
         #region 맵 배경 저장
         MapInfo backGroundInfo = new MapInfo();
@@ -356,6 +360,7 @@ public class FileManager_L : MonoBehaviour
         backGroundInfo.objectList = objectInfos;
         #endregion
         #region 맵사이즈 저장
+        Debug.Log(mapSize);
         switch (mapSize)
         {
             case 0:
@@ -369,7 +374,7 @@ public class FileManager_L : MonoBehaviour
                 break;
         }
         #endregion
-        mapinfos[mapDropdown.value] = backGroundInfo;
+        mapinfos[whatInfo] = backGroundInfo;
         //mapinfos.Add(backGroundInfo);
         //spaceInfo.mapList = mapinfos;
         //string jsonMap = JsonUtility.ToJson(spaceInfo);
