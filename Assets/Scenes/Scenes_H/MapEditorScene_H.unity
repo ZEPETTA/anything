@@ -3334,7 +3334,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &401983087
 MonoBehaviour:
@@ -3350,7 +3350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testMapName: test
   bg: {fileID: 347564332}
-  mapSize: 1
+  mapSize: 0
   mapEditor: {fileID: 1232622448}
   mapinfos: []
   mapDropdown: {fileID: 124731879}
@@ -11328,7 +11328,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1234131723
 GameObject:
@@ -17010,6 +17010,7 @@ MonoBehaviour:
     name: 
     phoneNumber: 
     departmentName: 
+  idx: 0
 --- !u!212 &1694516054
 SpriteRenderer:
   m_ObjectHideFlags: 0
