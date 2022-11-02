@@ -82,6 +82,18 @@ public class MyInfoManager_L : MonoBehaviour
             StartCoroutine(GetTexture());
         
     }
+    public GameObject uploadImage;
+    public RawImage raw;
+    public void OpenUploadImage()
+    {
+        uploadImage.SetActive(true);
+    }
+    public void CloseUploadImage()
+    {
+        uploadImage.SetActive(false);
+        AddWork((Texture2D)raw.texture);
+        raw.texture = null;
+    }
 
     IEnumerator GetTexture()
     {
@@ -98,8 +110,7 @@ public class MyInfoManager_L : MonoBehaviour
             Texture2D convertedTexture = (Texture2D)myTexture;
             //rawImage.texture = myTexture;
 
-            GameObject work = Instantiate(majorWorkPrefab, majorWorkContent);
-            work.GetComponent<RawImage>().texture = myTexture;
+            raw.texture = myTexture;
 
             //byte[] textuerData = convertedTexture.EncodeToJPG();
             //if (Directory.Exists(pythonDirectory) == false)
@@ -108,6 +119,11 @@ public class MyInfoManager_L : MonoBehaviour
             //}
             //File.WriteAllBytes(pythonDirectory + "/cardImage.jpg", textuerData);
         }
+    }
+    void AddWork(Texture2D texture)
+    {
+        GameObject work = Instantiate(majorWorkPrefab, majorWorkContent);
+        work.GetComponent<RawImage>().texture = texture;
     }
 
     public string WriteResult(string[] paths)
