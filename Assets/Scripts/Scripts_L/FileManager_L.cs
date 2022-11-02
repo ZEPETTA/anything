@@ -18,23 +18,33 @@ public class FileManager_L : MonoBehaviour
     public MapEditor_L mapEditor;
     public List<MapInfo> mapinfos;
     public Dropdown mapDropdown;
+    public InputField mapNameInputField;
     int nowMapIdx;
     // Start is called before the first frame update
     void Start()
     {
-        mapinfos.Add(new MapInfo());
+        //mapinfos.Add(new MapInfo());
         mapDropdown.onValueChanged.AddListener(ChangeMap);
         if(SpaceInfo.spaceName == null)
         {
             SpaceInfo.spaceName = testMapName;
         }
         savepth = Application.dataPath + "/Resources/Resources_H/MapData";
+        mapNameInputField.onSubmit.AddListener(MakeMap);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+    public void MapMakeInputFieldOn()
+    {
+        mapNameInputField.gameObject.SetActive(true);
+    }
+    public void MapMakeInputFieldOff()
+    {
+        mapNameInputField.gameObject.SetActive(false);
     }
     public string WriteResult(string[] paths)
     {
@@ -232,22 +242,24 @@ public class FileManager_L : MonoBehaviour
         File.WriteAllText(path + "/" + SpaceInfo.spaceName + ".txt", jsonMap);
         SceneManager.LoadScene("RoomScene_H");
     }
-    public void MakeMap()
+    public void MakeMap(string txt)
     {
         mapinfos.Add(new MapInfo());
-        SaveMap();
+        SaveMap(txt);
         //mapEditor.ReturnZero();
         //mapEditor.ChangeMap(mapinfos[mapDropdown.options.Count -1]);
         Dropdown.OptionData option = new Dropdown.OptionData();
-        option.text = (mapinfos.Count - 1).ToString();
+        option.text = txt;
         mapDropdown.options.Add(option);
         mapDropdown.value = mapDropdown.options.Count - 1;
+        mapNameInputField.gameObject.SetActive(false);
     }
 
-    public void SaveMap()
+    public void SaveMap(string mapName)
     {
         #region ∏  πË∞Ê ¿˙¿Â
         MapInfo backGroundInfo = new MapInfo();
+        backGroundInfo.mapName = mapName;
         Texture2D mainTex = (Texture2D)bg.material.mainTexture;
         backGroundInfo.backGroundImage = mainTex.EncodeToPNG();
         string path = Application.dataPath + "/Resources/Resources_H/MapData";

@@ -218,6 +218,22 @@ public class MapEditor_L : MonoBehaviour
         string bgpath = Application.dataPath + "/Resources/Resources_H/MapData/" + mapName + ".txt";
         string jsonData = File.ReadAllText(bgpath);
         SpaceInfo spaceInfo = JsonUtility.FromJson<SpaceInfo>(jsonData);
+        for(int i =0; i< spaceInfo.mapList.Count;i++)
+        {
+            fileManger.mapinfos.Add(spaceInfo.mapList[i]);
+            Dropdown.OptionData option = new Dropdown.OptionData();
+            if(fileManger.mapinfos[i].mapName == null)
+            {
+                option.text = "Map" + i.ToString();
+                fileManger.mapinfos[i].mapName = "Map" + i.ToString();
+            }
+            else
+            {
+                option.text = fileManger.mapinfos[i].mapName;
+            }
+            fileManger.mapDropdown.options.Add(option);
+            fileManger.mapDropdown.value = 0;
+        }
         MapInfo info = spaceInfo.mapList[0];
         //MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
         //quadBG.transform.localScale = new Vector3(info.mapWidth / 20, info.mapHeight / 20, 1);

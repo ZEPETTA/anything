@@ -59,7 +59,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
 
         definedAreaParent = GameObject.Find("DefinedAreaParent");
 
-        majorRoomManager = GameObject.Find("MajorRoomManager").GetComponent<MajorRoomManager_L>();
+        //majorRoomManager = GameObject.Find("MajorRoomManager").GetComponent<MajorRoomManager_L>();
     }
 
     // Update is called once per frame
@@ -81,7 +81,7 @@ public class Portal2D_L : MonoBehaviourPunCallbacks
         switch (portalInfo.placeType)
         {
             case PortalInfo.PlaceType.OtherMap:
-                SpaceInfo.spaceName = portalInfo.mapName;
+                MapInfo.nowMapName = portalInfo.mapName;
                 if (portalInfo.moveType == PortalInfo.MoveType.Instant)
                 {
                     SceneManager.LoadScene("RoomScene_H");

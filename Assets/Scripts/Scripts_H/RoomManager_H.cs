@@ -17,7 +17,8 @@ public class SpaceInfo
 [System.Serializable]
 public class MapInfo
 {
-    public static string mapName;
+    public static string nowMapName;
+    public string mapName;
     public enum MapSize
     {
         Big,
@@ -109,6 +110,18 @@ public class UserInfo
 
 public class RoomManager_H : MonoBehaviourPun
 {
+    public static RoomManager_H instance;
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
     public SpaceInfo spaceInfo;
     //public MapInfo mapInfo;
     public GameObject wallPrefab;
@@ -132,7 +145,19 @@ public class RoomManager_H : MonoBehaviourPun
         string jsonData = File.ReadAllText(bgpath);
         spaceInfo = JsonUtility.FromJson<SpaceInfo>(jsonData);
         //MapInfo info = JsonUtility.FromJson<MapInfo>(jsonData);
-        MapInfo info = spaceInfo.mapList[0];
+        MapInfo info = new MapInfo();
+        for(int i=0; i<spaceInfo.mapList.Count; i++)
+        {
+             if(spaceInfo.mapList[i].mapName == MapInfo.nowMapName)
+            {
+                info = spaceInfo.mapList[i];
+            }
+            if(i == spaceInfo.mapList.Count - 1)
+            {
+                info = spaceInfo.mapList[0];
+                MapInfo.nowMapName = info.mapName;
+            }
+        }
         //mapInfo = info;
         if(info.mapSize == MapInfo.MapSize.Big)
         {
