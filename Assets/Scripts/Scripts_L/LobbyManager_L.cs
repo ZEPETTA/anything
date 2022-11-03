@@ -46,6 +46,9 @@ public class LobbyManager_L : MonoBehaviourPunCallbacks
             GameObject room = Instantiate(roomPrefab);
             room.transform.SetParent(roomsPanel, false);
             room.GetComponent<Room_H>().roomName = fileInfos[i].Name;
+            StreamReader sr = fileInfos[i].OpenText();
+            SpaceInfo spinfio = JsonUtility.FromJson<SpaceInfo>(sr.ReadToEnd());
+            room.GetComponent<Room_H>().roomInfoText.text = "Ήζ Ό³Έν : " + spinfio.spaceIntroduction;
             spaceName.Add(room.GetComponent<Room_H>());
         }
     }
