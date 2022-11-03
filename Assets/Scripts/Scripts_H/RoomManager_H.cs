@@ -35,6 +35,17 @@ public class MapInfo
     public List<DefinedAreaInfo> definedAreaList;
     public List<ObjectInfo> objectList;
     public List<SpawnPointInfo> spawnPointInfoList;
+
+    public MapInfo()
+    {
+        tileList = new List<TileInfo>();
+        areaName = new List<string>();
+        wallList = new List<WallInfo>();
+        portalList = new List<PortalInfo>();
+        definedAreaList = new List<DefinedAreaInfo>();
+        objectList = new List<ObjectInfo>();
+        spawnPointInfoList = new List<SpawnPointInfo>();
+    }
 }
 [System.Serializable]
 public class ObjectInfo
@@ -268,8 +279,8 @@ public class RoomManager_H : MonoBehaviourPun
         }
         #endregion
 
-        //player = PhotonNetwork.Instantiate("$Main_Character_1_0_2D", playerSpawnPos.position, Quaternion.identity);
-        //player.GetComponent<CharacterMove_H>().enabled = true;
+        player = PhotonNetwork.Instantiate("$Main_Character_1_0_2D", playerSpawnPos.position, Quaternion.identity);
+        player.GetComponent<CharacterMove_H>().enabled = true;
 
         if (spawnPointPosList.Count > 0)
         {
@@ -280,6 +291,7 @@ public class RoomManager_H : MonoBehaviourPun
 
         //스폰 지점에 캐릭터 위치
         //포톤 도입 시 캐릭터 찾는 부분 수정 필요
+
     }
     // Update is called once per frame
     void Update()

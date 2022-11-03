@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using System.IO;
 
 public class MainManager_L : MonoBehaviourPunCallbacks
 {
     GameObject clickedObject;
     GameObject outlineImage;
     string clickedRoomName;
+    public List<InputField> mapMakerInputField;
+    bool moveToCreatedRoom = false;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +31,34 @@ public class MainManager_L : MonoBehaviourPunCallbacks
     void Update()
     {
         
+    }
+
+    public void MakeMap()
+    {
+        SpaceInfo.spaceName = mapMakerInputField[0].text;
+        MapInfo info = new MapInfo();
+        string jsonMap = JsonUtility.ToJson(info, true);
+        File.WriteAllText(Application.dataPath + "/Resources/Resources_H/MapData" + "/" + SpaceInfo.spaceName+ ".txt", jsonMap);
+        moveToCreatedRoom = true;
+        JoinCreatedRoom();
+        //SceneManager.LoadScene("RoomScene_H");
+    }
+
+    public void JoinCreatedRoom()
+    {
+
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 10;
+        roomOptions.IsVisible = true;
+        //ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
+        //hash["password"] = 
+        //roomOptions.CustomRoomProperties = hash;
+        //roomOptions.CustomRoomPropertiesForLobby = new string[]
+        //{
+        //    "password"
+        //};
+        PhotonNetwork.JoinOrCreateRoom(SpaceInfo.spaceName, roomOptions, null);
+        // PhotonNetwork.JoinRoom(inputRoomName.text + inputPassword.text);
     }
 
     public void GoInfoScene()
@@ -93,7 +125,14 @@ public class MainManager_L : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         print("OnJoinedRoom");
-        PhotonNetwork.LoadLevel(clickedObject.GetComponent<MajorName_L>().majorSceneName);
+        if (moveToCreatedRoom)
+        {
+            SceneManager.LoadScene("RoomScene_H");
+        }
+        else
+        {
+            PhotonNetwork.LoadLevel(clickedObject.GetComponent<MajorName_L>().majorSceneName);
+        }
     }
 
     //방 참가가 실패 되었을 때 호출 되는 함수

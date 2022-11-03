@@ -1201,6 +1201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080ef4e0c3cbb924fba13c5897961932, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mapMakerInputField:
+  - {fileID: 1196741042}
+  - {fileID: 1324379397}
 --- !u!4 &923872026
 Transform:
   m_ObjectHideFlags: 0
@@ -2128,8 +2131,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1507581207}
-        m_TargetAssemblyTypeName: LobbyManager_L, Assembly-CSharp
+      - m_Target: {fileID: 923872025}
+        m_TargetAssemblyTypeName: MainManager_L, Assembly-CSharp
         m_MethodName: MakeMap
         m_Mode: 1
         m_Arguments:
