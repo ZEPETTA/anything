@@ -12,6 +12,7 @@ public class SpaceInfo
     public string makerID;
     public static string spaceName;
     public string spaceIntroduction;
+    public string passWord;
 }
 
 [System.Serializable]

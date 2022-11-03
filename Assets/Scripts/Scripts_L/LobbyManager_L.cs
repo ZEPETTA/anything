@@ -138,14 +138,6 @@ public class LobbyManager_L : MonoBehaviourPunCallbacks
         PhotonNetwork.IsMessageQueueRunning = false;
         SceneManager.LoadScene(clickedRoomName);
     }
-
-    public void MakeMap()
-    {
-        SpaceInfo info = new SpaceInfo();
-        string jsonMap = JsonUtility.ToJson(info, true);
-        File.WriteAllText(Application.dataPath + "/Resources/Resources_H/MapData" + "/" + SpaceInfo.spaceName + ".txt", jsonMap);
-        SceneManager.LoadScene("RoomScene_H");
-    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.tag == "Player" && collision.gameObject.GetPhotonView().IsMine)

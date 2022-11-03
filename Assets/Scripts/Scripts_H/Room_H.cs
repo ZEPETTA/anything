@@ -7,6 +7,8 @@ public class Room_H : MonoBehaviour
 {
     public string roomName;
     public Text roomNameText;
+    public GameObject mouseImage;
+    public Text roomInfoText;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,5 +24,12 @@ public class Room_H : MonoBehaviour
         }
         roomNameText.text = roomName;
     }
-
+    public void MouseOn()
+    {
+        mouseImage.SetActive(true);
+    }
+    public void MouseOff()
+    {
+        mouseImage.SetActive(false);
+    }
 }

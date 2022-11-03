@@ -1,0 +1,6 @@
+{
+    "mapList": [],
+    "makerID": "",
+    "spaceIntroduction": "iwillintroduce this",
+    "passWord": ""
+}
