@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class FollowMouseUI_H : MonoBehaviour
 {
     RectTransform rectTransform;
+    public Text introText;
+    public string introString;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,6 +18,7 @@ public class FollowMouseUI_H : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rectTransform.position = Input.mousePosition+ new Vector3(80,35,0);
+        rectTransform.position = Input.mousePosition+ new Vector3(100,35,0);
+        introText.text = introString;
     }
 }

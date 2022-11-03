@@ -4,16 +4,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class PointOnOff_H : MonoBehaviour ,IPointerEnterHandler, IPointerExitHandler
 {
-    public GameObject mouseImage;
+    public Room_H room_H;
+    GameObject mouseImage;
+    private void Start()
+    {
+        mouseImage = GameObject.Find("PanelCanvas").transform.GetChild(4).gameObject;
+    }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Debug.Log("Pointer Enter");
         mouseImage.SetActive(true);
+        mouseImage.GetComponent<FollowMouseUI_H>().introString = room_H.roomInfoText;
+
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         mouseImage.SetActive(false);
-        Debug.Log("Pointer Exit");
     }
 }

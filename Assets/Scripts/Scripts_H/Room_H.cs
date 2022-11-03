@@ -8,7 +8,7 @@ public class Room_H : MonoBehaviour
 {
     public string roomName;
     public Text roomNameText;
-    public Text roomInfoText;
+    public string roomInfoText;
     // Start is called before the first frame update
     void Start()
     {

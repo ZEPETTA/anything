@@ -48,7 +48,7 @@ public class LobbyManager_L : MonoBehaviourPunCallbacks
             room.GetComponent<Room_H>().roomName = fileInfos[i].Name;
             StreamReader sr = fileInfos[i].OpenText();
             SpaceInfo spinfio = JsonUtility.FromJson<SpaceInfo>(sr.ReadToEnd());
-            room.GetComponent<Room_H>().roomInfoText.text = "방 설명 : " + spinfio.spaceIntroduction;
+            room.GetComponent<Room_H>().roomInfoText = "방 설명 : " + spinfio.spaceIntroduction;
             spaceName.Add(room.GetComponent<Room_H>());
         }
     }
