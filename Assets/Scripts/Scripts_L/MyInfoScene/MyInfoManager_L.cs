@@ -45,6 +45,7 @@ public class MyInfoManager_L : MonoBehaviour
     public GameObject btnChangeDepart; 
     public GameObject btnSave;
     public GameObject btnEdit;
+    public GameObject btnAddWorkImg;
 
     public List<InputField> inputFieldList;
     public List<Text> textList;
@@ -160,6 +161,7 @@ public class MyInfoManager_L : MonoBehaviour
     {
         btnEdit.SetActive(false);
         btnSave.SetActive(true);
+        btnAddWorkImg.SetActive(true);
 
         for(int i = 0; i < inputFieldList.Count; i++)
         {
@@ -192,8 +194,9 @@ public class MyInfoManager_L : MonoBehaviour
     {
         btnEdit.SetActive(true);
         btnSave.SetActive(false);
+        btnAddWorkImg.SetActive(false);
 
-        for(int i = 0; i < inputFieldList.Count; i++)
+        for (int i = 0; i < inputFieldList.Count; i++)
         {
             textList[i].text = inputFieldList[i].text;
         }
