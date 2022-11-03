@@ -35,11 +35,11 @@ public class ChatManager : MonoBehaviourPun
     {
         //string chatText = PhotonNetwork.NickName + " : " + s;
         //string chatText = userNickname_tmp + " : " + s;
-        string chatText = "<color=#" + ColorUtility.ToHtmlStringRGB(nickColor) + ">" + userNickname_tmp + "</color>" + " " + "<color=green>"+s+"</color>";
-        //photonView.RPC("RpcAddChat", RpcTarget.All, chatText);
+        string chatText = "<color=#" + ColorUtility.ToHtmlStringRGB(nickColor) + ">" + PhotonNetwork.NickName + "</color>" + " " + "<color=green>"+s+"</color>";
+        photonView.RPC("RpcAddChat", RpcTarget.All, chatText);
 
-        GameObject item = Instantiate(chatItemFactory, trContent);
-        item.GetComponent<Text>().text = chatText;
+        //GameObject item = Instantiate(chatItemFactory, trContent);
+        //item.GetComponent<Text>().text = chatText;
 
         //Debug.Log(s);
         //photonView.RPC("RpcAddChat", RpcTarget.All, s);
