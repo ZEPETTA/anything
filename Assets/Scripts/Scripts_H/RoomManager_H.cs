@@ -111,7 +111,7 @@ public class SpawnPointInfo
 }
 
 [System.Serializable]
-public class UserInfo
+public class Userinfo
 {
     public string id;
     public string password;

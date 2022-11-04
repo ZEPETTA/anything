@@ -30,14 +30,14 @@ KeyCode.Alpha9,
 };
     public bool inObj = false;
     public ObjectInfo_H objInfo;
-    public UserInfo user;
+    public Userinfo user;
     public int idx;
 
     void Start()
     {
         if (photonView.IsMine)
         {
-            user = new UserInfo();
+            user = new Userinfo();
 
             user.name = PhotonNetwork.NickName;
         }

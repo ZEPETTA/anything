@@ -15,7 +15,7 @@ using SFB;
 
 public class FileManager_H : MonoBehaviour
 {
-    public UserInfo info = new UserInfo();
+    public  Userinfo info = new Userinfo();
     string path;
     public RawImage rawImage;
 

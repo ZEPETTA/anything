@@ -25,7 +25,7 @@ public class CSIntroducer_H : MonoBehaviour
     {
         if(collision.tag == "Player" && istalking == false)
         {
-            UserInfo user = collision.GetComponent<CharacterMove_H>().user;
+            Userinfo user = collision.GetComponent<CharacterMove_H>().user;
             bubble.speechTime = whatSay.Length * txtSpeed + txtSpeed;
             bubble.gameObject.SetActive(true);
             txt.text = "æ»≥Á«œººø‰, " + user.name + "¥‘";
